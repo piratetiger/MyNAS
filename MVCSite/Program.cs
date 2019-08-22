@@ -19,6 +19,7 @@ namespace MVCSite
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(c => c.Listen(new System.Net.IPAddress(new byte[] { 0, 0, 0, 0 }), 5000))
                 .UseStartup<Startup>();
     }
 }
