@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,12 @@ namespace MyNAS.Site.Controllers
 
         public IActionResult Index()
         {
-            return File(System.IO.Path.Combine(_host.WebRootPath, "index.html"), "text/html");
+            return File(System.IO.Path.Combine(_host.ContentRootPath, "index.html"), "text/html");
+        }
+
+        public IActionResult List()
+        {
+            return Content(string.Join(Environment.NewLine, Directory.GetFiles(System.IO.Path.Combine(_host.WebRootPath))));
         }
 
         public IActionResult Privacy()
