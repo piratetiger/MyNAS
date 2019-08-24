@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MVCSite.Areas.Api.Controllers
+namespace MyNAS.Site.Areas.Api.Controllers
 {
     [Area("Api")]
     public class ImagesController : Controller
