@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Site.Models;
 
@@ -10,10 +12,22 @@ namespace MyNAS.Site.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHostingEnvironment _host;
+
+        public HomeController(IHostingEnvironment host)
+        {
+            _host = host;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return File("index.html", "text/html");
         }
+
+        public IActionResult List()
+        {
+            return Content(string.Join(Environment.NewLine, Directory.GetFiles(System.IO.Path.Combine(_host.WebRootPath))));
+        }   
 
         public IActionResult Privacy()
         {
