@@ -1,8 +1,8 @@
 ## To run the project:
 ``` shell
-cd MVCSite
+cd bakcend
 dotnet publish -c Release
-cd ../UI
+cd ../frontend
 npm run build
 cd ../
 docker build --no-cache -t mynas .
