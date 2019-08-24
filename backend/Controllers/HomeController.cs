@@ -21,13 +21,13 @@ namespace MyNAS.Site.Controllers
 
         public IActionResult Index()
         {
-            return File(System.IO.Path.Combine(_host.ContentRootPath, "index.html"), "text/html");
+            return File("index.html", "text/html");
         }
 
         public IActionResult List()
         {
             return Content(string.Join(Environment.NewLine, Directory.GetFiles(System.IO.Path.Combine(_host.WebRootPath))));
-        }
+        }   
 
         public IActionResult Privacy()
         {
