@@ -1,0 +1,38 @@
+.icons-container {
+  width: 50%;
+  height: 50%;
+  max-width: 600px;
+
+  .icons-item {
+    float: left;
+    width: 50%;
+    height: 200px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .icons-item-container {
+      text-align: center;
+      vertical-align: middle;
+
+      i {
+        font-size: 8em;
+      }
+
+      div {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      &:hover {
+        i {
+          font-size: 8.5em;
+        }
+
+        div {
+          font-size: 26px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
