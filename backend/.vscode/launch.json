@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/MyNAS.Site.dll",
+            "program": "${workspaceFolder}/MyNAS.Site/bin/Debug/netcoreapp2.2/MyNAS.Site.dll",
             "args": [],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/MyNAS.Site",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

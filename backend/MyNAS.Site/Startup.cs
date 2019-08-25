@@ -49,11 +49,14 @@ namespace MyNAS.Site
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            if (env.IsDevelopment())
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyNAS API V1");
-            });
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyNAS API V1");
+                });
+            }
 
             app.UseMvc(routes =>
             {

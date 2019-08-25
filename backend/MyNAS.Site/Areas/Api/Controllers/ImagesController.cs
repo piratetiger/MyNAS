@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using MyNAS.Model.Images;
 using MyNAS.Site;
 
 namespace MyNAS.Site.Areas.Api.Controllers
@@ -17,8 +18,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
             _host = host;
         }
 
-        [HttpGet("GetList")]
-        public IActionResult GetList()
+        [HttpPost("GetList")]
+        public IActionResult GetList(GetListRequest req)
         {
             return Content("test");
         }
