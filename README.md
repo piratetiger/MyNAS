@@ -1,6 +1,6 @@
 ## To run the project:
 ``` shell
-cd bakcend
+cd backend
 dotnet publish -c Release
 cd ../frontend
 npm run build
