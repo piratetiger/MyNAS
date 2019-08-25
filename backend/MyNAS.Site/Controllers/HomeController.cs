@@ -29,11 +29,6 @@ namespace MyNAS.Site.Controllers
             return Content(string.Join(Environment.NewLine, Directory.GetFiles(System.IO.Path.Combine(_host.WebRootPath))));
         }   
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
