@@ -6,5 +6,5 @@ cd ../frontend
 npm run build
 cd ../
 docker build --no-cache -t mynas .
-docker run -d --rm -p 80:5000 --name myNAS  mynas
+docker run -d --rm -v $local_db_folder:/db_files -v $local_storage_folder:/wwwroot/storage -p 80:5000 --name myNAS  mynas
 ```
