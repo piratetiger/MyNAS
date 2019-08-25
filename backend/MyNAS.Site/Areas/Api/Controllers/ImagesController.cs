@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model.Images;
+using MyNAS.Service;
 using MyNAS.Site;
 
 namespace MyNAS.Site.Areas.Api.Controllers
@@ -13,15 +15,23 @@ namespace MyNAS.Site.Areas.Api.Controllers
     {
         private readonly IHostingEnvironment _host;
 
+        protected ImagesService ImagesService
+        {
+            get
+            {
+                return new ImagesService();
+            }
+        }
+
         public ImagesController(IHostingEnvironment host)
         {
             _host = host;
         }
 
         [HttpPost("GetList")]
-        public IActionResult GetList(GetListRequest req)
+        public ActionResult<List<ImageModel>> GetList(GetListRequest req)
         {
-            return Content("test");
+            return ImagesService.GetList(req);
         }
     }
 }
