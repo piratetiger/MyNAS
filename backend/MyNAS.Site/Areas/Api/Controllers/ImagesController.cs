@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model.Images;
 using MyNAS.Service;
@@ -30,14 +31,14 @@ namespace MyNAS.Site.Areas.Api.Controllers
             _host = host;
         }
 
-        [HttpPost("GetList")]
-        public ActionResult<List<string>> GetList(GetListRequest req)
+        [HttpPost("list")]
+        public ActionResult<List<string>> GetImageList(GetListRequest req)
         {
             return ImagesService.GetList(req).Select(i => i.FileName).ToList();
         }
 
         [HttpGet("")]
-        public ActionResult Get(string name, bool thumb = true)
+        public ActionResult GetImage(string name, bool thumb = true)
         {
             var path = System.IO.Path.Combine(_host.WebRootPath, "storage/images", name);
             if (thumb)
@@ -46,6 +47,12 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 return File(thumbStream, "image/jpeg");
             }
             return PhysicalFile(path, "image/jpeg");
+        }
+
+        [HttpPost("add")]
+        public ActionResult UploadImage(IEnumerable<IFormFile> files)
+        {
+            return Content("12");
         }
     }
 }
