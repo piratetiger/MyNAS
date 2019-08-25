@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyNAS.Model\MyNAS.Model.csproj" />
+    <ProjectReference Include="..\MyNAS.Service\MyNAS.Service.csproj" />
+    <ProjectReference Include="..\MyNAS.Util\MyNAS.Util.csproj" />
   </ItemGroup>
 
 </Project>
