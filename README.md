@@ -3,6 +3,7 @@
 cd backend
 dotnet publish -c Release
 cd ../frontend
+npm install
 npm run build
 cd ../
 docker build --no-cache -t mynas .
