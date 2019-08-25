@@ -32,7 +32,13 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("GetList")]
         public ActionResult<List<string>> GetList(GetListRequest req)
         {
-            return ImagesService.GetList(req).Select(i=>i.FileName).ToList();
+            return ImagesService.GetList(req).Select(i => i.FileName).ToList();
+        }
+
+        [HttpGet("")]
+        public ActionResult Get(string name, bool thumb = true)
+        {
+            return PhysicalFile(System.IO.Path.Combine(_host.WebRootPath, "storage/images", name), "image/jpeg");
         }
     }
 }
