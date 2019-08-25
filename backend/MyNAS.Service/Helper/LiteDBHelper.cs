@@ -7,7 +7,7 @@ namespace MyNAS.Service
 {
     public static class LiteDBHelper
     {
-        public const string DB_FILE_NAME = "MyNAS.db";
+        public const string DB_FILE_NAME = "db_files/MyNAS.db";
 
         public static List<T> GetItems<T>(string name, IDateFilterRequest req) where T : IDateModel
         {
