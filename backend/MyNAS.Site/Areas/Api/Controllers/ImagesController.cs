@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model.Images;
@@ -29,9 +30,9 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("GetList")]
-        public ActionResult<List<ImageModel>> GetList(GetListRequest req)
+        public ActionResult<List<string>> GetList(GetListRequest req)
         {
-            return ImagesService.GetList(req);
+            return ImagesService.GetList(req).Select(i=>i.FileName).ToList();
         }
     }
 }
