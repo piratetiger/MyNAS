@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,7 +42,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpGet("")]
         public ActionResult GetImage(string name, bool thumb = true)
         {
-            var path = System.IO.Path.Combine(_host.WebRootPath, "storage/images", name);
+            var path = Path.Combine(_host.WebRootPath, "storage/images", name);
             if (thumb)
             {
                 var thumbStream = ImageUtil.CreateThumbnail(path);
@@ -52,7 +54,24 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("add")]
         public ActionResult UploadImage(IEnumerable<IFormFile> files)
         {
-            return Content("12");
+            foreach (var file in files)
+            {
+                try
+                {
+                    var fileName = $"{DateTime.Now.ToString("yyyyMMdd")}_{Guid.NewGuid().ToString()}.jpg";
+                    var path = Path.Combine(_host.WebRootPath, "storage/images", fileName);
+                    using (var fileStream = System.IO.File.Create(path))
+                    {
+                        using (var requestFileStream = file.OpenReadStream())
+                        {
+                            requestFileStream.Seek(0, SeekOrigin.Begin);
+                            requestFileStream.CopyTo(fileStream);
+                        }
+                    }
+                }
+                catch { }
+            }
+            return Content("Success");
         }
     }
 }
