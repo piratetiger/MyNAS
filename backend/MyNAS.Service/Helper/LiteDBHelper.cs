@@ -13,10 +13,46 @@ namespace MyNAS.Service
         {
             using (var db = new LiteDatabase(DB_FILE_NAME))
             {
-                var items = db.GetCollection<T>(name);
-                return items.Find(i => i.Date > req.StartDate && i.Date < req.EndDate)
+                var collection = db.GetCollection<T>(name);
+                return collection.Find(i => i.Date > req.StartDate && i.Date < req.EndDate)
                             .OrderByDescending(i => i.Date)
                             .ToList();
+            }
+        }
+
+        public static bool SaveItem<T>(string name, T item) where T : INASModel
+        {
+            try
+            {
+                using (var db = new LiteDatabase(DB_FILE_NAME))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    collection.Insert(item);
+                    collection.EnsureIndex(i => i.FileName);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool SaveItems<T>(string name, List<T> items) where T : INASModel
+        {
+            try
+            {
+                using (var db = new LiteDatabase(DB_FILE_NAME))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    collection.InsertBulk(items);
+                    collection.EnsureIndex(i => i.FileName);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }
