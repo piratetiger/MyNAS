@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from './images.service/images.service';
 
 @Component({
     selector: 'app-images',
     templateUrl: './app-images.component.html',
-    styleUrls: ['./app-images.component.scss']
+    styleUrls: ['./app-images.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AppImagesComponent implements OnInit {
     public images: any[];
@@ -17,8 +18,8 @@ export class AppImagesComponent implements OnInit {
                 this.images = [];
                 for (const name of d) {
                     this.images.push({
-                        source: '/Api/Images?name=' + name,
-                        thumbnail: '/Api/Images?thumb=true&name=' + name,
+                        source: this.service.serviceUrls.getImage + '?thumb=false&name=' + name,
+                        thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + name,
                     });
                 }
             }

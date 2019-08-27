@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ImagesService {
+    public serviceUrls = serviceList;
+
     constructor(private http: HttpClient) { }
 
     public uploadImage(body: any): Observable<any> {
