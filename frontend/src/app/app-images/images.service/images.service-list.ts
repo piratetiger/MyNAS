@@ -1,3 +1,4 @@
 export default {
-    'UploadImage': '/api/images/add',
+    'uploadImage': '/Api/Images/add',
+    'getImageList': '/Api/Images/list'
 };

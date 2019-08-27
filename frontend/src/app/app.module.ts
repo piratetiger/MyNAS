@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { FileUploadModule } from 'primeng/fileupload';
+import { LightboxModule } from 'primeng/lightbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,7 +28,8 @@ import { ImagesService } from './app-images/images.service/images.service';
     AppRoutingModule,
     HttpClientModule,
 
-    FileUploadModule
+    FileUploadModule,
+    LightboxModule
   ],
   providers: [
     ImagesService

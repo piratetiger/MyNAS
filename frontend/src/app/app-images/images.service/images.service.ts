@@ -8,7 +8,11 @@ import { Observable } from 'rxjs';
 export class ImagesService {
     constructor(private http: HttpClient) { }
 
-    public UploadImage(body: any): Observable<any> {
-        return this.http.post(serviceList.UploadImage, body);
+    public uploadImage(body: any): Observable<any> {
+        return this.http.post(serviceList.uploadImage, body);
+    }
+
+    public getImageList(body: any): Observable<any> {
+        return this.http.post(serviceList.getImageList, body);
     }
 }
