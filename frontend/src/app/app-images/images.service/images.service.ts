@@ -6,9 +6,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ImagesService {
+    public serviceUrls = serviceList;
+
     constructor(private http: HttpClient) { }
 
-    public UploadImage(body: any): Observable<any> {
-        return this.http.post(serviceList.UploadImage, body);
+    public uploadImage(body: any): Observable<any> {
+        return this.http.post(serviceList.uploadImage, body);
+    }
+
+    public getImageList(body: any): Observable<any> {
+        return this.http.post(serviceList.getImageList, body);
     }
 }

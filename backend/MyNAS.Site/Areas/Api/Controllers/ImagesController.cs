@@ -54,11 +54,13 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("add")]
         public ActionResult UploadImage(IEnumerable<IFormFile> files)
         {
+            var imageList = new List<ImageModel>();
             foreach (var file in files)
             {
                 try
                 {
-                    var fileName = $"{DateTime.Now.ToString("yyyyMMdd")}_{Guid.NewGuid().ToString()}.jpg";
+                    var date = DateTime.Now;
+                    var fileName = $"{date.ToString("yyyyMMdd")}_{Guid.NewGuid().ToString()}.jpg";
                     var path = Path.Combine(_host.WebRootPath, "storage/images", fileName);
                     using (var fileStream = System.IO.File.Create(path))
                     {
@@ -68,10 +70,21 @@ namespace MyNAS.Site.Areas.Api.Controllers
                             requestFileStream.CopyTo(fileStream);
                         }
                     }
+
+                    var image = new ImageModel()
+                    {
+                        FileName = fileName,
+                        Date = date,
+                        IsPublic = true,
+                    };
+                    imageList.Add(image);
                 }
                 catch { }
             }
-            return Content("Success");
+
+            ImagesService.SaveItems(imageList);
+
+            return new JsonResult("Success");
         }
     }
 }
