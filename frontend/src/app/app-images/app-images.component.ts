@@ -25,4 +25,13 @@ export class AppImagesComponent implements OnInit {
             }
         });
     }
+
+    public uploadFiles(event) {
+        const formData = new FormData();
+        for (const file of event.files) {
+            formData.append('files', file);
+        }
+        this.service.uploadImage(formData).subscribe(d => {
+        });
+    }
 }

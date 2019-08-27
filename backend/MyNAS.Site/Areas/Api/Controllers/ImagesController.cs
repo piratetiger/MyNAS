@@ -84,7 +84,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
             ImagesService.SaveItems(imageList);
 
-            return Content("Success");
+            return new JsonResult("Success");
         }
     }
 }
