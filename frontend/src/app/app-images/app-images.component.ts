@@ -17,7 +17,7 @@ export class AppImagesComponent implements OnInit {
     public endDate: Date;
 
     constructor(private service: ImagesService, private appService: AppService) {
-        this.startDate = moment().subtract(2, 'months').toDate();
+        this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
 
