@@ -82,9 +82,9 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 catch { }
             }
 
-            ImagesService.SaveItems(imageList);
+            var result = ImagesService.SaveItems(imageList);
 
-            return new JsonResult("Success");
+            return new JsonResult(result);
         }
     }
 }

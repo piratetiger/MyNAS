@@ -14,7 +14,7 @@ namespace MyNAS.Model.Images
                 {
                     return DateTime.MinValue;
                 }
-                return DateTime.ParseExact(Start, "YYYYMMDD", null);
+                return DateTime.ParseExact(Start, "yyyyMMdd", null);
             }
         }
         public DateTime EndDate
@@ -25,7 +25,7 @@ namespace MyNAS.Model.Images
                 {
                     return DateTime.MaxValue;
                 }
-                return DateTime.ParseExact(End, "YYYYMMDD", null);
+                return DateTime.ParseExact(End, "yyyyMMdd", null);
             }
         }
     }

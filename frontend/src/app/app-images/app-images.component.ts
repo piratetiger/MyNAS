@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from './images.service/images.service';
+import { MessageType, MessageModel } from '../app-models/message-model';
+import { AppService } from '../app.service/app.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-images',
@@ -10,8 +13,13 @@ import { ImagesService } from './images.service/images.service';
 export class AppImagesComponent implements OnInit {
     public images: any[];
     public uploadFileList: any[] = [];
+    public startDate: Date;
+    public endDate: Date;
 
-    constructor(private service: ImagesService) { }
+    constructor(private service: ImagesService, private appService: AppService) {
+        this.startDate = moment().subtract(2, 'months').toDate();
+        this.endDate = new Date();
+    }
 
     ngOnInit(): void {
         this.refreshImages();
@@ -25,13 +33,20 @@ export class AppImagesComponent implements OnInit {
         this.service.uploadImage(formData).subscribe(d => {
             this.uploadFileList = [];
             this.refreshImages();
+            const message = new MessageModel();
+            message.type = d ? MessageType.Success : MessageType.Error;
+            message.message = 'Upload Files ' + MessageType[message.type];
+            this.appService.messages.emit(message);
         });
     }
 
     private refreshImages() {
-        this.service.getImageList({}).subscribe(d => {
+        this.service.getImageList({
+            start: moment(this.startDate).format('YYYYMMDD'),
+            end: moment(this.endDate).format('YYYYMMDD')
+        }).subscribe(d => {
+            this.images = [];
             if (d.length) {
-                this.images = [];
                 for (const name of d) {
                     this.images.push({
                         source: this.service.serviceUrls.getImage + '?thumb=false&name=' + name,
