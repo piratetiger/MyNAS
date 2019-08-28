@@ -2,11 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { LightboxModule } from 'primeng/lightbox';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
+import { ButtonModule } from 'primeng/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,12 +31,15 @@ import { AppService } from './app.service/app.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
 
     FileUploadModule,
     LightboxModule,
-    ToastModule
+    ToastModule,
+    CalendarModule,
+    ButtonModule,
   ],
   providers: [
     AppService,

@@ -14,7 +14,7 @@ namespace MyNAS.Service
             using (var db = new LiteDatabase(DB_FILE_NAME))
             {
                 var collection = db.GetCollection<T>(name);
-                return collection.Find(i => i.Date > req.StartDate && i.Date < req.EndDate)
+                return collection.Find(i => (i.Date >= req.StartDate) && (i.Date <= req.EndDate.AddDays(1)))
                             .OrderByDescending(i => i.Date)
                             .ToList();
             }
