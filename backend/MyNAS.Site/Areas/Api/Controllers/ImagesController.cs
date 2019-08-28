@@ -52,15 +52,15 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult UploadImage(IEnumerable<IFormFile> files)
+        public ActionResult UploadImage(IEnumerable<IFormFile> files, [FromForm] string date)
         {
             var imageList = new List<ImageModel>();
             foreach (var file in files)
             {
                 try
                 {
-                    var date = DateTime.Now;
-                    var fileName = $"{date.ToString("yyyyMMdd")}_{Guid.NewGuid().ToString()}.jpg";
+                    var imageDate = string.IsNullOrEmpty(date) ? DateTime.Now : DateTime.ParseExact(date, "yyyyMMdd", null);
+                    var fileName = $"{imageDate.ToString("yyyyMMdd")}_{Guid.NewGuid().ToString()}.jpg";
                     var path = Path.Combine(_host.WebRootPath, "storage/images", fileName);
                     using (var fileStream = System.IO.File.Create(path))
                     {
@@ -74,7 +74,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                     var image = new ImageModel()
                     {
                         FileName = fileName,
-                        Date = date,
+                        Date = imageDate,
                         IsPublic = true,
                     };
                     imageList.Add(image);

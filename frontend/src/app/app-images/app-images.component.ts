@@ -15,6 +15,7 @@ export class AppImagesComponent implements OnInit {
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
+    public imagesDate: Date = new Date();
 
     constructor(private service: ImagesService, private appService: AppService) {
         this.startDate = moment().subtract(3, 'months').toDate();
@@ -30,6 +31,7 @@ export class AppImagesComponent implements OnInit {
         for (const file of event.files) {
             formData.append('files', file);
         }
+        formData.set('date', moment(this.imagesDate).format('YYYYMMDD'));
         this.service.uploadImage(formData).subscribe(d => {
             this.uploadFileList = [];
             this.refreshImages();

@@ -1,5 +1,8 @@
 <p-fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true" (uploadHandler)="uploadFiles($event)"
     multiple="multiple">
+    <ng-template pTemplate="toolbar">
+        <div>Images Date: <p-calendar [(ngModel)]="imagesDate" dateFormat="M-dd-yy"></p-calendar></div>
+    </ng-template>
 </p-fileUpload>
 <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
 <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
