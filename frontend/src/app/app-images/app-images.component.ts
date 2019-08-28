@@ -42,7 +42,7 @@ export class AppImagesComponent implements OnInit {
         });
     }
 
-    private refreshImages() {
+    public refreshImages() {
         this.service.getImageList({
             start: moment(this.startDate).format('YYYYMMDD'),
             end: moment(this.endDate).format('YYYYMMDD')
