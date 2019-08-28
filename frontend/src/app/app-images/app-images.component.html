@@ -1,7 +1,7 @@
 <p-fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true" (uploadHandler)="uploadFiles($event)"
     multiple="multiple">
 </p-fileUpload>
-<p-calendar [(ngModel)]="startDate" dateFormat="M-dd-yy"></p-calendar>
-<p-calendar [(ngModel)]="endDate" dateFormat="M-dd-yy"></p-calendar>
+<p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
+<p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
 <p-button label="Search" (onClick)="refreshImages()"></p-button>
 <p-lightbox [images]="images"></p-lightbox>
