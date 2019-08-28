@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from './images.service/images.service';
+import { MessageType, MessageModel } from '../app-models/message-model';
+import { AppService } from '../app.service/app.service';
 
 @Component({
     selector: 'app-images',
@@ -11,7 +13,7 @@ export class AppImagesComponent implements OnInit {
     public images: any[];
     public uploadFileList: any[] = [];
 
-    constructor(private service: ImagesService) { }
+    constructor(private service: ImagesService, private appService: AppService) { }
 
     ngOnInit(): void {
         this.refreshImages();
@@ -25,6 +27,10 @@ export class AppImagesComponent implements OnInit {
         this.service.uploadImage(formData).subscribe(d => {
             this.uploadFileList = [];
             this.refreshImages();
+            const message = new MessageModel();
+            message.type = d ? MessageType.Success : MessageType.Error;
+            message.message = 'Upload Files ' + MessageType[message.type];
+            this.appService.messages.emit(message);
         });
     }
 

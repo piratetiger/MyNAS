@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { LightboxModule } from 'primeng/lightbox';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,7 @@ import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { ImagesService } from './app-images/images.service/images.service';
+import { AppService } from './app.service/app.service';
 
 @NgModule({
   declarations: [
@@ -29,10 +32,13 @@ import { ImagesService } from './app-images/images.service/images.service';
     HttpClientModule,
 
     FileUploadModule,
-    LightboxModule
+    LightboxModule,
+    ToastModule
   ],
   providers: [
-    ImagesService
+    AppService,
+    ImagesService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
