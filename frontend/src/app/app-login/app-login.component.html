@@ -1,0 +1,12 @@
+<div class="common-center login-container">
+    <h1 class="sign-in">Sign In</h1>
+    <div>
+        <h3>User Name</h3>
+        <input type="text" pInputText [(ngModel)]="username">
+    </div>
+    <div>
+        <h3 class="first">Password</h3>
+        <input type="password" pPassword [(ngModel)]="password" [feedback]=false />
+    </div>
+    <p-button label="Submit" [disabled]="!username||!password" (onClick)="submit()" class="submit"></p-button>
+</div>

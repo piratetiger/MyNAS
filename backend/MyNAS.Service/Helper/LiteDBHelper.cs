@@ -9,7 +9,7 @@ namespace MyNAS.Service
     {
         public const string DB_FILE_NAME = "db_files/MyNAS.db";
 
-        public static List<T> GetItems<T>(string name, IDateFilterRequest req) where T : IDateModel
+        public static List<T> SearchItems<T>(string name, IDateFilterRequest req) where T : INASModel
         {
             using (var db = new LiteDatabase(DB_FILE_NAME))
             {
@@ -20,7 +20,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool SaveItem<T>(string name, T item) where T : INASModel
+        public static bool SaveItem<T>(string name, T item) where T : IKeyNameModel
         {
             try
             {
@@ -28,7 +28,7 @@ namespace MyNAS.Service
                 {
                     var collection = db.GetCollection<T>(name);
                     collection.Insert(item);
-                    collection.EnsureIndex(i => i.FileName);
+                    collection.EnsureIndex(i => i.KeyName);
                     return true;
                 }
             }
@@ -38,7 +38,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool SaveItems<T>(string name, List<T> items) where T : INASModel
+        public static bool SaveItems<T>(string name, List<T> items) where T : IKeyNameModel
         {
             try
             {
@@ -46,13 +46,46 @@ namespace MyNAS.Service
                 {
                     var collection = db.GetCollection<T>(name);
                     collection.InsertBulk(items);
-                    collection.EnsureIndex(i => i.FileName);
+                    collection.EnsureIndex(i => i.KeyName);
                     return true;
                 }
             }
             catch
             {
                 return false;
+            }
+        }
+
+        public static bool UpdateItem<T>(string name, T item) where T : IKeyNameModel
+        {
+            try
+            {
+                using (var db = new LiteDatabase(DB_FILE_NAME))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    collection.Update(item);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static T GetItem<T>(string name, string keyName) where T : IKeyNameModel
+        {
+            try
+            {
+                using (var db = new LiteDatabase(DB_FILE_NAME))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    return collection.FindOne(i => i.KeyName == keyName);
+                }
+            }
+            catch
+            {
+                return default(T);
             }
         }
     }
