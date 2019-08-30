@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from './images.service/images.service';
-import { MessageType, MessageModel } from '../app-models/message-model';
+import { MessageType, MessageModel } from '../app.models/message-model';
 import { AppService } from '../app.service/app.service';
 import * as moment from 'moment';
 
