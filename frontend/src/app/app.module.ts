@@ -22,6 +22,7 @@ import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { ImagesService } from './app-images/images.service/images.service';
 import { AppService } from './app.service/app.service';
+import { LoginService } from './app-login/login.service/login.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AppService } from './app.service/app.service';
   providers: [
     AppService,
     ImagesService,
+    LoginService,
     MessageService
   ],
   bootstrap: [AppComponent]

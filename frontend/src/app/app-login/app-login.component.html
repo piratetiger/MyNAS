@@ -8,5 +8,5 @@
         <h3 class="first">Password</h3>
         <input type="password" pPassword [(ngModel)]="password" [feedback]=false />
     </div>
-    <p-button label="Submit" (onClick)="submit()" class="submit"></p-button>
+    <p-button label="Submit" [disabled]="!username||!password" (onClick)="submit()" class="submit"></p-button>
 </div>

@@ -6,6 +6,37 @@ namespace MyNAS.Service
 {
     public class AdminService
     {
+        public string Login(LoginRequest req)
+        {
+            var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, req.UserName);
+
+            if (dbUser != null && dbUser.Password == req.Password)
+            {
+                dbUser.HostName = req.HostName;
+                return NewToken(dbUser);
+            }
+
+            return null;
+        }
+
+        public bool ValidateToken(UserModel user)
+        {
+            var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
+
+            if (dbUser != null)
+            {
+                var userToken = GetToken(user, dbUser.TokenDate);
+                var dbUserToken = GetToken(dbUser, dbUser.TokenDate);
+
+                if (userToken == user.Token && dbUserToken == dbUser.Token && userToken == dbUserToken && (DateTime.Now - dbUser.TokenDate) < TimeSpan.FromDays(7))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public string NewToken(UserModel user)
         {
             var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
@@ -25,24 +56,6 @@ namespace MyNAS.Service
             {
                 return null;
             }
-        }
-
-        public bool ValidateToken(UserModel user)
-        {
-            var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
-
-            if (dbUser != null)
-            {
-                var userToken = GetToken(user, dbUser.TokenDate);
-                var dbUserToken = GetToken(dbUser, dbUser.TokenDate);
-
-                if (userToken == user.Token && dbUserToken == dbUser.Token && userToken == dbUserToken && (DateTime.Now - dbUser.TokenDate) < TimeSpan.FromDays(7))
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         private string GetToken(UserModel user, DateTime tokenDate)
