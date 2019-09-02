@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model.Admin;
 using MyNAS.Service;
+using MyNAS.Site.Helper;
 
 namespace MyNAS.Site.Areas.Api.Controllers
 {
@@ -18,9 +20,10 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public ActionResult<string> Login(LoginRequest req)
         {
-            req.HostName = HttpContext.Request.Host.Host;
+            req.HostInfo = RequestHelper.GetUserAgent(HttpContext);
             return AdminService.Login(req);
         }
     }
