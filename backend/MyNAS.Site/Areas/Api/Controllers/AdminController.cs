@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model.Admin;
 using MyNAS.Service;
+using MyNAS.Site.Helper;
 
 namespace MyNAS.Site.Areas.Api.Controllers
 {
@@ -20,7 +21,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("login")]
         public ActionResult<string> Login(LoginRequest req)
         {
-            req.HostInfo = HttpContext.Request.Host.Host;
+            req.HostInfo = RequestHelper.GetUserAgent(HttpContext);
             return AdminService.Login(req);
         }
     }

@@ -8,6 +8,11 @@ namespace MyNAS.Service
     {
         public string Login(LoginRequest req)
         {
+            if (string.IsNullOrEmpty(req.HostInfo))
+            {
+                return null;
+            }
+            
             var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, req.UserName);
 
             if (dbUser != null && dbUser.Password == req.Password)
