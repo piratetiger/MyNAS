@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyNAS.Site.Helper;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyNAS.Site
@@ -25,7 +28,19 @@ namespace MyNAS.Site
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddMvc(options =>
+                {
+                    options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = MyNASAuthOptions.DefaultScheme;
+                    options.DefaultChallengeScheme = MyNASAuthOptions.DefaultScheme;
+                })
+                .AddMyNASAuth(options => { });
             services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "MyNAS API", Version = "v1" });
@@ -57,6 +72,8 @@ namespace MyNAS.Site
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyNAS API V1");
                 });
             }
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
