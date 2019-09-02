@@ -12,7 +12,7 @@ namespace MyNAS.Service
 
             if (dbUser != null && dbUser.Password == req.Password)
             {
-                dbUser.HostName = req.HostName;
+                dbUser.HostInfo = req.HostInfo;
                 return NewToken(dbUser);
             }
 
@@ -46,7 +46,7 @@ namespace MyNAS.Service
                 var date = DateTime.Now;
                 var token = GetToken(user, date);
 
-                dbUser.HostName = user.HostName;
+                dbUser.HostInfo = user.HostInfo;
                 dbUser.Token = token;
                 dbUser.TokenDate = date;
                 LiteDBHelper.UpdateItem(Constants.TABLE_USERS, dbUser);
@@ -60,7 +60,7 @@ namespace MyNAS.Service
 
         private string GetToken(UserModel user, DateTime tokenDate)
         {
-            var key = $@"{user.HostName}\{user.UserName}";
+            var key = $@"{user.HostInfo}\{user.UserName}";
             var data = $@"{tokenDate.ToString()}\{user.Password}";
             return EncryptHelper.Encrypt(data, key);
         }

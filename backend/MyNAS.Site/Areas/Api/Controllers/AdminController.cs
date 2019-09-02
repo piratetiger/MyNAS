@@ -20,7 +20,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("login")]
         public ActionResult<string> Login(LoginRequest req)
         {
-            req.HostName = HttpContext.Request.Host.Host;
+            req.HostInfo = HttpContext.Request.Host.Host;
             return AdminService.Login(req);
         }
     }
