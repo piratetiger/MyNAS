@@ -17,5 +17,11 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 return new AdminService();
             }
         }
+
+        [HttpPost("initDB")]
+        public ActionResult<bool> InitDB()
+        {
+            return AdminService.InitDB();
+        }
     }
 }

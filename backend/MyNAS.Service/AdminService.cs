@@ -69,9 +69,17 @@ namespace MyNAS.Service
 
         public bool InitDB()
         {
-            var users = new List<UserModel>();
-            users.Add(new UserModel { UserName = "admin", Password = "Admin" });
-            return LiteDBHelper.SaveItems(Constants.TABLE_USERS, users);
+            var admin = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, "admin");
+            if (admin == null)
+            {
+                var users = new List<UserModel>();
+                users.Add(new UserModel { UserName = "admin", Password = "Admin" });
+                return LiteDBHelper.SaveItems(Constants.TABLE_USERS, users);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private string GetToken(UserModel user)
