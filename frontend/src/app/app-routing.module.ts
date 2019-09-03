@@ -5,13 +5,14 @@ import { AppLoginComponent } from './app-login/app-login.component';
 import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
+import { AppService } from './app.service/app.service';
 
 const routes: Routes = [
-  { path: '', component: AppMainComponent },
+  { path: '', component: AppMainComponent, canActivate: [AppService] },
   { path: 'login', component: AppLoginComponent },
-  { path: 'images', component: AppImagesComponent },
-  { path: 'videos', component: AppVideosComponent },
-  { path: 'movies', component: AppMoviesComponent },
+  { path: 'images', component: AppImagesComponent, canActivate: [AppService] },
+  { path: 'videos', component: AppVideosComponent, canActivate: [AppService] },
+  { path: 'movies', component: AppMoviesComponent, canActivate: [AppService] },
 ];
 
 @NgModule({

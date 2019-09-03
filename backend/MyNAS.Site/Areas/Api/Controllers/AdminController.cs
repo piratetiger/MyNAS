@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model.Admin;
 using MyNAS.Service;
@@ -19,12 +18,10 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
         }
 
-        [HttpPost("login")]
-        [AllowAnonymous]
-        public ActionResult<string> Login(LoginRequest req)
+        [HttpPost("initDB")]
+        public ActionResult<bool> InitDB()
         {
-            req.HostInfo = RequestHelper.GetUserAgent(HttpContext);
-            return AdminService.Login(req);
+            return AdminService.InitDB();
         }
     }
 }
