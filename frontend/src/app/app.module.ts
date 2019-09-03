@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -23,6 +23,7 @@ import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { ImagesService } from './app-images/images.service/images.service';
 import { AppService } from './app.service/app.service';
 import { LoginService } from './app-login/login.service/login.service';
+import { AuthInterceptor } from './http-interceptor/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { LoginService } from './app-login/login.service/login.service';
     AppService,
     ImagesService,
     LoginService,
-    MessageService
+    MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

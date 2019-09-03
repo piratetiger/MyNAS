@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpGet("")]
+        [AllowAnonymous]
         public ActionResult GetImage(string name, bool thumb = true)
         {
             var path = Path.Combine(_host.WebRootPath, "storage/images", name);
