@@ -1,3 +1,3 @@
 export default {
-    'login': '/Api/Admin/login',
+    'login': '/Api/login',
 };

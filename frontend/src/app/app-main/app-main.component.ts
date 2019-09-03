@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./app-main.component.scss']
 })
 export class AppMainComponent {
-    constructor(@Inject(Router) private router: Router) { }
+    constructor(private router: Router) { }
 
     public updateRoute(path: string) {
         this.router.navigateByUrl('/' + path);

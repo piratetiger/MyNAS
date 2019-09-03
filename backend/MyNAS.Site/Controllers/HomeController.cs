@@ -37,11 +37,11 @@ namespace MyNAS.Site.Controllers
             return File("index.html", "text/html");
         }
 
-        [HttpPost("login")]
-        public ActionResult<string> Login([FromBody] LoginRequest req)
+        [HttpPost("Api/login")]
+        public ActionResult Login([FromBody] LoginRequest req)
         {
             req.HostInfo = RequestHelper.GetUserAgent(HttpContext);
-            return AdminService.Login(req);
+            return Json(AdminService.Login(req));
         }
 
         public IActionResult List()
