@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyNAS.Model;
 using MyNAS.Model.Images;
 using MyNAS.Service;
 using MyNAS.Site;
@@ -35,9 +36,9 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("list")]
-        public ActionResult<List<string>> GetImageList(GetListRequest req)
+        public ActionResult<DataResult<List<string>>> GetImageList(GetListRequest req)
         {
-            return ImagesService.GetList(req).Select(i => i.FileName).ToList();
+            return new DataResult<List<string>>(ImagesService.GetList(req).Select(i => i.FileName).ToList());
         }
 
         [HttpGet("")]
@@ -54,7 +55,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult UploadImage(IEnumerable<IFormFile> files, [FromForm] string date)
+        public ActionResult<MessageDataResult> UploadImage(IEnumerable<IFormFile> files, [FromForm] string date)
         {
             var imageList = new List<ImageModel>();
             foreach (var file in files)
@@ -84,9 +85,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 catch { }
             }
 
-            var result = ImagesService.SaveItems(imageList);
-
-            return new JsonResult(result);
+            return new MessageDataResult("Upload Image", ImagesService.SaveItems(imageList));
         }
     }
 }
