@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from './images.service/images.service';
-import { MessageType, MessageModel } from '../app.models/message-model';
-import { AppService } from '../app.service/app.service';
 import * as moment from 'moment';
 
 @Component({
@@ -17,7 +15,7 @@ export class AppImagesComponent implements OnInit {
     public endDate: Date;
     public imagesDate: Date = new Date();
 
-    constructor(private service: ImagesService, private appService: AppService) {
+    constructor(private service: ImagesService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }

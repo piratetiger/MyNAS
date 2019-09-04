@@ -23,7 +23,9 @@ import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { ImagesService } from './app-images/images.service/images.service';
 import { AppService } from './app.service/app.service';
 import { LoginService } from './app-login/login.service/login.service';
+
 import { AuthInterceptor } from './http-interceptor/auth-interceptor';
+import { MessageInterceptor } from './http-interceptor/message-interceptor';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { AuthInterceptor } from './http-interceptor/auth-interceptor';
     LoginService,
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

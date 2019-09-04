@@ -5,17 +5,19 @@ namespace MyNAS.Model
         private string _action;
         private bool _actionResult;
 
-        public MessageDataResult(string action, bool actionResult, T data) : base(data)
-        {
-            _action = action;
-            _actionResult = actionResult;
-        }
-
         public bool MessageResult
         {
             get
             {
                 return true;
+            }
+        }
+
+        public string MessageType
+        {
+            get
+            {
+                return _actionResult ? "Success" : "Error";
             }
         }
 
@@ -25,6 +27,12 @@ namespace MyNAS.Model
             {
                 return $"{_action} {(_actionResult ? "Success" : "Failed")}";
             }
+        }
+
+        public MessageDataResult(string action, bool actionResult, T data) : base(data)
+        {
+            _action = action;
+            _actionResult = actionResult;
         }
     }
 
