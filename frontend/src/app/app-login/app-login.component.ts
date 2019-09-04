@@ -23,10 +23,10 @@ export class AppLoginComponent {
             username: this.username,
             password: this.password
         }).subscribe(d => {
-            if (d) {
+            if (d.data) {
                 const loginInfo = new LoginModel();
                 loginInfo.username = this.username;
-                loginInfo.token = d;
+                loginInfo.token = d.data;
                 store.set('loginInfo', loginInfo);
                 this.router.navigateByUrl('/');
             } else {

@@ -34,11 +34,9 @@ export class AppImagesComponent implements OnInit {
         formData.set('date', moment(this.imagesDate).format('YYYYMMDD'));
         this.service.uploadImage(formData).subscribe(d => {
             this.uploadFileList = [];
-            this.refreshImages();
-            const message = new MessageModel();
-            message.type = d ? MessageType.Success : MessageType.Error;
-            message.message = 'Upload Files ' + MessageType[message.type];
-            this.appService.messages.emit(message);
+            if (d.data) {
+                this.refreshImages();
+            }
         });
     }
 
@@ -48,8 +46,8 @@ export class AppImagesComponent implements OnInit {
             end: moment(this.endDate).format('YYYYMMDD')
         }).subscribe(d => {
             this.images = [];
-            if (d.length) {
-                for (const name of d) {
+            if (d.data.length) {
+                for (const name of d.data) {
                     this.images.push({
                         source: this.service.serviceUrls.getImage + '?thumb=false&name=' + name,
                         thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + name,
