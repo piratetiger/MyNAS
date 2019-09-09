@@ -22,7 +22,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
         [HttpPost("initDB")]
         [AllowAnonymous]
-        public ActionResult<MessageDataResult> InitDB()
+        public object InitDB()
         {
             return new MessageDataResult("Initialize database", AdminService.InitDB());
         }
