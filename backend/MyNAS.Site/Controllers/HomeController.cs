@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using MyNAS.Model;
-using MyNAS.Model.Admin;
 using MyNAS.Service;
-using MyNAS.Site.Helper;
 using MyNAS.Site.Models;
 
 namespace MyNAS.Site.Controllers
@@ -36,14 +31,6 @@ namespace MyNAS.Site.Controllers
         public IActionResult Index()
         {
             return File("index.html", "text/html");
-        }
-
-        [HttpPost("Api/login")]
-        public ActionResult Login([FromBody] LoginRequest req)
-        {
-            req.HostInfo = RequestHelper.GetUserAgent(HttpContext);
-            var token = AdminService.Login(req);
-            return Json(new MessageDataResult<string>("Login", !string.IsNullOrEmpty(token), token));
         }
 
         public IActionResult List()

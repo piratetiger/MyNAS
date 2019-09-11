@@ -1,4 +1,4 @@
-namespace MyNAS.Model.Admin
+namespace MyNAS.Model.User
 {
     public class LoginRequest
     {
