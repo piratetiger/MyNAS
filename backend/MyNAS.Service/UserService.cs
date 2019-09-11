@@ -24,7 +24,7 @@ namespace MyNAS.Service
             return null;
         }
 
-        public bool ValidateToken(UserModel user)
+        public bool ValidateUser(UserModel user)
         {
             var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
 
@@ -37,6 +37,7 @@ namespace MyNAS.Service
 
                 if (userToken == user.Token && dbUserToken == dbUser.Token && userToken == dbUserToken && (DateTime.Now - dbUser.TokenDate) < TimeSpan.FromDays(7))
                 {
+                    user.Role = dbUser.Role;
                     return true;
                 }
             }
