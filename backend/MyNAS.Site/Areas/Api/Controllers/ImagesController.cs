@@ -36,7 +36,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("list")]
-        public ActionResult<DataResult<List<string>>> GetImageList(GetListRequest req)
+        public object GetImageList(GetListRequest req)
         {
             return new DataResult<List<string>>(ImagesService.GetList(req).Select(i => i.FileName).ToList());
         }
@@ -55,7 +55,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("add")]
-        public ActionResult<MessageDataResult> UploadImage(IEnumerable<IFormFile> files, [FromForm] string date)
+        [Authorize(Policy = "UserBase")]
+        public object UploadImage(IEnumerable<IFormFile> files, [FromForm] string date)
         {
             var imageList = new List<ImageModel>();
             foreach (var file in files)

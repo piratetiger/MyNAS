@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyNAS.Model.User;
 using MyNAS.Site.Helper;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -41,6 +41,15 @@ namespace MyNAS.Site
                     options.DefaultChallengeScheme = MyNASAuthOptions.DefaultScheme;
                 })
                 .AddMyNASAuth(options => { });
+            services.AddAuthorization(options =>
+                {
+                    options.AddPolicy("UserBase", policy =>
+                        policy.RequireRole(UserRole.User.ToString(), UserRole.DataAdmin.ToString(), UserRole.SystemAdmin.ToString()));
+                    options.AddPolicy("DataAdminBase", policy =>
+                        policy.RequireRole(UserRole.DataAdmin.ToString(), UserRole.SystemAdmin.ToString()));
+                    options.AddPolicy("Admin", policy =>
+                        policy.RequireRole(UserRole.SystemAdmin.ToString()));
+                });
             services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new Info { Title = "MyNAS API", Version = "v1" });

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MyNAS.Model.Admin;
+using MyNAS.Model.User;
 using MyNAS.Service;
 using MyNAS.Site.Helper;
 
@@ -29,7 +29,7 @@ namespace MyNAS.Site
         {
             try
             {
-                var service = new AdminService();
+                var service = new UserService();
                 var token = _httpContext.Request.Headers["x-login-token"];
                 var userName = _httpContext.Request.Headers["x-login-user"];
                 var hostInfo = RequestHelper.GetUserAgent(_httpContext);
@@ -37,11 +37,12 @@ namespace MyNAS.Site
                 user.UserName = userName;
                 user.Token = token;
                 user.HostInfo = hostInfo;
-                var result = service.ValidateToken(user);
+                var result = service.ValidateUser(user);
                 if (result)
                 {
                     var claim = new[]{
-                        new Claim(ClaimTypes.Name, user.UserName)
+                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.Role, user.Role.ToString())
                     };
                     var identity = new ClaimsIdentity(claim, MyNASAuthOptions.DefaultType);
                     var principal = new ClaimsPrincipal(identity);
