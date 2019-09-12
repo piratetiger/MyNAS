@@ -13,7 +13,7 @@ RUN npm install && \
  
 # build runtime
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
-COPY --from=build-backend /backend/output .
+COPY --from=build-backend /backend/MyNAS.Site/output .
 COPY --from=build-frontend /frontend/dist/UI ./wwwroot
 ENTRYPOINT ["dotnet", "MyNAS.Site.dll"]
 EXPOSE 5000
