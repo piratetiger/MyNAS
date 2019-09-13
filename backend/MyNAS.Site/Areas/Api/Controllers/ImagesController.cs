@@ -38,7 +38,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("list")]
         public object GetImageList(GetListRequest req)
         {
-            return new DataResult<List<string>>(ImagesService.GetList(req).Select(i => i.FileName).ToList());
+            return new DataResult<List<ImageModel>>(ImagesService.GetList(req));
         }
 
         [HttpGet("")]
@@ -80,6 +80,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                         FileName = fileName,
                         Date = imageDate,
                         IsPublic = true,
+                        Owner = User.Identity.Name
                     };
                     imageList.Add(image);
                 }

@@ -4,7 +4,9 @@ namespace MyNAS.Model.Images
 {
     public class ImageModel : INASModel
     {
+        [JsonIgnoreSerialization]
         public long Id { get; set; }
+        [JsonIgnoreSerialization]
         public string KeyName
         {
             get

@@ -4,6 +4,7 @@ import serviceList from './images.service-list';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DataResult } from '../../app.models/data-result';
+import { ImageModel } from 'src/app/app.models/image-model';
 
 @Injectable()
 export class ImagesService {
@@ -15,7 +16,7 @@ export class ImagesService {
         return this.http.post<DataResult<boolean>>(serviceList.uploadImage, body);
     }
 
-    public getImageList(body: any): Observable<DataResult<string[]>> {
-        return this.http.post<DataResult<string[]>>(serviceList.getImageList, body);
+    public getImageList(body: any): Observable<DataResult<ImageModel[]>> {
+        return this.http.post<DataResult<ImageModel[]>>(serviceList.getImageList, body);
     }
 }
