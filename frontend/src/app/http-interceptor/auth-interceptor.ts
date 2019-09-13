@@ -6,7 +6,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import * as store from 'store';
-import { LoginModel } from '../app.models/login-model';
+import { UserModel } from '../app.models/user-model';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -15,11 +15,11 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private router: Router) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const loginInfo: LoginModel = store.get('loginInfo');
+        const loginInfo: UserModel = store.get('loginInfo');
         let headers = req.headers;
-        if (loginInfo) {
+        if (loginInfo && loginInfo.userName && loginInfo.token) {
             headers = headers.set('x-login-token', loginInfo.token)
-                .set('x-login-user', loginInfo.username);
+                .set('x-login-user', loginInfo.userName);
         }
 
         return next.handle(req.clone({ headers: headers })).pipe(

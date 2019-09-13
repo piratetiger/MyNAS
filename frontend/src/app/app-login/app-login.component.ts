@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { LoginService } from './login.service/login.service';
 import * as store from 'store';
-import { LoginModel } from '../app.models/login-model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,10 +21,7 @@ export class AppLoginComponent {
             password: this.password
         }).subscribe(d => {
             if (d.data) {
-                const loginInfo = new LoginModel();
-                loginInfo.username = this.username;
-                loginInfo.token = d.data;
-                store.set('loginInfo', loginInfo);
+                store.set('loginInfo', d.data);
                 this.router.navigateByUrl('/');
             } else {
                 this.password = '';

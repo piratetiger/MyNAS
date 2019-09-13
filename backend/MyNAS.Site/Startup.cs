@@ -34,6 +34,11 @@ namespace MyNAS.Site
                 {
                     options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
                 })
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new MyNASJsonContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAuthentication(options =>
                 {

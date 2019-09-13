@@ -25,8 +25,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
         public object Login(LoginRequest req)
         {
             req.HostInfo = RequestHelper.GetUserAgent(HttpContext);
-            var token = UserService.Login(req);
-            return new MessageDataResult<string>("Login", !string.IsNullOrEmpty(token), token);
+            var user = UserService.Login(req);
+            return new MessageDataResult<UserModel>("Login", user != null, user);
         }
     }
 }

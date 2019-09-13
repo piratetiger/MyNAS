@@ -45,10 +45,10 @@ export class AppImagesComponent implements OnInit {
         }).subscribe(d => {
             this.images = [];
             if (d.data.length) {
-                for (const name of d.data) {
+                for (const image of d.data) {
                     this.images.push({
-                        source: this.service.serviceUrls.getImage + '?thumb=false&name=' + name,
-                        thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + name,
+                        source: this.service.serviceUrls.getImage + '?thumb=false&name=' + image.fileName,
+                        thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + image.fileName,
                     });
                 }
             }
