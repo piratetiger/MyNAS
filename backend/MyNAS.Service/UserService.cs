@@ -6,7 +6,7 @@ namespace MyNAS.Service
 {
     public class UserService
     {
-        public string Login(LoginRequest req)
+        public UserModel Login(LoginRequest req)
         {
             if (string.IsNullOrEmpty(req.HostInfo))
             {
@@ -18,7 +18,8 @@ namespace MyNAS.Service
             if (dbUser != null && dbUser.Password == req.Password)
             {
                 dbUser.HostInfo = req.HostInfo;
-                return NewToken(dbUser);
+                dbUser.Token = NewToken(dbUser);
+                return dbUser;
             }
 
             return null;
