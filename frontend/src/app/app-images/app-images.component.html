@@ -8,7 +8,11 @@
 <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
 <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
 <p-button label="Search" (onClick)="refreshImages()"></p-button>
-<ng-container *ngFor="let images of imagesGroup">
-    <p>{{images.date}}</p>
-    <p-lightbox [images]="images.images"></p-lightbox>
-</ng-container>
+
+<p-accordion [multiple]="true">
+    <ng-container *ngFor="let images of imagesGroup">
+        <p-accordionTab [header]="images.date" [selected]="true">
+            <p-lightbox [images]="images.images"></p-lightbox>
+        </p-accordionTab>
+    </ng-container>
+</p-accordion>

@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +51,7 @@ import { MessageInterceptor } from './http-interceptor/message-interceptor';
     ToastModule,
     CalendarModule,
     ButtonModule,
+    AccordionModule,
   ],
   providers: [
     AppService,
