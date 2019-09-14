@@ -51,7 +51,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 var thumbStream = VideoUtil.CreateThumbnail(path);
                 return File(thumbStream, "image/jpeg");
             }
-            return PhysicalFile(path, "video/mpeg4");
+            return PhysicalFile(path, "video/mp4");
         }
 
         [HttpPost("add")]
