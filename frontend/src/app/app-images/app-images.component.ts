@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImagesService } from './images.service/images.service';
 import * as moment from 'moment';
+import { groupBy } from 'lodash';
+import { ImageModel } from '../app.models/image-model';
 
 @Component({
     selector: 'app-images',
@@ -9,7 +11,7 @@ import * as moment from 'moment';
     encapsulation: ViewEncapsulation.None
 })
 export class AppImagesComponent implements OnInit {
-    public images: any[];
+    public imagesGroup: any[];
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
@@ -43,12 +45,18 @@ export class AppImagesComponent implements OnInit {
             start: moment(this.startDate).format('YYYYMMDD'),
             end: moment(this.endDate).format('YYYYMMDD')
         }).subscribe(d => {
-            this.images = [];
+            this.imagesGroup = [];
             if (d.data.length) {
-                for (const image of d.data) {
-                    this.images.push({
-                        source: this.service.serviceUrls.getImage + '?thumb=false&name=' + image.fileName,
-                        thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + image.fileName,
+                const groups = groupBy(d.data, (i: ImageModel) => i.date);
+                for (const i of Object.keys(groups)) {
+                    this.imagesGroup.push({
+                        date: moment(i).format('YYYY MM DD'),
+                        images: groups[i].map((s: ImageModel) => {
+                            return {
+                                source: this.service.serviceUrls.getImage + '?thumb=false&name=' + s.fileName,
+                                thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + s.fileName,
+                            };
+                        })
                     });
                 }
             }
