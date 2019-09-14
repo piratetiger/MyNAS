@@ -4,5 +4,6 @@ namespace MyNAS.Service.Helper
     {
         public const string TABLE_USERS= "users";
         public const string TABLE_IMAGES= "images";
+        public const string TABLE_VIDEOS= "videos";
     }
 }

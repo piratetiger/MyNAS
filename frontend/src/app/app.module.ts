@@ -22,6 +22,7 @@ import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { ImagesService } from './app-images/images.service/images.service';
+import { VideosService } from './app-videos/videos.service/videos.service';
 import { AppService } from './app.service/app.service';
 import { LoginService } from './app-login/login.service/login.service';
 
@@ -56,6 +57,7 @@ import { MessageInterceptor } from './http-interceptor/message-interceptor';
   providers: [
     AppService,
     ImagesService,
+    VideosService,
     LoginService,
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
