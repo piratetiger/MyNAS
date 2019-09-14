@@ -9,6 +9,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [Area("Api")]
     [ApiController]
     [Route("[area]/[controller]")]
+    [Authorize(Policy = "Admin")]
     public class AdminController : ControllerBase
     {
         protected AdminService AdminService
