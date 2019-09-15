@@ -13,6 +13,12 @@ RUN npm install && \
  
 # build runtime
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
+RUN apt-get update \
+    && apt-get install -y --allow-unauthenticated \
+        libc6-dev \
+        libgdiplus \
+        libx11-dev \
+     && rm -rf /var/lib/apt/lists/*
 COPY --from=build-backend /backend/MyNAS.Site/output .
 COPY --from=build-frontend /frontend/dist/UI ./wwwroot
 ENTRYPOINT ["dotnet", "MyNAS.Site.dll"]
