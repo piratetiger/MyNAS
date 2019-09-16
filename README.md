@@ -1,4 +1,4 @@
-## To build the docker image
+## Build the docker image
 ### 1. You can build in local and dockerize
 ``` shell
 cd backend
@@ -20,7 +20,11 @@ docker build --no-cache -t my-nas .
 docker pull piratetiger/my-nas:latest
 ```
 
-## To run the docker
+## Run the docker
 ``` shell
 docker run -d --rm -v $local_db_folder:/db_files -v $local_storage_folder:/wwwroot/storage -p 80:5000 --name myNAS  my-nas
 ```
+
+## Login
+Default user name: admin  
+Password: Admin

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyNAS.Service;
 
 namespace MyNAS.Site
 {
@@ -14,6 +15,8 @@ namespace MyNAS.Site
     {
         public static void Main(string[] args)
         {
+            var adminService=new AdminService();
+            adminService.InitDB();
             CreateWebHostBuilder(args).Build().Run();
         }
 
