@@ -4,7 +4,6 @@ RUN apt-get update \
         libc6-dev \
         libgdiplus \
         libx11-dev \
-		ffmpeg \
      && rm -rf /var/lib/apt/lists/*
 COPY backend/MyNAS.Site/bin/Release/netcoreapp2.2/publish ./
 COPY frontend/dist/UI ./wwwroot

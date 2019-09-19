@@ -18,7 +18,6 @@ RUN apt-get update \
         libc6-dev \
         libgdiplus \
         libx11-dev \
-		ffmpeg \
      && rm -rf /var/lib/apt/lists/*
 COPY --from=build-backend /backend/MyNAS.Site/output .
 COPY --from=build-frontend /frontend/dist/UI ./wwwroot
