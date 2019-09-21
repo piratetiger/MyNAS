@@ -1,0 +1,5 @@
+<div class="image-lightbox">
+    <div class="image-lightbox-item" *ngFor="let image of images">
+        <img class="image-lightbox-image" [src]="getImageUrl(image.fileName)" />
+    </div>
+</div>

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ImagesService } from './images.service/images.service';
 import * as moment from 'moment';
 import { groupBy } from 'lodash';
-import { ImageModel } from '../app.models/image-model';
+import { ApiService } from '../infrastructure/services/api.service/api.service';
+import { ImageModel } from '../infrastructure/models/image-model';
 
 @Component({
     selector: 'app-images',
@@ -17,7 +17,7 @@ export class AppImagesComponent implements OnInit {
     public endDate: Date;
     public imagesDate: Date = new Date();
 
-    constructor(private service: ImagesService) {
+    constructor(private service: ApiService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
@@ -51,12 +51,7 @@ export class AppImagesComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.imagesGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        images: groups[i].map((s: ImageModel) => {
-                            return {
-                                source: this.service.serviceUrls.getImage + '?thumb=false&name=' + s.fileName,
-                                thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + s.fileName,
-                            };
-                        })
+                        images: groups[i].reverse()
                     });
                 }
             }

@@ -7,27 +7,26 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FileUploadModule } from 'primeng/fileupload';
-import { LightboxModule } from 'primeng/lightbox';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppMainComponent } from './app-main/app-main.component';
 import { AppLoginComponent } from './app-login/app-login.component';
 import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
-import { ImagesService } from './app-images/images.service/images.service';
-import { VideosService } from './app-videos/videos.service/videos.service';
-import { AppService } from './app.service/app.service';
-import { LoginService } from './app-login/login.service/login.service';
 
-import { AuthInterceptor } from './http-interceptor/auth-interceptor';
-import { MessageInterceptor } from './http-interceptor/message-interceptor';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponentsModule } from './infrastructure/components/app-components.module';
+import { AppServiceModule } from './infrastructure/services/app.service.module';
+
+import { AuthInterceptor } from './infrastructure/http-interceptor/auth-interceptor';
+import { MessageInterceptor } from './infrastructure/http-interceptor/message-interceptor';
+import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy-indicator-interceptor';
 
 @NgModule({
   declarations: [
@@ -42,24 +41,23 @@ import { MessageInterceptor } from './http-interceptor/message-interceptor';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    AppRoutingModule,
     HttpClientModule,
+
+    AppRoutingModule,
+    AppComponentsModule,
+    AppServiceModule,
 
     InputTextModule,
     PasswordModule,
     FileUploadModule,
-    LightboxModule,
     ToastModule,
     CalendarModule,
     ButtonModule,
     AccordionModule,
   ],
   providers: [
-    AppService,
-    ImagesService,
-    VideosService,
-    LoginService,
     MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: BusyIndicatorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
   ],

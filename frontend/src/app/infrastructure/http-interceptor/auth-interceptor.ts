@@ -6,8 +6,8 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import * as store from 'store';
-import { UserModel } from '../app.models/user-model';
 import { Router } from '@angular/router';
+import { UserModel } from '../models/user-model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

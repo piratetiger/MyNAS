@@ -1,12 +1,13 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { MessageModel } from '../app.models/message-model';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as store from 'store';
+import { MessageModel } from '../../models/message-model';
 
 @Injectable()
 export class AppService implements CanActivate {
     public messages = new EventEmitter<MessageModel>();
+    public busyIndicator = new EventEmitter<boolean>();
 
     constructor(private router: Router) { }
 

@@ -1,0 +1,13 @@
+.image-lightbox {
+  .image-lightbox-item {
+    height: 155px;
+    width: 130px;
+    padding: 2px;
+    display: inline-block;
+
+    .image-lightbox-image {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

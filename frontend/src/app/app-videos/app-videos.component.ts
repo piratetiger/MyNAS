@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { VideosService } from './videos.service/videos.service';
 import * as moment from 'moment';
 import { groupBy } from 'lodash';
-import { VideoModel } from '../app.models/video-model';
+import { ApiService } from '../infrastructure/services/api.service/api.service';
+import { VideoModel } from '../infrastructure/models/video-model';
 
 @Component({
     selector: 'app-videos',
@@ -17,7 +17,7 @@ export class AppVideosComponent implements OnInit {
     public endDate: Date;
     public videosDate: Date = new Date();
 
-    constructor(private service: VideosService) {
+    constructor(private service: ApiService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
@@ -51,12 +51,7 @@ export class AppVideosComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.videosGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        videos: groups[i].map((s: VideoModel) => {
-                            return {
-                                source: this.service.serviceUrls.getVideo + '?thumb=false&name=' + s.fileName,
-                                thumbnail: this.service.serviceUrls.getVideo + '?thumb=true&name=' + s.fileName,
-                            };
-                        })
+                        videos: groups[i].reverse
                     });
                 }
             }

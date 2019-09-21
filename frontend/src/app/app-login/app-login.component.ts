@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { LoginService } from './login.service/login.service';
 import * as store from 'store';
 import { Router } from '@angular/router';
+import { ApiService } from '../infrastructure/services/api.service/api.service';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +12,7 @@ export class AppLoginComponent {
     public username: string;
     public password: string;
 
-    constructor(private service: LoginService, private router: Router) {
+    constructor(private service: ApiService, private router: Router) {
     }
 
     public submit() {
