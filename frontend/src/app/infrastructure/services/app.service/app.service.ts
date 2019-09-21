@@ -7,6 +7,7 @@ import { MessageModel } from '../../models/message-model';
 @Injectable()
 export class AppService implements CanActivate {
     public messages = new EventEmitter<MessageModel>();
+    public busyIndicator = new EventEmitter<boolean>();
 
     constructor(private router: Router) { }
 

@@ -9,9 +9,15 @@ import { MessageModel, MessageType } from './infrastructure/models/message-model
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    public isBusy = false;
+
     constructor(private service: AppService, private messageService: MessageService) {
         this.service.messages.subscribe((msg: MessageModel) => {
             this.messageService.add({ severity: MessageType[msg.type].toLowerCase(), summary: msg.title, detail: msg.message });
+        });
+
+        this.service.busyIndicator.subscribe((value: boolean) => {
+            this.isBusy = value;
         });
     }
 }

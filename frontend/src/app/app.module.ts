@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
+import { BlockUIModule } from 'primeng/blockui';
 
 import { AppComponent } from './app.component';
 import { AppMainComponent } from './app-main/app-main.component';
@@ -23,8 +24,10 @@ import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponentsModule } from './infrastructure/components/app-components.module';
 import { AppServiceModule } from './infrastructure/services/app.service.module';
+
 import { AuthInterceptor } from './infrastructure/http-interceptor/auth-interceptor';
 import { MessageInterceptor } from './infrastructure/http-interceptor/message-interceptor';
+import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy-indicator-interceptor';
 
 @NgModule({
   declarations: [
@@ -52,9 +55,11 @@ import { MessageInterceptor } from './infrastructure/http-interceptor/message-in
     CalendarModule,
     ButtonModule,
     AccordionModule,
+    BlockUIModule,
   ],
   providers: [
     MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: BusyIndicatorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
   ],
