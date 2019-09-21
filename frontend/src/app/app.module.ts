@@ -57,9 +57,9 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
   ],
   providers: [
     MessageService,
-    { provide: HTTP_INTERCEPTORS, useClass: BusyIndicatorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: BusyIndicatorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
