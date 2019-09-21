@@ -5,21 +5,21 @@ import {
 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import * as store from 'store';
 import { Router } from '@angular/router';
 import { UserModel } from '../models/user-model';
+import { AppService } from '../services/app.service/app.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private appService: AppService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const loginInfo: UserModel = store.get('loginInfo');
+        const userInfo: UserModel = this.appService.userInfo;
         let headers = req.headers;
-        if (loginInfo && loginInfo.userName && loginInfo.token) {
-            headers = headers.set('x-login-token', loginInfo.token)
-                .set('x-login-user', loginInfo.userName);
+        if (userInfo && userInfo.userName && userInfo.token) {
+            headers = headers.set('x-login-token', userInfo.token)
+                .set('x-login-user', userInfo.userName);
         }
 
         return next.handle(req.clone({ headers: headers })).pipe(
@@ -28,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     if (err.status === 401 || err.status === 403) {
                         this.router.navigate(['/login']);
                     }
+                    this.appService.busyIndicator.emit(false);
                 }
                 return throwError(err);
             }));

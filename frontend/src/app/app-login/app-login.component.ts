@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import * as store from 'store';
 import { Router } from '@angular/router';
 import { ApiService } from '../infrastructure/services/api.service/api.service';
+import { AppService } from '../infrastructure/services/app.service/app.service';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +13,7 @@ export class AppLoginComponent {
     public username: string;
     public password: string;
 
-    constructor(private service: ApiService, private router: Router) {
+    constructor(private service: ApiService, private appService: AppService, private router: Router) {
     }
 
     public submit() {
@@ -21,7 +22,7 @@ export class AppLoginComponent {
             password: this.password
         }).subscribe(d => {
             if (d.data) {
-                store.set('loginInfo', d.data);
+                this.appService.userInfo = d.data;
                 this.router.navigateByUrl('/');
             } else {
                 this.password = '';

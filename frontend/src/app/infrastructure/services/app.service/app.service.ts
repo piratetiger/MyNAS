@@ -3,11 +3,20 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from 'rxjs';
 import * as store from 'store';
 import { MessageModel } from '../../models/message-model';
+import { UserModel } from '../../models/user-model';
 
 @Injectable()
 export class AppService implements CanActivate {
     public messages = new EventEmitter<MessageModel>();
     public busyIndicator = new EventEmitter<boolean>();
+
+    public get userInfo(): UserModel {
+        return store.get('loginInfo');
+    }
+
+    public set userInfo(value: UserModel) {
+        store.set('loginInfo', value);
+    }
 
     constructor(private router: Router) { }
 
