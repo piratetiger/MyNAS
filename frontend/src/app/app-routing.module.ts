@@ -5,7 +5,7 @@ import { AppLoginComponent } from './app-login/app-login.component';
 import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
-import { AppService } from './app.service/app.service';
+import { AppService } from './infrastructure/services/app.service/app.service';
 
 const routes: Routes = [
   { path: '', component: AppMainComponent, canActivate: [AppService] },

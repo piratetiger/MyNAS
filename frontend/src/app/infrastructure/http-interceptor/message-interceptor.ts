@@ -4,9 +4,9 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DataResult } from '../app.models/data-result';
-import { MessageModel, MessageType } from '../app.models/message-model';
-import { AppService } from '../app.service/app.service';
+import { DataResult } from '../models/data-result';
+import { MessageModel, MessageType } from '../models/message-model';
+import { AppService } from '../services/app.service/app.service';
 
 @Injectable()
 export class MessageInterceptor implements HttpInterceptor {

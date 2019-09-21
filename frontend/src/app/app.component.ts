@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AppService } from './app.service/app.service';
 import { MessageService } from 'primeng/api';
-import { MessageModel, MessageType } from './app.models/message-model';
+import { AppService } from './infrastructure/services/app.service/app.service';
+import { MessageModel, MessageType } from './infrastructure/models/message-model';
 
 @Component({
     selector: 'app-root',
