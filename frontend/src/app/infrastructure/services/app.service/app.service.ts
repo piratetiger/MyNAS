@@ -23,7 +23,7 @@ export class AppService implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot)
         : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        const loginInfo = store.get('loginInfo');
+        const loginInfo = this.userInfo;
         if (loginInfo) {
             return true;
         }

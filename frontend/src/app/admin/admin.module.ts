@@ -4,11 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-// import { TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 
 import { AppServiceModule } from '../infrastructure/services/app.service.module';
 
 import { AppUserConfigComponent } from './app-user-config/app-user-config.component';
+import { AppPipeModule } from '../infrastructure/pipes/app-pipe.module';
 
 
 @NgModule({
@@ -22,8 +23,9 @@ import { AppUserConfigComponent } from './app-user-config/app-user-config.compon
         HttpClientModule,
 
         AppServiceModule,
+        AppPipeModule,
 
-        // TableModule
+        TableModule
     ],
     exports: [
         AppUserConfigComponent,

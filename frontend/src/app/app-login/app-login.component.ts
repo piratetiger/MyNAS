@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import * as store from 'store';
 import { Router } from '@angular/router';
 import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { AppService } from '../infrastructure/services/app.service/app.service';
