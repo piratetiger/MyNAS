@@ -51,12 +51,7 @@ export class AppImagesComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.imagesGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        images: groups[i].map((s: ImageModel) => {
-                            return {
-                                source: this.service.serviceUrls.getImage + '?thumb=false&name=' + s.fileName,
-                                thumbnail: this.service.serviceUrls.getImage + '?thumb=true&name=' + s.fileName,
-                            };
-                        })
+                        images: groups[i].reverse()
                     });
                 }
             }

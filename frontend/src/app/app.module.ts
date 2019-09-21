@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FileUploadModule } from 'primeng/fileupload';
-import { LightboxModule } from 'primeng/lightbox';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
@@ -49,7 +48,6 @@ import { MessageInterceptor } from './infrastructure/http-interceptor/message-in
     InputTextModule,
     PasswordModule,
     FileUploadModule,
-    LightboxModule,
     ToastModule,
     CalendarModule,
     ButtonModule,

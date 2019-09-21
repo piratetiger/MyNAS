@@ -1,7 +1,5 @@
 <div class="image-lightbox">
-    <ng-container *ngFor="let image of images">
-        <p-card header="header">
-            <img src="" />
-        </p-card>
-    </ng-container>
+    <div class="image-lightbox-item" *ngFor="let image of images">
+        <img class="image-lightbox-image" [src]="getImageUrl(image.fileName)" />
+    </div>
 </div>

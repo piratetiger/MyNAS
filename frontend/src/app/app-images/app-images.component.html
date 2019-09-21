@@ -12,7 +12,7 @@
 <p-accordion [multiple]="true">
     <ng-container *ngFor="let images of imagesGroup">
         <p-accordionTab [header]="images.date" [selected]="true">
-            <p-lightbox [images]="images.images"></p-lightbox>
+            <image-lightbox [images]="images.images"></image-lightbox>
         </p-accordionTab>
     </ng-container>
 </p-accordion>

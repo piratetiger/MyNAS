@@ -51,12 +51,7 @@ export class AppVideosComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.videosGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        videos: groups[i].map((s: VideoModel) => {
-                            return {
-                                source: this.service.serviceUrls.getVideo + '?thumb=false&name=' + s.fileName,
-                                thumbnail: this.service.serviceUrls.getVideo + '?thumb=true&name=' + s.fileName,
-                            };
-                        })
+                        videos: groups[i].reverse
                     });
                 }
             }
