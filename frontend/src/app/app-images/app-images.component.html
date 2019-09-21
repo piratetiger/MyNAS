@@ -1,18 +1,20 @@
-<p-fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true" (uploadHandler)="uploadFiles($event)"
-    multiple="multiple">
-    <ng-template pTemplate="toolbar">
-        <div>Images Date: <p-calendar [(ngModel)]="imagesDate" dateFormat="M-dd-yy"></p-calendar>
-        </div>
-    </ng-template>
-</p-fileUpload>
-<p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
-<p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
-<p-button label="Search" (onClick)="refreshImages()"></p-button>
+<div class="app-images">
+    <p-fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true" (uploadHandler)="uploadFiles($event)"
+        multiple="multiple">
+        <ng-template pTemplate="toolbar">
+            <div>Images Date: <p-calendar [(ngModel)]="imagesDate" dateFormat="M-dd-yy"></p-calendar>
+            </div>
+        </ng-template>
+    </p-fileUpload>
+    <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
+    <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
+    <p-button label="Search" (onClick)="refreshImages()"></p-button>
 
-<p-accordion [multiple]="true">
-    <ng-container *ngFor="let images of imagesGroup">
-        <p-accordionTab [header]="images.date" [selected]="true">
-            <image-lightbox [images]="images.images"></image-lightbox>
-        </p-accordionTab>
-    </ng-container>
-</p-accordion>
+    <p-accordion [multiple]="true">
+        <ng-container *ngFor="let images of imagesGroup">
+            <p-accordionTab [header]="images.date" [selected]="true">
+                <image-lightbox [images]="images.images"></image-lightbox>
+            </p-accordionTab>
+        </ng-container>
+    </p-accordion>
+</div>

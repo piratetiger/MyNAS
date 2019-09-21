@@ -1,6 +1,11 @@
-.login-container {
+.app-login {
   height: 400px;
   width: 250px;
+
+  .sign-in {
+    margin-top: 0;
+    text-align: center;
+  }
 
   input {
     width: 100%;
@@ -10,9 +15,4 @@
     margin-top: 40px;
     margin-left: 61%;
   }
-}
-
-.sign-in {
-  margin-top: 0;
-  text-align: center;
 }
