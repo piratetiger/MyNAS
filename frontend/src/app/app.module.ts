@@ -12,7 +12,6 @@ import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
-import { BlockUIModule } from 'primeng/blockui';
 
 import { AppComponent } from './app.component';
 import { AppMainComponent } from './app-main/app-main.component';
@@ -55,7 +54,6 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
     CalendarModule,
     ButtonModule,
     AccordionModule,
-    BlockUIModule,
   ],
   providers: [
     MessageService,
