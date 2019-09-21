@@ -7,12 +7,12 @@ cd ../frontend
 npm install
 npm run build:prod
 cd ../
-docker build --no-cache -t my-nas -f Dockerfile-local .
+docker build -t my-nas -f Dockerfile-local .
 ```
 
 ### 2. You can build all in docker
 ``` shell
-docker build --no-cache -t my-nas .
+docker build -t my-nas .
 ```
 
 ### 3. You can also use the docker image directly
