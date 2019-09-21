@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model;
+using MyNAS.Model.User;
 using MyNAS.Service;
-using MyNAS.Site.Helper;
 
 namespace MyNAS.Site.Areas.Api.Controllers
 {
@@ -20,11 +21,25 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
         }
 
+        protected UserService UserService
+        {
+            get
+            {
+                return new UserService();
+            }
+        }
+
         [HttpPost("initDB")]
         [AllowAnonymous]
         public object InitDB()
         {
             return new MessageDataResult("Initialize database", AdminService.InitDB());
+        }
+
+        [HttpPost("users")]
+        public object GetUserList()
+        {
+            return new DataResult<List<UserModel>>(UserService.GetList());
         }
     }
 }

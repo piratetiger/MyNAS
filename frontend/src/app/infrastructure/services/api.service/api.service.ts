@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { DataResult } from '../../models/data-result';
 import { ImageModel } from '../../models/image-model';
 import { VideoModel } from '../../models/video-model';
+import { UserModel } from '../../models/user-model';
 
 @Injectable()
 export class ApiService {
@@ -14,8 +15,8 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    public login(body: any): Observable<DataResult<string>> {
-        return this.http.post<DataResult<string>>(serviceList.login, body);
+    public login(body: any): Observable<DataResult<UserModel>> {
+        return this.http.post<DataResult<UserModel>>(serviceList.login, body);
     }
 
     // images

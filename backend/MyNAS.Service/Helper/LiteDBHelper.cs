@@ -9,6 +9,15 @@ namespace MyNAS.Service
     {
         public const string DB_FILE_NAME = "db_files/MyNAS.db";
 
+        public static List<T> GetAll<T>(string name) where T : IKeyNameModel
+        {
+            using (var db = new LiteDatabase(DB_FILE_NAME))
+            {
+                var collection = db.GetCollection<T>(name);
+                return collection.FindAll().ToList();
+            }
+        }
+
         public static List<T> SearchItems<T>(string name, IDateFilterRequest req) where T : INASModel
         {
             using (var db = new LiteDatabase(DB_FILE_NAME))

@@ -21,6 +21,7 @@ import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './admin/admin.module';
 import { AppComponentsModule } from './infrastructure/components/app-components.module';
 import { AppServiceModule } from './infrastructure/services/app.service.module';
 
@@ -44,6 +45,7 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
     HttpClientModule,
 
     AppRoutingModule,
+    AdminModule,
     AppComponentsModule,
     AppServiceModule,
 

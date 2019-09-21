@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MyNAS.Model.User;
 using MyNAS.Service.Helper;
 
@@ -66,6 +67,11 @@ namespace MyNAS.Service
             {
                 return null;
             }
+        }
+
+        public List<UserModel> GetList()
+        {
+            return LiteDBHelper.GetAll<UserModel>(Constants.TABLE_USERS);
         }
 
         private string GetToken(UserModel user)
