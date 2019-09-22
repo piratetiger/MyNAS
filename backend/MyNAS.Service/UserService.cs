@@ -79,6 +79,20 @@ namespace MyNAS.Service
             return LiteDBHelper.SaveItem(Constants.TABLE_USERS, item);
         }
 
+        public bool UpdateItem(UserModel item)
+        {
+            var user = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, item?.KeyName);
+            if (user != null)
+            {
+                if (!string.IsNullOrEmpty(item.Password))
+                {
+                    user.Password = item.Password;
+                }
+                user.Role = item.Role;
+            }
+            return LiteDBHelper.UpdateItem(Constants.TABLE_USERS, user);
+        }
+
         private string GetToken(UserModel user)
         {
             var key = $@"{user.HostInfo}\{user.UserName}";

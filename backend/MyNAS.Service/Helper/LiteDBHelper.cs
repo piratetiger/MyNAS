@@ -41,6 +41,11 @@ namespace MyNAS.Service
                 using (var db = new LiteDatabase(DB_FILE_NAME))
                 {
                     var collection = db.GetCollection<T>(name);
+                    var checkItem = collection.Find(i => i.KeyName == item.KeyName);
+                    if (checkItem != null)
+                    {
+                        return false;
+                    }
                     collection.Insert(item);
                     collection.EnsureIndex(i => i.KeyName);
                     return true;
@@ -64,6 +69,11 @@ namespace MyNAS.Service
                 using (var db = new LiteDatabase(DB_FILE_NAME))
                 {
                     var collection = db.GetCollection<T>(name);
+                    var checkItem = collection.FindOne(i => items.Select(ii => ii.KeyName).Contains(i.KeyName));
+                    if (checkItem != null)
+                    {
+                        return false;
+                    }
                     collection.InsertBulk(items);
                     collection.EnsureIndex(i => i.KeyName);
                     return true;
@@ -87,6 +97,18 @@ namespace MyNAS.Service
                 using (var db = new LiteDatabase(DB_FILE_NAME))
                 {
                     var collection = db.GetCollection<T>(name);
+                    if (item.Id == 0)
+                    {
+                        var dbItem = collection.FindOne(i => i.KeyName == item.KeyName);
+                        if (dbItem != null)
+                        {
+                            item.Id = dbItem.Id;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
                     collection.Update(item);
                     return true;
                 }
@@ -99,6 +121,10 @@ namespace MyNAS.Service
 
         public static T GetItem<T>(string name, string keyName) where T : IKeyNameModel
         {
+            if (string.IsNullOrEmpty(keyName))
+            {
+                return default(T);
+            }
             try
             {
                 using (var db = new LiteDatabase(DB_FILE_NAME))

@@ -43,13 +43,26 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("users/add")]
-        public object AddUser(NewUserRequest req)
+        public object AddUser(UserRequest req)
         {
             if (req.User != null)
             {
                 req.User.Password = req.Password;
             }
             return new MessageDataResult("Create User", UserService.SaveItem(req.User));
+        }
+
+        [HttpPost("users/update")]
+        public object UpdateUser(UserRequest req)
+        {
+            if (req.User != null)
+            {
+                if (!string.IsNullOrEmpty(req.Password))
+                {
+                    req.User.Password = req.Password;
+                }
+            }
+            return new MessageDataResult("Create User", UserService.UpdateItem(req.User));
         }
     }
 }
