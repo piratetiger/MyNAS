@@ -16,6 +16,8 @@ import { AppService } from '../../services/app.service/app.service';
     ]
 })
 export class UserRoleDropdownComponent implements ControlValueAccessor {
+    public roles = [];
+
     private _value;
     @Input() set value(v) {
         if (v !== this._value) {
@@ -31,13 +33,12 @@ export class UserRoleDropdownComponent implements ControlValueAccessor {
     private onTouchedCallback = () => { };
     private onChangeCallback = (v) => { };
 
-    public get roles() {
-        const result = [];
-        result.push({ label: UserRole[UserRole.Guest], value: UserRole.Guest });
-        result.push({ label: UserRole[UserRole.User], value: UserRole.User });
-        result.push({ label: UserRole[UserRole.DataAdmin], value: UserRole.DataAdmin });
-        result.push({ label: UserRole[UserRole.SystemAdmin], value: UserRole.SystemAdmin });
-        return result;
+
+    constructor() {
+        this.roles.push({ label: UserRole[UserRole.Guest], value: UserRole.Guest });
+        this.roles.push({ label: UserRole[UserRole.User], value: UserRole.User });
+        this.roles.push({ label: UserRole[UserRole.DataAdmin], value: UserRole.DataAdmin });
+        this.roles.push({ label: UserRole[UserRole.SystemAdmin], value: UserRole.SystemAdmin });
     }
 
     writeValue(value: any): void {

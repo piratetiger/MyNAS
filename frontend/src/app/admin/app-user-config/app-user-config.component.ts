@@ -33,5 +33,9 @@ export class AppUserConfigComponent implements OnInit {
             width: '70%',
             height: '70%',
         });
+
+        ref.onClose.subscribe(d => {
+            this.refreshUsers();
+        });
     }
 }
