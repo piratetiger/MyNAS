@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
+import { AdminRoutingModule } from './admin-routing.module';
 import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
 
 import { AppUserConfigComponent } from './app-user-config/app-user-config.component';
@@ -27,6 +28,7 @@ import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user
         FormsModule,
         HttpClientModule,
 
+        AdminRoutingModule,
         AppInfrastructureModule,
 
         InputTextModule,
