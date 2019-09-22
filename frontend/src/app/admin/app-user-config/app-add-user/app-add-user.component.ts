@@ -19,7 +19,8 @@ export class AppAddUserComponent {
 
     public submit() {
         this.service.createUser({
-            user: this.user
+            user: this.user,
+            password: this.user.password
         }).subscribe(d => {
             this.ref.close();
         });
