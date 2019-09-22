@@ -20,4 +20,8 @@ export class AdminApiService {
     public createUser(body: any): Observable<DataResult<boolean>> {
         return this.http.post<DataResult<boolean>>(serviceList.createUser, body);
     }
+
+    public updateUser(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.updateUser, body);
+    }
 }

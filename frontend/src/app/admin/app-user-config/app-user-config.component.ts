@@ -11,6 +11,7 @@ import { AppAddUserComponent } from './app-add-user/app-add-user.component';
 })
 export class AppUserConfigComponent implements OnInit {
     public users: UserModel[];
+    public clonedUsers: { [s: string]: UserModel; } = {};
 
     constructor(private service: AdminApiService, private dialogService: DialogService) { }
 
@@ -37,5 +38,22 @@ export class AppUserConfigComponent implements OnInit {
         ref.onClose.subscribe(d => {
             this.refreshUsers();
         });
+    }
+
+    public rowEditInit(user: UserModel) {
+        this.clonedUsers[user.userName] = { ...user };
+    }
+
+    public rowEditSave(user: UserModel) {
+        this.service.updateUser({
+            user: user,
+            password: user.password
+        }).subscribe(d => {
+        });
+    }
+
+    public rowEditCancel(user: UserModel, index: number) {
+        this.users[index] = this.clonedUsers[user.userName];
+        delete this.clonedUsers[user.userName];
     }
 }
