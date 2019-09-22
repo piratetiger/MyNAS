@@ -22,8 +22,7 @@ import { AppMoviesComponent } from './app-movies/app-movies.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
-import { AppComponentsModule } from './infrastructure/components/app-components.module';
-import { AppServiceModule } from './infrastructure/services/app.service.module';
+import { AppInfrastructureModule } from './infrastructure/app-infrastructure.module';
 
 import { AuthInterceptor } from './infrastructure/http-interceptor/auth-interceptor';
 import { MessageInterceptor } from './infrastructure/http-interceptor/message-interceptor';
@@ -46,8 +45,7 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
 
     AppRoutingModule,
     AdminModule,
-    AppComponentsModule,
-    AppServiceModule,
+    AppInfrastructureModule,
 
     InputTextModule,
     PasswordModule,

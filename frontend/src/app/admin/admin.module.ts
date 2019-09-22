@@ -4,18 +4,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
-import { AppServiceModule } from '../infrastructure/services/app.service.module';
+import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
 
 import { AppUserConfigComponent } from './app-user-config/app-user-config.component';
-import { AppPipeModule } from '../infrastructure/pipes/app-pipe.module';
-
+import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user.component';
 
 @NgModule({
     declarations: [
         AppUserConfigComponent,
+        AppAddUserComponent
     ],
     imports: [
         BrowserModule,
@@ -23,16 +27,24 @@ import { AppPipeModule } from '../infrastructure/pipes/app-pipe.module';
         FormsModule,
         HttpClientModule,
 
-        AppServiceModule,
-        AppPipeModule,
+        AppInfrastructureModule,
 
+        InputTextModule,
+        PasswordModule,
         TableModule,
-        ButtonModule
+        ButtonModule,
+        DynamicDialogModule
     ],
     exports: [
         AppUserConfigComponent,
     ],
     providers: [
+        DialogService,
+        DynamicDialogConfig,
+        DynamicDialogRef
     ],
+    entryComponents: [
+        AppAddUserComponent
+    ]
 })
 export class AdminModule { }
