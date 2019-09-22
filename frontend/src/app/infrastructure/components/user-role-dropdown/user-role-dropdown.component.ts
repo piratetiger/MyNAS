@@ -1,7 +1,6 @@
 import { Component, Input, forwardRef } from '@angular/core';
 import { UserRole } from '../../models/user-role';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { AppService } from '../../services/app.service/app.service';
 
 @Component({
     selector: 'user-role-dropdown',
@@ -35,10 +34,12 @@ export class UserRoleDropdownComponent implements ControlValueAccessor {
 
 
     constructor() {
-        this.roles.push({ label: UserRole[UserRole.Guest], value: UserRole.Guest });
-        this.roles.push({ label: UserRole[UserRole.User], value: UserRole.User });
-        this.roles.push({ label: UserRole[UserRole.DataAdmin], value: UserRole.DataAdmin });
-        this.roles.push({ label: UserRole[UserRole.SystemAdmin], value: UserRole.SystemAdmin });
+        for (const key of Object.keys(UserRole)) {
+            const value = parseInt(key, 10);
+            if (!isNaN(value)) {
+                this.roles.push({ label: UserRole[value], value: value });
+            }
+        }
     }
 
     writeValue(value: any): void {
