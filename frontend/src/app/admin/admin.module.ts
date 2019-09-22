@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 import { AppServiceModule } from '../infrastructure/services/app.service.module';
 
@@ -25,7 +26,8 @@ import { AppPipeModule } from '../infrastructure/pipes/app-pipe.module';
         AppServiceModule,
         AppPipeModule,
 
-        TableModule
+        TableModule,
+        ButtonModule
     ],
     exports: [
         AppUserConfigComponent,

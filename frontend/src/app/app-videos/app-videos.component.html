@@ -8,7 +8,7 @@
     </p-fileUpload>
     <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
     <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
-    <p-button label="Search" (onClick)="refreshVideos()"></p-button>
+    <button pButton icon="pi pi-search" icon="pi pi-search" label="Search" (click)="refreshVideos()"></button>
 
     <p-accordion [multiple]="true">
         <ng-container *ngFor="let videos of videosGroup">
