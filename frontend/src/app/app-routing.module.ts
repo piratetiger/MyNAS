@@ -6,7 +6,6 @@ import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { AppService } from './infrastructure/services/app.service/app.service';
-import { AppUserConfigComponent } from './admin/app-user-config/app-user-config.component';
 
 const routes: Routes = [
   { path: '', component: AppMainComponent, canActivate: [AppService] },
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: 'images', component: AppImagesComponent, canActivate: [AppService] },
   { path: 'videos', component: AppVideosComponent, canActivate: [AppService] },
   { path: 'movies', component: AppMoviesComponent, canActivate: [AppService] },
-  { path: 'users', component: AppUserConfigComponent, canActivate: [AppService] }
 ];
 
 @NgModule({
