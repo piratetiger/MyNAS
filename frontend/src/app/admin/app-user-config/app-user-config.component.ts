@@ -45,13 +45,11 @@ export class AppUserConfigComponent implements OnInit {
     }
 
     public rowEditSave(user: UserModel) {
-        // if (car.year > 0) {
-        //     delete this.clonedCars[car.vin];
-        //     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Car is updated' });
-        // }
-        // else {
-        //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Year is required' });
-        // }
+        this.service.updateUser({
+            user: user,
+            password: user.password
+        }).subscribe(d => {
+        });
     }
 
     public rowEditCancel(user: UserModel, index: number) {
