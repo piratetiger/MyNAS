@@ -74,6 +74,11 @@ namespace MyNAS.Service
             return LiteDBHelper.GetAll<UserModel>(Constants.TABLE_USERS);
         }
 
+        public bool SaveItem(UserModel item)
+        {
+            return LiteDBHelper.SaveItem(Constants.TABLE_USERS, item);
+        }
+
         private string GetToken(UserModel user)
         {
             var key = $@"{user.HostInfo}\{user.UserName}";

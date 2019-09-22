@@ -31,6 +31,11 @@ namespace MyNAS.Service
 
         public static bool SaveItem<T>(string name, T item) where T : IKeyNameModel
         {
+            if (item == null)
+            {
+                return false;
+            }
+
             try
             {
                 using (var db = new LiteDatabase(DB_FILE_NAME))
@@ -49,6 +54,11 @@ namespace MyNAS.Service
 
         public static bool SaveItems<T>(string name, List<T> items) where T : IKeyNameModel
         {
+            if (items == null)
+            {
+                return false;
+            }
+
             try
             {
                 using (var db = new LiteDatabase(DB_FILE_NAME))
@@ -67,6 +77,11 @@ namespace MyNAS.Service
 
         public static bool UpdateItem<T>(string name, T item) where T : IKeyNameModel
         {
+            if (item == null)
+            {
+                return false;
+            }
+
             try
             {
                 using (var db = new LiteDatabase(DB_FILE_NAME))

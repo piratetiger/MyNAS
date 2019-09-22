@@ -41,5 +41,15 @@ namespace MyNAS.Site.Areas.Api.Controllers
         {
             return new DataResult<List<UserModel>>(UserService.GetList());
         }
+
+        [HttpPost("users/add")]
+        public object AddUser(NewUserRequest req)
+        {
+            if (req.User != null)
+            {
+                req.User.Password = req.Password;
+            }
+            return new MessageDataResult("Create User", UserService.SaveItem(req.User));
+        }
     }
 }
