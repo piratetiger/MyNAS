@@ -5,30 +5,31 @@ import { DialogService } from 'primeng/api';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 @Component({
-    selector: 'image-lightbox',
-    templateUrl: './image-lightbox.component.html',
-    styleUrls: ['./image-lightbox.component.scss'],
+    selector: 'lightbox',
+    templateUrl: './lightbox.component.html',
+    styleUrls: ['./lightbox.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ImageLightboxComponent {
-    @Input() images: ImageModel[] = [];
+export class LightboxComponent {
+    @Input() sources: string[] = [];
+    @Input() type = 'image';
 
     constructor(private service: ApiService, private dialogService: DialogService) { }
 
-    public getImageUrl(image: string) {
-        return `${this.service.serviceUrls.getImage}?thumb=true&name=${image}`;
+    public getImageUrl(source: string) {
+        return `${this.service.serviceUrls.getImage}?thumb=true&name=${source}`;
     }
 
-    public showDetail(image: ImageModel) {
+    public showDetail(source: string) {
         const ref = this.dialogService.open(ImageViewerComponent, {
             data: {
-                images: this.images,
-                current: image
+                sources: this.sources,
+                current: source
             },
             header: '',
             width: '70%',
             height: '70%',
-            styleClass: 'image-lightbox-detail',
+            styleClass: 'lightbox-detail',
             dismissableMask: true
         });
     }

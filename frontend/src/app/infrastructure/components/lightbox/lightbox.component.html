@@ -1,0 +1,5 @@
+<div class="lightbox">
+    <div class="lightbox-item" *ngFor="let source of sources" (click)="showDetail(source)">
+        <img class="lightbox-image" [src]="getImageUrl(source)" />
+    </div>
+</div>

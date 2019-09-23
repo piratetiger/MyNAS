@@ -8,15 +8,15 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 
-import { ImageLightboxComponent } from './image-lightbox/image-lightbox.component';
+import { LightboxComponent } from './lightbox/lightbox.component';
 import { BusyIndicatorComponent } from './busy-indicator/busy-indicator.component';
-import { ImageViewerComponent } from './image-lightbox/image-viewer/image-viewer.component';
+import { ImageViewerComponent } from './lightbox/image-viewer/image-viewer.component';
 import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/api';
 import { UserRoleDropdownComponent } from './user-role-dropdown/user-role-dropdown.component';
 
 @NgModule({
     declarations: [
-        ImageLightboxComponent,
+        LightboxComponent,
         ImageViewerComponent,
         BusyIndicatorComponent,
         UserRoleDropdownComponent,
@@ -32,7 +32,7 @@ import { UserRoleDropdownComponent } from './user-role-dropdown/user-role-dropdo
         DropdownModule
     ],
     exports: [
-        ImageLightboxComponent,
+        LightboxComponent,
         BusyIndicatorComponent,
         UserRoleDropdownComponent,
     ],
