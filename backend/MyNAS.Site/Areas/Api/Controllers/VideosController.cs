@@ -48,8 +48,19 @@ namespace MyNAS.Site.Areas.Api.Controllers
             var path = Path.Combine(_host.WebRootPath, "storage/videos", name);
             if (thumb)
             {
-                var thumbStream = VideoUtil.CreateThumbnail(path);
-                return File(thumbStream, "image/jpeg");
+                var file = new FileInfo(path);
+                if (file.Exists)
+                {
+                    var thumbFile = file.FullName.Replace(file.Extension, ".jpg");
+
+                    if (System.IO.File.Exists(thumbFile))
+                    {
+                        return PhysicalFile(thumbFile, "image/jpeg");
+                    }
+                }
+
+                var defaultThumb = Path.Combine(_host.WebRootPath, "MP4thumb.jpg");
+                return PhysicalFile(defaultThumb, "image/jpeg");
             }
             return PhysicalFile(path, "video/mp4");
         }
@@ -74,6 +85,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
                             requestFileStream.CopyTo(fileStream);
                         }
                     }
+
+                    VideoUtil.CreateThumbnail(path);
 
                     var video = new VideoModel()
                     {

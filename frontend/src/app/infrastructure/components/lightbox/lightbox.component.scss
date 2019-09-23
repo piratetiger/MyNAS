@@ -1,18 +1,18 @@
-.image-lightbox {
-  .image-lightbox-item {
+.lightbox {
+  .lightbox-item {
     height: 155px;
     width: 130px;
     padding: 2px;
     display: inline-block;
 
-    .image-lightbox-image {
+    .lightbox-image {
       height: 100%;
       width: 100%;
     }
   }
 }
 
-.image-lightbox-detail {
+.lightbox-detail {
   .ui-dialog-content {
     text-align: center;
   }
