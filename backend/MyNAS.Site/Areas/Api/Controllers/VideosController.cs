@@ -54,7 +54,11 @@ namespace MyNAS.Site.Areas.Api.Controllers
                     var thumbFile = file.FullName.Replace(file.Extension, ".jpg");
                     return File(thumbFile, "image/jpeg");
                 }
-                return null;
+                else
+                {
+                    var defaultThumb = Path.Combine(_host.WebRootPath, "MP4thumb.jpg");
+                    return PhysicalFile(defaultThumb, "image/jpeg");
+                }
             }
             return PhysicalFile(path, "video/mp4");
         }
