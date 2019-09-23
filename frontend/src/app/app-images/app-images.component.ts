@@ -51,7 +51,7 @@ export class AppImagesComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.imagesGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        images: groups[i].map(m=>m.fileName).reverse()
+                        images: groups[i].map(m => m.fileName).reverse()
                     });
                 }
             }

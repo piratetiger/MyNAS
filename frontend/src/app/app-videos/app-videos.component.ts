@@ -51,7 +51,7 @@ export class AppVideosComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.videosGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        videos: groups[i].reverse
+                        videos: groups[i].map(m => m.fileName).reverse()
                     });
                 }
             }

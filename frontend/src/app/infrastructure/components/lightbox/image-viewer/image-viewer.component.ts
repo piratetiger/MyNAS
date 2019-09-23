@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, Input, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/infrastructure/services/api.service/api.service';
-import { ImageModel } from 'src/app/infrastructure/models/image-model';
 import { DynamicDialogConfig } from 'primeng/api';
 
 @Component({

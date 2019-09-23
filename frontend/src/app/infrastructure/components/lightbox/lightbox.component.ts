@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
-import { ImageModel } from '../../models/image-model';
 import { ApiService } from '../../services/api.service/api.service';
 import { DialogService } from 'primeng/api';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
@@ -17,7 +16,11 @@ export class LightboxComponent {
     constructor(private service: ApiService, private dialogService: DialogService) { }
 
     public getImageUrl(source: string) {
-        return `${this.service.serviceUrls.getImage}?thumb=true&name=${source}`;
+        if (this.type === 'video') {
+            return `${this.service.serviceUrls.getVideo}?thumb=true&name=${source}`;
+        } else {
+            return `${this.service.serviceUrls.getImage}?thumb=true&name=${source}`;
+        }
     }
 
     public showDetail(source: string) {
