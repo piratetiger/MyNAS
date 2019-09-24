@@ -14,6 +14,8 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 
 import { AppComponent } from './app.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
+import { AppFooterComponent } from './app-footer/app-footer.component';
 import { AppMainComponent } from './app-main/app-main.component';
 import { AppLoginComponent } from './app-login/app-login.component';
 import { AppImagesComponent } from './app-images/app-images.component';
@@ -31,6 +33,8 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
 @NgModule({
   declarations: [
     AppComponent,
+    AppHeaderComponent,
+    AppFooterComponent,
     AppMainComponent,
     AppLoginComponent,
     AppImagesComponent,

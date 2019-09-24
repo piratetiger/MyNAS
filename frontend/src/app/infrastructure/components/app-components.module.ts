@@ -13,11 +13,13 @@ import { BusyIndicatorComponent } from './busy-indicator/busy-indicator.componen
 import { ImageViewerComponent } from './lightbox/image-viewer/image-viewer.component';
 import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/api';
 import { UserRoleDropdownComponent } from './user-role-dropdown/user-role-dropdown.component';
+import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.component';
 
 @NgModule({
     declarations: [
         LightboxComponent,
         ImageViewerComponent,
+        VideoViewerComponent,
         BusyIndicatorComponent,
         UserRoleDropdownComponent,
     ],
@@ -42,7 +44,8 @@ import { UserRoleDropdownComponent } from './user-role-dropdown/user-role-dropdo
         DynamicDialogRef
     ],
     entryComponents: [
-        ImageViewerComponent
+        ImageViewerComponent,
+        VideoViewerComponent
     ]
 })
 export class AppComponentsModule { }

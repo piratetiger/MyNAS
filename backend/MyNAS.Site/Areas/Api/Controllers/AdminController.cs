@@ -62,7 +62,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                     req.User.Password = req.Password;
                 }
             }
-            return new MessageDataResult("Create User", UserService.UpdateItem(req.User));
+            return new MessageDataResult("Update User", UserService.UpdateItem(req.User));
         }
     }
 }

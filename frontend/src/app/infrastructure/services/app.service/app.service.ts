@@ -8,6 +8,8 @@ import { UserModel } from '../../models/user-model';
 @Injectable()
 export class AppService implements CanActivate {
     public messages = new EventEmitter<MessageModel>();
+    public showHeader = new EventEmitter<boolean>();
+    public showFooter = new EventEmitter<boolean>();
     public busyIndicator = new EventEmitter<boolean>();
 
     public get userInfo(): UserModel {
