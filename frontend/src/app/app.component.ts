@@ -10,6 +10,7 @@ import { MessageModel, MessageType } from './infrastructure/models/message-model
 })
 export class AppComponent {
     public showHeader = true;
+    public showFooter = true;
     public isBusy = false;
 
     constructor(private service: AppService, private messageService: MessageService) {
@@ -23,6 +24,10 @@ export class AppComponent {
 
         this.service.showHeader.subscribe((value: boolean) => {
             this.showHeader = value;
+        });
+
+        this.service.showFooter.subscribe((value: boolean) => {
+            this.showFooter = value;
         });
     }
 }
