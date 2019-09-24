@@ -8,4 +8,16 @@
 
   border-top: 1px solid #ddd;
   background: #eee;
+
+  .app-footer-item {
+    text-align: center;
+
+    .app-footer-item-icon {
+      font-size: 20px;
+    }
+
+    .app-footer-item-name {
+      font-size: 13px;
+    }
+  }
 }
