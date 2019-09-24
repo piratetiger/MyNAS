@@ -1,3 +1,4 @@
+<app-header *ngIf="showHeader"></app-header>
 <router-outlet #content></router-outlet>
 <p-toast position="bottom-right"></p-toast>
 <busy-indicator [isBusy]="isBusy"></busy-indicator>
