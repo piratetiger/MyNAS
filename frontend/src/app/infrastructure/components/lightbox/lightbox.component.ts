@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service/api.service';
 import { DialogService } from 'primeng/api';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
+import { VideoViewerComponent } from './video-viewer/video-viewer.component';
 
 @Component({
     selector: 'lightbox',
@@ -24,16 +25,30 @@ export class LightboxComponent {
     }
 
     public showDetail(source: string) {
-        const ref = this.dialogService.open(ImageViewerComponent, {
-            data: {
-                sources: this.sources,
-                current: source
-            },
-            header: '',
-            width: '70%',
-            height: '70%',
-            styleClass: 'lightbox-detail',
-            dismissableMask: true
-        });
+        if (this.type === 'video') {
+            this.dialogService.open(VideoViewerComponent, {
+                data: {
+                    sources: this.sources,
+                    current: source
+                },
+                header: '',
+                width: '70%',
+                height: '70%',
+                styleClass: 'lightbox-detail',
+                dismissableMask: true
+            });
+        } else {
+            this.dialogService.open(ImageViewerComponent, {
+                data: {
+                    sources: this.sources,
+                    current: source
+                },
+                header: '',
+                width: '70%',
+                height: '70%',
+                styleClass: 'lightbox-detail',
+                dismissableMask: true
+            });
+        }
     }
 }
