@@ -1,6 +1,9 @@
+@import "../../variable.scss";
+
 .app-login {
   height: 400px;
   width: 250px;
+  top: $header-height;
 
   .sign-in {
     margin-top: 0;
