@@ -41,7 +41,7 @@ namespace MyNAS.Service
                 using (var db = new LiteDatabase(DB_FILE_NAME))
                 {
                     var collection = db.GetCollection<T>(name);
-                    var checkItem = collection.Find(i => i.KeyName == item.KeyName);
+                    var checkItem = collection.FindOne(i => i.KeyName == item.KeyName);
                     if (checkItem != null)
                     {
                         return false;
