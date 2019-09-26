@@ -1,20 +1,34 @@
 <div class="app-videos">
-    <p-fileUpload [files]="uploadFileList" accept="video/mp4" customUpload="true" (uploadHandler)="uploadFiles($event)"
-        multiple="multiple">
-        <ng-template pTemplate="toolbar">
-            <div>Videos Date: <p-calendar [(ngModel)]="videosDate" dateFormat="M-dd-yy"></p-calendar>
+    <div class="content-toolbar">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <button pButton icon="pi pi-upload" label="Upload" (click)="toolbarState='upload'"></button>
+                <button pButton icon="pi pi-search" label="Search" (click)="toolbarState='search'"></button>
             </div>
-        </ng-template>
-    </p-fileUpload>
-    <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
-    <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
-    <button pButton icon="pi pi-search" icon="pi pi-search" label="Search" (click)="refreshVideos()"></button>
+        </p-toolbar>
+        <p-fieldset *ngIf="toolbarState==='upload'" legend="Upload">
+            <p-fileUpload [files]="uploadFileList" accept="video/mp4" customUpload="true"
+                (uploadHandler)="uploadFiles($event)" multiple="multiple">
+                <ng-template pTemplate="toolbar">
+                    <div>Videos Date: <p-calendar [(ngModel)]="videosDate" dateFormat="M-dd-yy"></p-calendar>
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+        </p-fieldset>
+        <p-fieldset *ngIf="toolbarState==='search'" legend="Search">
+            <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
+            <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
+            <button pButton icon="pi pi-search" icon="pi pi-search" label="Search" (click)="refreshVideos()"></button>
+        </p-fieldset>
+    </div>
 
-    <p-accordion [multiple]="true">
-        <ng-container *ngFor="let videos of videosGroup">
-            <p-accordionTab [header]="videos.date" [selected]="true">
-                <lightbox [sources]="videos.videos" [type]="'video'"></lightbox>
-            </p-accordionTab>
-        </ng-container>
-    </p-accordion>
+    <div class="content-view">
+        <p-accordion [multiple]="true">
+            <ng-container *ngFor="let videos of videosGroup">
+                <p-accordionTab [header]="videos.date" [selected]="true">
+                    <lightbox [sources]="videos.videos" [type]="'video'"></lightbox>
+                </p-accordionTab>
+            </ng-container>
+        </p-accordion>
+    </div>
 </div>

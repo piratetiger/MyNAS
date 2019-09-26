@@ -8,14 +8,27 @@ import { VideoModel } from '../infrastructure/models/video-model';
     selector: 'app-videos',
     templateUrl: './app-videos.component.html',
     styleUrls: ['./app-videos.component.scss'],
-    encapsulation: ViewEncapsulation.None
 })
 export class AppVideosComponent implements OnInit {
+    private _toolbarState: string;
+
     public videosGroup: any[];
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
     public videosDate: Date = new Date();
+
+    public get toolbarState(): string {
+        return this._toolbarState;
+    }
+
+    public set toolbarState(value) {
+        if (value === this._toolbarState) {
+            this._toolbarState = null;
+        } else {
+            this._toolbarState = value;
+        }
+    }
 
     constructor(private service: ApiService) {
         this.startDate = moment().subtract(3, 'months').toDate();
