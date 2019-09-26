@@ -8,14 +8,27 @@ import { ImageModel } from '../infrastructure/models/image-model';
     selector: 'app-images',
     templateUrl: './app-images.component.html',
     styleUrls: ['./app-images.component.scss'],
-    encapsulation: ViewEncapsulation.None
 })
 export class AppImagesComponent implements OnInit {
+    private _toolbarState: string;
+
     public imagesGroup: any[];
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
     public imagesDate: Date = new Date();
+
+    public get toolbarState(): string {
+        return this._toolbarState;
+    }
+
+    public set toolbarState(value) {
+        if (value === this._toolbarState) {
+            this._toolbarState = null;
+        } else {
+            this._toolbarState = value;
+        }
+    }
 
     constructor(private service: ApiService) {
         this.startDate = moment().subtract(3, 'months').toDate();

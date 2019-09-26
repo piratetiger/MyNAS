@@ -1,12 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as store from 'store';
 import { MessageModel } from '../../models/message-model';
 import { UserModel } from '../../models/user-model';
 
 @Injectable()
-export class AppService implements CanActivate {
+export class AppService implements CanActivate, CanActivateChild {
     public messages = new EventEmitter<MessageModel>();
     public showHeader = new EventEmitter<boolean>();
     public showFooter = new EventEmitter<boolean>();
@@ -28,6 +28,23 @@ export class AppService implements CanActivate {
         const loginInfo = this.userInfo;
         if (loginInfo) {
             return true;
+        }
+
+        this.router.navigate(['/login']);
+        return false;
+    }
+
+    canActivateChild(childRoute: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        const loginInfo = this.userInfo;
+        if (loginInfo) {
+            if (childRoute.data == null) {
+                return true;
+            } else {
+                if (childRoute.data.role && childRoute.data.role.indexOf(loginInfo.role) > -1) {
+                    return true;
+                }
+            }
         }
 
         this.router.navigate(['/login']);

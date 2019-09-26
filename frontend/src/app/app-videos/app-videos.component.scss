@@ -1,12 +1,13 @@
-app-images {
-    p-lightbox {
-      a {
-        img {
-          height: 150px;
-          width: 125px;
-          padding-right: 5px;
-        }
-      }
+.app-videos {
+  .content-toolbar {
+    margin: 5px;
+
+    button+button {
+      margin-left: 5px;
     }
   }
-  
+
+  .content-view {
+    margin-top: 5px;
+  }
+}

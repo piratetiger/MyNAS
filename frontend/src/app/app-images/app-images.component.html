@@ -1,20 +1,34 @@
 <div class="app-images">
-    <p-fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true" (uploadHandler)="uploadFiles($event)"
-        multiple="multiple">
-        <ng-template pTemplate="toolbar">
-            <div>Images Date: <p-calendar [(ngModel)]="imagesDate" dateFormat="M-dd-yy"></p-calendar>
+    <div class="content-toolbar">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <button pButton icon="pi pi-upload" label="Upload" (click)="toolbarState='upload'"></button>
+                <button pButton icon="pi pi-search" label="Search" (click)="toolbarState='search'"></button>
             </div>
-        </ng-template>
-    </p-fileUpload>
-    <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
-    <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
-    <button pButton icon="pi pi-search" label="Search" (click)="refreshImages()"></button>
+        </p-toolbar>
+        <p-fieldset *ngIf="toolbarState==='upload'" legend="Upload">
+            <p-fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true"
+                (uploadHandler)="uploadFiles($event)" multiple="multiple">
+                <ng-template pTemplate="toolbar">
+                    <div>Images Date: <p-calendar [(ngModel)]="imagesDate" dateFormat="M-dd-yy"></p-calendar>
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+        </p-fieldset>
+        <p-fieldset *ngIf="toolbarState==='search'" legend="Search">
+            <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
+            <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
+            <button pButton icon="pi pi-search" label="Search" (click)="refreshImages()"></button>
+        </p-fieldset>
+    </div>
 
-    <p-accordion [multiple]="true">
-        <ng-container *ngFor="let images of imagesGroup">
-            <p-accordionTab [header]="images.date" [selected]="true">
-                <lightbox [sources]="images.images"></lightbox>
-            </p-accordionTab>
-        </ng-container>
-    </p-accordion>
+    <div class="content-view">
+        <p-accordion [multiple]="true">
+            <ng-container *ngFor="let images of imagesGroup">
+                <p-accordionTab [header]="images.date" [selected]="true">
+                    <lightbox [sources]="images.images"></lightbox>
+                </p-accordionTab>
+            </ng-container>
+        </p-accordion>
+    </div>
 </div>
