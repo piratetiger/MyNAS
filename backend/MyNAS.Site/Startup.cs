@@ -40,6 +40,12 @@ namespace MyNAS.Site
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddResponseCompression(options =>
+                {
+                    options.EnableForHttps = true;
+                });
+
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = MyNASAuthOptions.DefaultScheme;
@@ -63,7 +69,9 @@ namespace MyNAS.Site
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        {         
+            app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -12,9 +12,7 @@ const routes: Routes = [
         },
         canActivateChild: [AppService],
         children: [
-            {
-                path: 'users', component: AppUserConfigComponent
-            },
+            { path: 'users', component: AppUserConfigComponent },
         ]
     }
 ];
