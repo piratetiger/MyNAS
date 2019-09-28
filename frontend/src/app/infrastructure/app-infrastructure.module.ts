@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { AppComponentsModule } from './components/app-components.module';
-import { AppPipeModule } from './pipes/app-pipe.module';
-import { AppServiceModule } from './services/app.service.module';
+import { AppPipesModule } from './pipes/app-pipes.module';
+import { AppServicesModule } from './services/app-services.module';
+import { AppDirectivesModule } from './directives/app-directives.module';
 
 
 @NgModule({
@@ -9,13 +10,15 @@ import { AppServiceModule } from './services/app.service.module';
     ],
     imports: [
         AppComponentsModule,
-        AppPipeModule,
-        AppServiceModule
+        AppPipesModule,
+        AppServicesModule,
+        AppDirectivesModule
     ],
     exports: [
         AppComponentsModule,
-        AppPipeModule,
-        AppServiceModule
+        AppPipesModule,
+        AppServicesModule,
+        AppDirectivesModule
     ],
     providers: [
     ],
