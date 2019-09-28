@@ -12,6 +12,10 @@ export class AppLoginComponent implements OnDestroy {
     public username: string;
     public password: string;
 
+    public get canSubmit() {
+        return this.username && this.password;
+    }
+
     constructor(private service: ApiService, private appService: AppService, private router: Router) {
         this.appService.showFooter.emit(false);
     }
@@ -20,17 +24,25 @@ export class AppLoginComponent implements OnDestroy {
         this.appService.showFooter.emit(true);
     }
 
+    public keyPress(event) {
+        if (event.keyCode === 13) {
+            this.submit();
+        }
+    }
+
     public submit() {
-        this.service.login({
-            username: this.username,
-            password: this.password
-        }).subscribe(d => {
-            if (d.data) {
-                this.appService.userInfo = d.data;
-                this.router.navigateByUrl('/');
-            } else {
-                this.password = '';
-            }
-        });
+        if (this.canSubmit) {
+            this.service.login({
+                username: this.username,
+                password: this.password
+            }).subscribe(d => {
+                if (d.data) {
+                    this.appService.userInfo = d.data;
+                    this.router.navigateByUrl('/');
+                } else {
+                    this.password = '';
+                }
+            });
+        }
     }
 }

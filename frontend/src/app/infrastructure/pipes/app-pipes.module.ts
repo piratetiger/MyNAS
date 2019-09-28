@@ -13,4 +13,4 @@ import { UserRolePipe } from './user-role/user-role.pipe';
     providers: [
     ],
 })
-export class AppPipeModule { }
+export class AppPipesModule { }

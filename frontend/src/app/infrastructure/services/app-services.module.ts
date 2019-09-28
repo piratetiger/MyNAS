@@ -17,4 +17,4 @@ import { AdminApiService } from './admin-api.service/admin-api.service';
         AdminApiService
     ],
 })
-export class AppServiceModule { }
+export class AppServicesModule { }
