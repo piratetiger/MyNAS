@@ -93,6 +93,11 @@ namespace MyNAS.Service
             return LiteDBHelper.UpdateItem(Constants.TABLE_USERS, user);
         }
 
+        public bool DeleteItem(UserModel item)
+        {
+            return LiteDBHelper.DeleteItem(Constants.TABLE_USERS, item);
+        }
+
         private string GetToken(UserModel user)
         {
             var key = $@"{user.HostInfo}\{user.UserName}";
