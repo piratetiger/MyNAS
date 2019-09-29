@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../infrastructure/models/user-model';
 import { AdminApiService } from '../../infrastructure/services/admin-api.service/admin-api.service';
-import { DialogService } from 'primeng/api';
+import { DialogService, ConfirmationService } from 'primeng/api';
 import { AppAddUserComponent } from './app-add-user/app-add-user.component';
 
 @Component({
@@ -13,7 +13,8 @@ export class AppUserConfigComponent implements OnInit {
     public users: UserModel[];
     public clonedUsers: { [s: string]: UserModel; } = {};
 
-    constructor(private service: AdminApiService, private dialogService: DialogService) { }
+    constructor(private service: AdminApiService, private dialogService: DialogService,
+        private confirmationService: ConfirmationService) { }
 
     ngOnInit(): void {
         this.refreshUsers();
@@ -58,11 +59,16 @@ export class AppUserConfigComponent implements OnInit {
     }
 
     public rowDelete(user: UserModel, index: number) {
-        this.service.deleteUser({
-            user: user
-        }).subscribe(d => {
-            this.users.splice(index, 1);
-            delete this.clonedUsers[user.userName];
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to delete this user?',
+            accept: () => {
+                this.service.deleteUser({
+                    user: user
+                }).subscribe(d => {
+                    this.users.splice(index, 1);
+                    delete this.clonedUsers[user.userName];
+                });
+            }
         });
     }
 }
