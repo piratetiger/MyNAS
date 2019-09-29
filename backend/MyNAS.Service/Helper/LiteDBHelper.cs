@@ -85,6 +85,28 @@ namespace MyNAS.Service
             }
         }
 
+        public static bool DeleteItem<T>(string name, T item) where T : IKeyNameModel
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                using (var db = new LiteDatabase(DB_FILE_NAME))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    var record = collection.Delete(i => i.KeyName == item.KeyName);
+                    return record > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool UpdateItem<T>(string name, T item) where T : IKeyNameModel
         {
             if (item == null)

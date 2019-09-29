@@ -64,5 +64,11 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
             return new MessageDataResult("Update User", UserService.UpdateItem(req.User));
         }
+
+        [HttpPost("users/delete")]
+        public object DeleteUser(UserRequest req)
+        {
+            return new MessageDataResult("Delete User", UserService.DeleteItem(req.User));
+        }
     }
 }

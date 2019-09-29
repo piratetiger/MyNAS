@@ -24,4 +24,8 @@ export class AdminApiService {
     public updateUser(body: any): Observable<DataResult<boolean>> {
         return this.http.post<DataResult<boolean>>(serviceList.updateUser, body);
     }
+
+    public deleteUser(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.deleteUser, body);
+    }
 }

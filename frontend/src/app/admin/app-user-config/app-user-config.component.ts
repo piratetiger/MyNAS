@@ -56,4 +56,13 @@ export class AppUserConfigComponent implements OnInit {
         this.users[index] = this.clonedUsers[user.userName];
         delete this.clonedUsers[user.userName];
     }
+
+    public rowDelete(user: UserModel, index: number) {
+        this.service.deleteUser({
+            user: user
+        }).subscribe(d => {
+            this.users.splice(index, 1);
+            delete this.clonedUsers[user.userName];
+        });
+    }
 }
