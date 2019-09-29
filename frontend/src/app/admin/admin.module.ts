@@ -9,7 +9,9 @@ import { PasswordModule } from 'primeng/password';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
@@ -35,7 +37,8 @@ import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user
         PasswordModule,
         TableModule,
         ButtonModule,
-        DynamicDialogModule
+        DynamicDialogModule,
+        ConfirmDialogModule
     ],
     exports: [
         AppUserConfigComponent,
@@ -43,7 +46,8 @@ import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user
     providers: [
         DialogService,
         DynamicDialogConfig,
-        DynamicDialogRef
+        DynamicDialogRef,
+        ConfirmationService
     ],
     entryComponents: [
         AppAddUserComponent
