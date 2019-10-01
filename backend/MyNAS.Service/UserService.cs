@@ -89,6 +89,7 @@ namespace MyNAS.Service
                     user.Password = item.Password;
                 }
                 user.Role = item.Role;
+                user.NickName = item.NickName;
             }
             return LiteDBHelper.UpdateItem(Constants.TABLE_USERS, user);
         }

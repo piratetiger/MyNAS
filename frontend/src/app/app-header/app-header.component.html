@@ -3,5 +3,11 @@
         <a routerLink="/" class="app-header-title">
             <span>MyNAS</span>
         </a>
+        <span *ngIf="user" class="app-header-user">
+            {{user.nickName?user.nickName:user.userName}}
+            <span class="app-header-logout">
+                [<a href="javascript: void(0)" (click)="logout()">logout</a>]
+            </span>
+        </span>
     </div>
 </div>
