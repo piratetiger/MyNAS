@@ -15,6 +15,7 @@ namespace MyNAS.Model.User
             }
         }
         public string UserName { get; set; }
+        public string NickName { get; set; }
         [JsonIgnoreSerialization]
         public string Password { get; set; }
         public UserRole Role { get; set; }

@@ -4,6 +4,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>UserName</th>
+                <th>NickName</th>
                 <th>UserRole</th>
                 <th>Password</th>
                 <th style="width:8em"></th>
@@ -12,6 +13,16 @@
         <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="user">
                 <td>{{user.userName}}</td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="user.nickName">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{user.nickName}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
@@ -47,7 +58,8 @@
     </p-table>
     <p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle">
         <p-footer>
-            <button type="button" pButton class="ui-button-success" icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+            <button type="button" pButton class="ui-button-success" icon="pi pi-check" label="Yes"
+                (click)="cd.accept()"></button>
             <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
         </p-footer>
     </p-confirmDialog>
