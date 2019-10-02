@@ -104,5 +104,26 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
             return new MessageDataResult("Upload Video", VideosService.SaveItems(videoList));
         }
+
+        [HttpPost("delete")]
+        [Authorize(Policy = "DataAdminBase")]
+        public object DeleteVideo(DeleteRequest req)
+        {
+            foreach (var name in req.Names)
+            {
+                var path = Path.Combine(_host.WebRootPath, "storage/videos", name);
+                var thumbFile = path.Replace(".mp4", ".jpg");
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                if (System.IO.File.Exists(thumbFile))
+                {
+                    System.IO.File.Delete(thumbFile);
+                }
+            }
+
+            return new MessageDataResult("Delete Video", VideosService.DeleteItems(req.Names));
+        }
     }
 }

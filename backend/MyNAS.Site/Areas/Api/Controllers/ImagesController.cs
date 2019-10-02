@@ -91,5 +91,21 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
             return new MessageDataResult("Upload Image", ImagesService.SaveItems(imageList));
         }
+
+        [HttpPost("delete")]
+        [Authorize(Policy = "DataAdminBase")]
+        public object DeleteVideo(DeleteRequest req)
+        {
+            foreach (var name in req.Names)
+            {
+                var path = Path.Combine(_host.WebRootPath, "storage/images", name);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
+
+            return new MessageDataResult("Delete Video", ImagesService.DeleteItems(req.Names));
+        }
     }
 }
