@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MyNAS.Service;
+using NLog.Web;
 
 namespace MyNAS.Site
 {
@@ -15,14 +16,18 @@ namespace MyNAS.Site
     {
         public static void Main(string[] args)
         {
-            var adminService=new AdminService();
+            var adminService = new AdminService();
             adminService.InitDB();
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(c => c.Listen(new System.Net.IPAddress(new byte[] { 0, 0, 0, 0 }), 5000))
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseNLog();
+        }
     }
 }
