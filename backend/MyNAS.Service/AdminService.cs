@@ -5,11 +5,11 @@ using MyNAS.Service.Helper;
 
 namespace MyNAS.Service
 {
-    public class AdminService
+    public class AdminService : ServiceBase
     {
         public bool InitDB()
         {
-            var admin = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, "admin");
+            var admin = DBAccessor.GetItem<UserModel>(Constants.TABLE_USERS, "admin");
             if (admin == null)
             {
                 var users = new List<UserModel>();
@@ -20,7 +20,7 @@ namespace MyNAS.Service
                     Password = "Admin",
                     Role = UserRole.SystemAdmin
                 });
-                return LiteDBHelper.SaveItems(Constants.TABLE_USERS, users);
+                return DBAccessor.SaveItems(Constants.TABLE_USERS, users);
             }
             else
             {

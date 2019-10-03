@@ -6,21 +6,21 @@ using MyNAS.Service.Helper;
 
 namespace MyNAS.Service
 {
-    public class ImagesService
+    public class ImagesService: ServiceBase
     {
         public List<ImageModel> GetList(GetListRequest req)
         {
-            return LiteDBHelper.SearchItems<ImageModel>(Constants.TABLE_IMAGES, req);
+            return DBAccessor.SearchItems<ImageModel>(Constants.TABLE_IMAGES, req);
         }
 
         public bool SaveItem(ImageModel item)
         {
-            return LiteDBHelper.SaveItem(Constants.TABLE_IMAGES, item);
+            return DBAccessor.SaveItem(Constants.TABLE_IMAGES, item);
         }
 
         public bool SaveItems(List<ImageModel> items)
         {
-            return LiteDBHelper.SaveItems(Constants.TABLE_IMAGES, items);
+            return DBAccessor.SaveItems(Constants.TABLE_IMAGES, items);
         }
 
         public bool DeleteItems(List<string> names)
@@ -31,7 +31,7 @@ namespace MyNAS.Service
             }
 
             var deleteItems = names.Select(n => new ImageModel { FileName = n }).ToList();
-            return LiteDBHelper.DeleteItems(Constants.TABLE_IMAGES, deleteItems);
+            return DBAccessor.DeleteItems(Constants.TABLE_IMAGES, deleteItems);
         }
     }
 }
