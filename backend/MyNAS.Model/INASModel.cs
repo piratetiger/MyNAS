@@ -2,12 +2,10 @@ using System;
 
 namespace MyNAS.Model
 {
-    public interface INASModel : IKeyNameModel
+    public interface INASModel : IKeyNameModel, IDateModel
     {
-        long Id { get; }
         string FileName { get; }
         bool IsPublic { get; }
         string Owner { get; }
-        DateTime Date { get; }
     }
 }

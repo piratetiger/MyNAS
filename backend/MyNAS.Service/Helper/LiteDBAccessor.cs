@@ -25,7 +25,7 @@ namespace MyNAS.Service
             }
         }
 
-        public List<T> SearchItems<T>(string name, IDateFilterRequest req) where T : INASModel
+        public List<T> SearchItems<T>(string name, IDateFilterRequest req) where T : IDateModel
         {
             using (var db = new LiteDatabase(DBFile))
             {
