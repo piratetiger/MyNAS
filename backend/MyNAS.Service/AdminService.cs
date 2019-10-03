@@ -13,7 +13,13 @@ namespace MyNAS.Service
             if (admin == null)
             {
                 var users = new List<UserModel>();
-                users.Add(new UserModel { UserName = "admin", Password = "Admin", Role = UserRole.SystemAdmin });
+                users.Add(new UserModel
+                {
+                    UserName = "admin",
+                    NickName = "Admin",
+                    Password = "Admin",
+                    Role = UserRole.SystemAdmin
+                });
                 return LiteDBHelper.SaveItems(Constants.TABLE_USERS, users);
             }
             else
