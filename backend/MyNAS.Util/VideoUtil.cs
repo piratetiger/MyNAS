@@ -5,12 +5,11 @@ namespace MyNAS.Util
 {
     public static class VideoUtil
     {
-        public static void CreateThumbnail(string path)
+        public static void CreateThumbnail(string path, string output)
         {
             var file = new FileInfo(path);
             if (file.Exists)
             {
-                var output = file.FullName.Replace(file.Extension, ".jpg");
                 var process = new Process();
 
                 process.StartInfo = new ProcessStartInfo("ffmpeg")
