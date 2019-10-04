@@ -18,6 +18,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [ApiController]
     [Route("[area]/[controller]")]
     [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/images" })]
+    [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/tmp" })]
     public class ImagesController : ControllerBase
     {
         private readonly IHostingEnvironment _host;
@@ -46,12 +47,27 @@ namespace MyNAS.Site.Areas.Api.Controllers
         public ActionResult GetImage(string name, bool thumb = true)
         {
             var path = Path.Combine(_host.WebRootPath, "storage/images", name);
+
             if (thumb)
             {
-                var thumbStream = ImageUtil.CreateThumbnail(path);
-                return File(thumbStream, "image/jpeg");
+                var thumbPath = Path.Combine(_host.WebRootPath, "storage/tmp", name);
+                if (!System.IO.File.Exists(thumbPath))
+                {
+                    using (var fileStream = System.IO.File.Create(thumbPath))
+                    {
+                        using (var thumbStream = ImageUtil.CreateThumbnail(path))
+                        {
+                            thumbStream.Seek(0, SeekOrigin.Begin);
+                            thumbStream.CopyTo(fileStream);
+                        }
+                    }
+                }
+                return PhysicalFile(thumbPath, "image/jpeg");
             }
-            return PhysicalFile(path, "image/jpeg");
+            else
+            {
+                return PhysicalFile(path, "image/jpeg");
+            }
         }
 
         [HttpPost("add")]
