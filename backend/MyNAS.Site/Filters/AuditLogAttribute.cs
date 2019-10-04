@@ -23,11 +23,7 @@ namespace MyNAS.Site
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var args = context.ActionArguments;
-            Logger.Log(LogLevel.Info,
-                       context.HttpContext.User.Identity.Name,
-                       args);
-
+            Logger.Log(LogLevel.Info, context.HttpContext.User.Identity.Name);
             base.OnActionExecuting(context);
         }
     }

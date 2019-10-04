@@ -1,0 +1,13 @@
+using System;
+
+namespace MyNAS.Model.Logs
+{
+    public class AuditLogModel : IDateModel
+    {
+        public DateTime Date { get; set; }
+        public string Level { get; set; }
+        public string Logger { get; set; }
+        public string Message { get; set; }
+        public object Properties { get; set; }
+    }
+}
