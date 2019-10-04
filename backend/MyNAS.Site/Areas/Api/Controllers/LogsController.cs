@@ -24,7 +24,13 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("audit/list")]
         public object GetAuditLogList(GetListRequest req)
         {
-            return new DataResult<List<AuditLogModel>>(LogsService.GetList(req));
+            return new DataResult<List<AuditLogModel>>(LogsService.GetAuditLogList(req));
+        }
+
+        [HttpPost("error/list")]
+        public object GetErrorLogList(GetListRequest req)
+        {
+            return new DataResult<List<ErrorLogModel>>(LogsService.GetErrorLogList(req));
         }
     }
 }

@@ -14,9 +14,22 @@ namespace MyNAS.Service
             }
         }
 
-        public List<AuditLogModel> GetList(GetListRequest req)
+        protected LiteDBAccessor ErrorLogAccessor
+        {
+            get
+            {
+                return new LiteDBAccessor("logs/ErrorLog.db");
+            }
+        }
+
+        public List<AuditLogModel> GetAuditLogList(GetListRequest req)
         {
             return AuditLogAccessor.SearchItems<AuditLogModel>(Constants.TABLE_LOG_AUDIT, req);
+        }
+
+        public List<ErrorLogModel> GetErrorLogList(GetListRequest req)
+        {
+            return ErrorLogAccessor.SearchItems<ErrorLogModel>(Constants.TABLE_LOG_ERROR, req);
         }
     }
 }
