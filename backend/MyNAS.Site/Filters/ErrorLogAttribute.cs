@@ -5,19 +5,12 @@ namespace MyNAS.Site
 {
     public class ErrorLogAttribute : ExceptionFilterAttribute
     {
-        private static Logger _logger;
-
         protected Logger Logger
         {
             get
             {
-                if (_logger == null)
-                {
-                    var factory = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config");
-                    _logger = factory.GetCurrentClassLogger();
-                }
-
-                return _logger;
+                var factory = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config");
+                return factory.GetCurrentClassLogger();
             }
         }
 
@@ -25,6 +18,7 @@ namespace MyNAS.Site
         {
             if (context.Exception != null)
             {
+                Logger.Properties["stackTrace"] = context.Exception.StackTrace;
                 Logger.Log(LogLevel.Error, context.Exception.Message);
             }
 
