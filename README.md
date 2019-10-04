@@ -22,7 +22,7 @@ docker pull piratetiger/my-nas:latest
 
 ## Run the docker
 ``` shell
-docker run -d --rm -v $local_db_folder:/db_files -v $local_storage_folder:/wwwroot/storage -p 80:5000 --name myNAS  my-nas
+docker run -d --rm -v $local_db_folder:/db_files -v $local_storage_folder:/wwwroot/storage -v $local_logs_folder:/logs -p 80:5000 --name myNAS  my-nas
 ```
 
 ## Login

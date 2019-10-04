@@ -5,22 +5,29 @@ using MyNAS.Model;
 
 namespace MyNAS.Service
 {
-    public static class LiteDBHelper
+    public class LiteDBAccessor
     {
         public const string DB_FILE_NAME = "db_files/MyNAS.db";
 
-        public static List<T> GetAll<T>(string name) where T : IKeyNameModel
+        private string DBFile { get; set; }
+
+        public LiteDBAccessor(string dbFile = DB_FILE_NAME)
         {
-            using (var db = new LiteDatabase(DB_FILE_NAME))
+            DBFile = dbFile;
+        }
+
+        public List<T> GetAll<T>(string name) where T : IKeyNameModel
+        {
+            using (var db = new LiteDatabase(DBFile))
             {
                 var collection = db.GetCollection<T>(name);
                 return collection.FindAll().ToList();
             }
         }
 
-        public static List<T> SearchItems<T>(string name, IDateFilterRequest req) where T : INASModel
+        public List<T> SearchItems<T>(string name, IDateFilterRequest req) where T : IDateModel
         {
-            using (var db = new LiteDatabase(DB_FILE_NAME))
+            using (var db = new LiteDatabase(DBFile))
             {
                 var collection = db.GetCollection<T>(name);
                 return collection.Find(i => (i.Date >= req.StartDate) && (i.Date <= req.EndDate.AddDays(1)))
@@ -29,7 +36,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool SaveItem<T>(string name, T item) where T : IKeyNameModel
+        public bool SaveItem<T>(string name, T item) where T : IKeyNameModel
         {
             if (item == null)
             {
@@ -38,7 +45,7 @@ namespace MyNAS.Service
 
             try
             {
-                using (var db = new LiteDatabase(DB_FILE_NAME))
+                using (var db = new LiteDatabase(DBFile))
                 {
                     var collection = db.GetCollection<T>(name);
                     var checkItem = collection.FindOne(i => i.KeyName == item.KeyName);
@@ -57,7 +64,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool SaveItems<T>(string name, List<T> items) where T : IKeyNameModel
+        public bool SaveItems<T>(string name, List<T> items) where T : IKeyNameModel
         {
             if (items == null)
             {
@@ -66,7 +73,7 @@ namespace MyNAS.Service
 
             try
             {
-                using (var db = new LiteDatabase(DB_FILE_NAME))
+                using (var db = new LiteDatabase(DBFile))
                 {
                     var collection = db.GetCollection<T>(name);
                     var checkItem = collection.FindOne(i => items.Select(ii => ii.KeyName).Contains(i.KeyName));
@@ -85,7 +92,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool DeleteItem<T>(string name, T item) where T : IKeyNameModel
+        public bool DeleteItem<T>(string name, T item) where T : IKeyNameModel
         {
             if (item == null)
             {
@@ -94,7 +101,7 @@ namespace MyNAS.Service
 
             try
             {
-                using (var db = new LiteDatabase(DB_FILE_NAME))
+                using (var db = new LiteDatabase(DBFile))
                 {
                     var collection = db.GetCollection<T>(name);
                     var record = collection.Delete(i => i.KeyName == item.KeyName);
@@ -107,7 +114,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool DeleteItems<T>(string name, List<T> items) where T : IKeyNameModel
+        public bool DeleteItems<T>(string name, List<T> items) where T : IKeyNameModel
         {
             if (items == null)
             {
@@ -116,7 +123,7 @@ namespace MyNAS.Service
 
             try
             {
-                using (var db = new LiteDatabase(DB_FILE_NAME))
+                using (var db = new LiteDatabase(DBFile))
                 {
                     var collection = db.GetCollection<T>(name);
                     var deleteKeys = items.Select(i => i.KeyName);
@@ -130,7 +137,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static bool UpdateItem<T>(string name, T item) where T : IKeyNameModel
+        public bool UpdateItem<T>(string name, T item) where T : IKeyNameModel
         {
             if (item == null)
             {
@@ -139,7 +146,7 @@ namespace MyNAS.Service
 
             try
             {
-                using (var db = new LiteDatabase(DB_FILE_NAME))
+                using (var db = new LiteDatabase(DBFile))
                 {
                     var collection = db.GetCollection<T>(name);
                     if (item.Id == 0)
@@ -164,7 +171,7 @@ namespace MyNAS.Service
             }
         }
 
-        public static T GetItem<T>(string name, string keyName) where T : IKeyNameModel
+        public T GetItem<T>(string name, string keyName) where T : IKeyNameModel
         {
             if (string.IsNullOrEmpty(keyName))
             {
@@ -172,7 +179,7 @@ namespace MyNAS.Service
             }
             try
             {
-                using (var db = new LiteDatabase(DB_FILE_NAME))
+                using (var db = new LiteDatabase(DBFile))
                 {
                     var collection = db.GetCollection<T>(name);
                     return collection.FindOne(i => i.KeyName == keyName);

@@ -5,7 +5,7 @@ using MyNAS.Service.Helper;
 
 namespace MyNAS.Service
 {
-    public class UserService
+    public class UserService: ServiceBase
     {
         public UserModel Login(LoginRequest req)
         {
@@ -14,7 +14,7 @@ namespace MyNAS.Service
                 return null;
             }
 
-            var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, req.UserName);
+            var dbUser = DBAccessor.GetItem<UserModel>(Constants.TABLE_USERS, req.UserName);
 
             if (dbUser != null && dbUser.Password == req.Password)
             {
@@ -28,7 +28,7 @@ namespace MyNAS.Service
 
         public bool ValidateUser(UserModel user)
         {
-            var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
+            var dbUser = DBAccessor.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
 
             if (dbUser != null)
             {
@@ -49,7 +49,7 @@ namespace MyNAS.Service
 
         public string NewToken(UserModel user)
         {
-            var dbUser = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
+            var dbUser = DBAccessor.GetItem<UserModel>(Constants.TABLE_USERS, user.KeyName);
 
             if (dbUser != null)
             {
@@ -60,7 +60,7 @@ namespace MyNAS.Service
                 dbUser.HostInfo = user.HostInfo;
                 dbUser.Token = token;
                 dbUser.TokenDate = date;
-                LiteDBHelper.UpdateItem(Constants.TABLE_USERS, dbUser);
+                DBAccessor.UpdateItem(Constants.TABLE_USERS, dbUser);
                 return token;
             }
             else
@@ -71,17 +71,17 @@ namespace MyNAS.Service
 
         public List<UserModel> GetList()
         {
-            return LiteDBHelper.GetAll<UserModel>(Constants.TABLE_USERS);
+            return DBAccessor.GetAll<UserModel>(Constants.TABLE_USERS);
         }
 
         public bool SaveItem(UserModel item)
         {
-            return LiteDBHelper.SaveItem(Constants.TABLE_USERS, item);
+            return DBAccessor.SaveItem(Constants.TABLE_USERS, item);
         }
 
         public bool UpdateItem(UserModel item)
         {
-            var user = LiteDBHelper.GetItem<UserModel>(Constants.TABLE_USERS, item?.KeyName);
+            var user = DBAccessor.GetItem<UserModel>(Constants.TABLE_USERS, item?.KeyName);
             if (user != null)
             {
                 if (!string.IsNullOrEmpty(item.Password))
@@ -91,12 +91,12 @@ namespace MyNAS.Service
                 user.Role = item.Role;
                 user.NickName = item.NickName;
             }
-            return LiteDBHelper.UpdateItem(Constants.TABLE_USERS, user);
+            return DBAccessor.UpdateItem(Constants.TABLE_USERS, user);
         }
 
         public bool DeleteItem(UserModel item)
         {
-            return LiteDBHelper.DeleteItem(Constants.TABLE_USERS, item);
+            return DBAccessor.DeleteItem(Constants.TABLE_USERS, item);
         }
 
         private string GetToken(UserModel user)

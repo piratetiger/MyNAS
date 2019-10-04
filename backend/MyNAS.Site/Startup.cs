@@ -33,6 +33,7 @@ namespace MyNAS.Site
             services.AddMvc(options =>
                 {
                     options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                    options.Filters.Add(new AuditLogAttribute());
                 })
                 .AddJsonOptions(options =>
                 {
@@ -69,7 +70,7 @@ namespace MyNAS.Site
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {         
+        {
             app.UseResponseCompression();
 
             if (env.IsDevelopment())
