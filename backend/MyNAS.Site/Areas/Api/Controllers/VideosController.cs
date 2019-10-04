@@ -18,6 +18,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [ApiController]
     [Route("[area]/[controller]")]
     [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/videos" })]
+    [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/tmp" })]
     public class VideosController : ControllerBase
     {
         private readonly IHostingEnvironment _host;
@@ -48,21 +49,22 @@ namespace MyNAS.Site.Areas.Api.Controllers
             var path = Path.Combine(_host.WebRootPath, "storage/videos", name);
             if (thumb)
             {
-                var file = new FileInfo(path);
-                if (file.Exists)
+                var thumbPath = Path.Combine(_host.WebRootPath, "storage/tmp", name) + ".jpg";
+                if (System.IO.File.Exists(thumbPath))
                 {
-                    var thumbFile = file.FullName.Replace(file.Extension, ".jpg");
-
-                    if (System.IO.File.Exists(thumbFile))
-                    {
-                        return PhysicalFile(thumbFile, "image/jpeg");
-                    }
+                    return PhysicalFile(thumbPath, "image/jpeg");
                 }
-
-                var defaultThumb = Path.Combine(_host.WebRootPath, "MP4thumb.jpg");
-                return PhysicalFile(defaultThumb, "image/jpeg");
+                else
+                {
+                    var defaultThumb = Path.Combine(_host.WebRootPath, "MP4thumb.jpg");
+                    VideoUtil.CreateThumbnail(path, thumbPath);
+                    return PhysicalFile(defaultThumb, "image/jpeg");
+                }
             }
-            return PhysicalFile(path, "video/mp4");
+            else
+            {
+                return PhysicalFile(path, "video/mp4");
+            }
         }
 
         [HttpPost("add")]
@@ -87,8 +89,6 @@ namespace MyNAS.Site.Areas.Api.Controllers
                             requestFileStream.CopyTo(fileStream);
                         }
                     }
-
-                    VideoUtil.CreateThumbnail(path);
 
                     var video = new VideoModel()
                     {
