@@ -7,6 +7,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { DeferModule } from 'primeng/defer';
 
 import { LightboxComponent } from './lightbox/lightbox.component';
 import { BusyIndicatorComponent } from './busy-indicator/busy-indicator.component';
@@ -31,7 +32,8 @@ import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.compo
         BlockUIModule,
         ProgressSpinnerModule,
         DynamicDialogModule,
-        DropdownModule
+        DropdownModule,
+        DeferModule
     ],
     exports: [
         LightboxComponent,
