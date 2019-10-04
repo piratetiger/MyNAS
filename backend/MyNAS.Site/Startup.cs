@@ -34,6 +34,7 @@ namespace MyNAS.Site
                 {
                     options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
                     options.Filters.Add(new AuditLogAttribute());
+                    options.Filters.Add(new ErrorLogAttribute());
                 })
                 .AddJsonOptions(options =>
                 {
