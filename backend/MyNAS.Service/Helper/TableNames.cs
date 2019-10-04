@@ -7,5 +7,6 @@ namespace MyNAS.Service.Helper
         public const string TABLE_VIDEOS = "videos";
 
         public const string TABLE_LOG_AUDIT = "AuditLog";
+        public const string TABLE_LOG_ERROR = "ErrorLog";
     }
 }
