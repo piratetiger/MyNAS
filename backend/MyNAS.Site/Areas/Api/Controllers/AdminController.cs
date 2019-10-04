@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model;
 using MyNAS.Model.User;
@@ -13,6 +15,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [Authorize(Policy = "Admin")]
     public class AdminController : ControllerBase
     {
+        private readonly IHostingEnvironment _host;
+
         protected AdminService AdminService
         {
             get
@@ -29,11 +33,33 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
         }
 
+        public AdminController(IHostingEnvironment host)
+        {
+            _host = host;
+        }
+
         [HttpPost("initDB")]
         [AllowAnonymous]
         public object InitDB()
         {
             return new MessageDataResult("Initialize database", AdminService.InitDB());
+        }
+
+        [HttpPost("prune")]
+        public object Prune()
+        {
+            // prune tmp folder
+            var tmpFolder = Path.Combine(_host.WebRootPath, "storage/tmp");
+            Directory.Delete(tmpFolder, true);
+
+            // remove obsolete video thumb
+            var obsoleteVideoThumbFolder = Path.Combine(_host.WebRootPath, "storage/videos");
+            foreach (var file in Directory.GetFiles(obsoleteVideoThumbFolder, "*.jpg"))
+            {
+                System.IO.File.Delete(file);
+            }
+
+            return new MessageDataResult("Prune", true);
         }
 
         [HttpPost("users")]
