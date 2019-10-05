@@ -5,11 +5,11 @@ import { UserRole } from '../../../infrastructure/models/user-role';
 import { DynamicDialogRef } from 'primeng/api';
 
 @Component({
-    selector: 'app-add-user',
-    templateUrl: './app-add-user.component.html',
-    styleUrls: ['./app-add-user.component.scss']
+    selector: 'admin-add-user',
+    templateUrl: './admin-add-user.component.html',
+    styleUrls: ['./admin-add-user.component.scss']
 })
-export class AppAddUserComponent {
+export class AdminAddUserComponent {
     public user: UserModel;
 
     constructor(private service: AdminApiService, private ref: DynamicDialogRef) {
