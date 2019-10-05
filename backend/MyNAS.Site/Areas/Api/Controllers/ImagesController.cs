@@ -18,7 +18,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [ApiController]
     [Route("[area]/[controller]")]
     [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/images" })]
-    [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/tmp" })]
+    [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "tmp" })]
     public class ImagesController : ControllerBase
     {
         private readonly IHostingEnvironment _host;
@@ -50,7 +50,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
             if (thumb)
             {
-                var thumbPath = Path.Combine(_host.WebRootPath, "storage/tmp", name);
+                var thumbPath = Path.Combine(_host.WebRootPath, "tmp", name);
                 if (!System.IO.File.Exists(thumbPath))
                 {
                     using (var fileStream = System.IO.File.Create(thumbPath))
