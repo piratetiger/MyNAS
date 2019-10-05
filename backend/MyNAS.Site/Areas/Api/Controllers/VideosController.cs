@@ -18,7 +18,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [ApiController]
     [Route("[area]/[controller]")]
     [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/videos" })]
-    [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "storage/tmp" })]
+    [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "tmp" })]
     public class VideosController : ControllerBase
     {
         private readonly IHostingEnvironment _host;
@@ -49,7 +49,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             var path = Path.Combine(_host.WebRootPath, "storage/videos", name);
             if (thumb)
             {
-                var thumbPath = Path.Combine(_host.WebRootPath, "storage/tmp", name) + ".jpg";
+                var thumbPath = Path.Combine(_host.WebRootPath, "tmp", name) + ".jpg";
                 if (System.IO.File.Exists(thumbPath))
                 {
                     return PhysicalFile(thumbPath, "image/jpeg");

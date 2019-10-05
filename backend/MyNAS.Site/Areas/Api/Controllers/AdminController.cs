@@ -49,8 +49,15 @@ namespace MyNAS.Site.Areas.Api.Controllers
         public object Prune()
         {
             // prune tmp folder
-            var tmpFolder = Path.Combine(_host.WebRootPath, "storage/tmp");
-            Directory.Delete(tmpFolder, true);
+            var tmpFolder = Path.Combine(_host.WebRootPath, "tmp");
+            foreach (var file in Directory.GetFiles(tmpFolder))
+            {
+                System.IO.File.Delete(file);
+            }
+
+            // prune obsolete tmp folder
+            var obsoleteTmpFolder = Path.Combine(_host.WebRootPath, "storage/tmp");
+            Directory.Delete(obsoleteTmpFolder, true);
 
             // remove obsolete video thumb
             var obsoleteVideoThumbFolder = Path.Combine(_host.WebRootPath, "storage/videos");
