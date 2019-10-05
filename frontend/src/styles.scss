@@ -31,6 +31,14 @@ body {
   height: 100%;
 }
 
+.content-toolbar {
+  margin: 5px;
+
+  button+button {
+    margin-left: 5px;
+  }
+}
+
 .app-icons {
   width: 80%;
   height: 90%;

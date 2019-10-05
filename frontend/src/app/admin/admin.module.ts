@@ -12,6 +12,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/ap
 import { ConfirmationService } from 'primeng/api';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
@@ -40,7 +41,8 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
         TableModule,
         ButtonModule,
         DynamicDialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        ToolbarModule
     ],
     exports: [
         AdminUserConfigComponent,
