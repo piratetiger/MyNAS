@@ -27,7 +27,13 @@ export class AppService implements CanActivate, CanActivateChild {
         : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         const loginInfo = this.userInfo;
         if (loginInfo) {
-            return true;
+            if (route.data == null || route.data.role == null) {
+                return true;
+            } else {
+                if (route.data.role && route.data.role.indexOf(loginInfo.role) > -1) {
+                    return true;
+                }
+            }
         }
 
         this.router.navigate(['/login']);
@@ -38,7 +44,7 @@ export class AppService implements CanActivate, CanActivateChild {
         state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         const loginInfo = this.userInfo;
         if (loginInfo) {
-            if (childRoute.data == null) {
+            if (childRoute.data == null || childRoute.data.role == null) {
                 return true;
             } else {
                 if (childRoute.data.role && childRoute.data.role.indexOf(loginInfo.role) > -1) {

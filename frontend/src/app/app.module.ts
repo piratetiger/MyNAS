@@ -23,6 +23,7 @@ import { AppLoginComponent } from './app-login/app-login.component';
 import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
+import { AppSystemComponent } from './app-system/app-system.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
@@ -42,6 +43,7 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
     AppImagesComponent,
     AppVideosComponent,
     AppMoviesComponent,
+    AppSystemComponent
   ],
   imports: [
     BrowserModule,

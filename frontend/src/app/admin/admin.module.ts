@@ -12,17 +12,20 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/ap
 import { ConfirmationService } from 'primeng/api';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
 
-import { AppUserConfigComponent } from './app-user-config/app-user-config.component';
-import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user.component';
+import { AdminUserConfigComponent } from './admin-user-config/admin-user-config.component';
+import { AdminAddUserComponent } from './admin-user-config/admin-add-user/admin-add-user.component';
+import { AdminMainComponent } from './admin-main/admin-main.component';
 
 @NgModule({
     declarations: [
-        AppUserConfigComponent,
-        AppAddUserComponent
+        AdminMainComponent,
+        AdminUserConfigComponent,
+        AdminAddUserComponent
     ],
     imports: [
         BrowserModule,
@@ -38,10 +41,11 @@ import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user
         TableModule,
         ButtonModule,
         DynamicDialogModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        ToolbarModule
     ],
     exports: [
-        AppUserConfigComponent,
+        AdminUserConfigComponent,
     ],
     providers: [
         DialogService,
@@ -50,7 +54,7 @@ import { AppAddUserComponent } from './app-user-config/app-add-user/app-add-user
         ConfirmationService
     ],
     entryComponents: [
-        AppAddUserComponent
+        AdminAddUserComponent
     ]
 })
 export class AdminModule { }

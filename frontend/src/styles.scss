@@ -30,3 +30,48 @@ body {
 .ui-dialog-content {
   height: 100%;
 }
+
+.content-toolbar {
+  margin: 5px;
+
+  button+button {
+    margin-left: 5px;
+  }
+}
+
+.app-icons {
+  width: 80%;
+  height: 90%;
+
+  .icons-item {
+    float: left;
+    box-sizing: border-box;
+    margin: 15px;
+    cursor: pointer;
+
+    .icons-item-container {
+      text-align: center;
+      vertical-align: middle;
+
+      i {
+        font-size: 100px;
+      }
+
+      div {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      &:hover {
+        i {
+          font-size: 110px;
+        }
+
+        div {
+          font-size: 22px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

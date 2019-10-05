@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../infrastructure/models/user-model';
 import { AdminApiService } from '../../infrastructure/services/admin-api.service/admin-api.service';
 import { DialogService, ConfirmationService } from 'primeng/api';
-import { AppAddUserComponent } from './app-add-user/app-add-user.component';
+import { AdminAddUserComponent } from './admin-add-user/admin-add-user.component';
 
 @Component({
-    selector: 'app-user-config',
-    templateUrl: './app-user-config.component.html',
-    styleUrls: ['./app-user-config.component.scss']
+    selector: 'admin-user-config',
+    templateUrl: './admin-user-config.component.html',
+    styleUrls: ['./admin-user-config.component.scss']
 })
-export class AppUserConfigComponent implements OnInit {
+export class AdminUserConfigComponent implements OnInit {
     public users: UserModel[];
     public clonedUsers: { [s: string]: UserModel; } = {};
 
@@ -30,7 +30,7 @@ export class AppUserConfigComponent implements OnInit {
     }
 
     public newUser() {
-        const ref = this.dialogService.open(AppAddUserComponent, {
+        const ref = this.dialogService.open(AdminAddUserComponent, {
             header: 'New User',
             width: '70%',
             height: '70%',
