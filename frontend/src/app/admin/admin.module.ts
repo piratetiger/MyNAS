@@ -18,9 +18,11 @@ import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.mo
 
 import { AdminUserConfigComponent } from './admin-user-config/admin-user-config.component';
 import { AdminAddUserComponent } from './admin-user-config/admin-add-user/admin-add-user.component';
+import { AdminMainComponent } from './admin-main/admin-main.component';
 
 @NgModule({
     declarations: [
+        AdminMainComponent,
         AdminUserConfigComponent,
         AdminAddUserComponent
     ],
