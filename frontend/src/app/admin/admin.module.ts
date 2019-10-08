@@ -20,12 +20,14 @@ import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.mo
 import { AdminUserConfigComponent } from './admin-user-config/admin-user-config.component';
 import { AdminAddUserComponent } from './admin-user-config/admin-add-user/admin-add-user.component';
 import { AdminMainComponent } from './admin-main/admin-main.component';
+import { AdminLogComponent } from './admin-log/admin-log.component';
 
 @NgModule({
     declarations: [
         AdminMainComponent,
         AdminUserConfigComponent,
-        AdminAddUserComponent
+        AdminAddUserComponent,
+        AdminLogComponent
     ],
     imports: [
         BrowserModule,
@@ -45,7 +47,9 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
         ToolbarModule
     ],
     exports: [
+        AdminMainComponent,
         AdminUserConfigComponent,
+        AdminLogComponent,
     ],
     providers: [
         DialogService,
