@@ -9,10 +9,16 @@ import { AdminApiService } from '../../infrastructure/services/admin-api.service
     styleUrls: ['./admin-log.component.scss']
 })
 export class AdminLogComponent {
-    public logs: LogModel[];
+    public auditLogs: LogModel[];
+    public errorLogs: LogModel[];
+    public logTypes = [
+        { label: 'Audit Log', value: 'Audit' },
+        { label: 'Error Log', value: 'Error' },
+    ];
 
     public startDate: Date;
     public endDate: Date;
+    public logType = this.logTypes[0].value;
 
     constructor(private service: AdminApiService) {
         this.startDate = moment().subtract(3, 'days').toDate();
@@ -20,11 +26,20 @@ export class AdminLogComponent {
     }
 
     public refreshLogs() {
-        this.service.auditLog({
-            start: moment(this.startDate).format('YYYYMMDD'),
-            end: moment(this.endDate).format('YYYYMMDD')
-        }).subscribe(d => {
-            this.logs = d.data;
-        });
+        if (this.logType === this.logTypes[0].value) {
+            this.service.auditLog({
+                start: moment(this.startDate).format('YYYYMMDD'),
+                end: moment(this.endDate).format('YYYYMMDD')
+            }).subscribe(d => {
+                this.auditLogs = d.data;
+            });
+        } else {
+            this.service.errorLog({
+                start: moment(this.startDate).format('YYYYMMDD'),
+                end: moment(this.endDate).format('YYYYMMDD')
+            }).subscribe(d => {
+                this.errorLogs = d.data;
+            });
+        }
     }
 }

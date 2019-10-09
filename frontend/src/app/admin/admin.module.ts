@@ -14,6 +14,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
@@ -46,7 +47,8 @@ import { AdminLogComponent } from './admin-log/admin-log.component';
         DynamicDialogModule,
         ConfirmDialogModule,
         ToolbarModule,
-        CalendarModule
+        CalendarModule,
+        DropdownModule
     ],
     exports: [
         AdminMainComponent,
