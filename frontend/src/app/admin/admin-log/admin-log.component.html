@@ -14,16 +14,16 @@
     <p-table *ngIf="logType==='Audit'" [value]="auditLogs">
         <ng-template pTemplate="header">
             <tr>
-                <th>Date</th>
-                <th>User</th>
-                <th>Method</th>
+                <th style="width: 200px">Date</th>
+                <th style="width: 300px">User</th>
+                <th style="width: 80px">Method</th>
                 <th>Url</th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-log>
             <tr>
-                <td>{{log.date}}</td>
+                <td>{{log.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>{{log.message}}</td>
                 <td>{{log.properties.method}}</td>
                 <td>{{log.properties.url}}</td>
@@ -35,14 +35,14 @@
     <p-table *ngIf="logType==='Error'" [value]="errorLogs">
         <ng-template pTemplate="header">
             <tr>
-                <th>Date</th>
+                <th style="width: 200px">Date</th>
                 <th>Error</th>
                 <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-log>
             <tr>
-                <td>{{log.date}}</td>
+                <td>{{log.date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>{{log.message}}</td>
                 <td></td>
             </tr>
