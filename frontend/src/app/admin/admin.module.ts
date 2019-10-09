@@ -13,6 +13,8 @@ import { ConfirmationService } from 'primeng/api';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToolbarModule } from 'primeng/toolbar';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.module';
@@ -20,12 +22,14 @@ import { AppInfrastructureModule } from '../infrastructure/app-infrastructure.mo
 import { AdminUserConfigComponent } from './admin-user-config/admin-user-config.component';
 import { AdminAddUserComponent } from './admin-user-config/admin-add-user/admin-add-user.component';
 import { AdminMainComponent } from './admin-main/admin-main.component';
+import { AdminLogComponent } from './admin-log/admin-log.component';
 
 @NgModule({
     declarations: [
         AdminMainComponent,
         AdminUserConfigComponent,
-        AdminAddUserComponent
+        AdminAddUserComponent,
+        AdminLogComponent
     ],
     imports: [
         BrowserModule,
@@ -42,10 +46,14 @@ import { AdminMainComponent } from './admin-main/admin-main.component';
         ButtonModule,
         DynamicDialogModule,
         ConfirmDialogModule,
-        ToolbarModule
+        ToolbarModule,
+        CalendarModule,
+        DropdownModule
     ],
     exports: [
+        AdminMainComponent,
         AdminUserConfigComponent,
+        AdminLogComponent,
     ],
     providers: [
         DialogService,

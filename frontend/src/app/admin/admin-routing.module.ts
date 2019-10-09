@@ -4,6 +4,7 @@ import { AdminUserConfigComponent } from './admin-user-config/admin-user-config.
 import { AppService } from '../infrastructure/services/app.service/app.service';
 import { UserRole } from '../infrastructure/models/user-role';
 import { AdminMainComponent } from './admin-main/admin-main.component';
+import { AdminLogComponent } from './admin-log/admin-log.component';
 
 const routes: Routes = [
     {
@@ -15,6 +16,7 @@ const routes: Routes = [
         children: [
             { path: '', component: AdminMainComponent },
             { path: 'users', component: AdminUserConfigComponent },
+            { path: 'logs', component: AdminLogComponent },
         ]
     }
 ];

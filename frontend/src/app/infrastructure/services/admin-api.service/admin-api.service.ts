@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { UserModel } from '../../models/user-model';
 import { DataResult } from '../../models/data-result';
+import { LogModel } from '../../models/log-model';
 
 @Injectable()
 export class AdminApiService {
@@ -27,5 +28,13 @@ export class AdminApiService {
 
     public deleteUser(body: any): Observable<DataResult<boolean>> {
         return this.http.post<DataResult<boolean>>(serviceList.deleteUser, body);
+    }
+
+    public auditLog(body: any): Observable<DataResult<LogModel[]>> {
+        return this.http.post<DataResult<LogModel[]>>(serviceList.auditLog, body);
+    }
+
+    public errorLog(body: any): Observable<DataResult<LogModel[]>> {
+        return this.http.post<DataResult<LogModel[]>>(serviceList.errorLog, body);
     }
 }
