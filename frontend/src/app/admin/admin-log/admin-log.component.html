@@ -11,7 +11,7 @@
         </p-toolbar>
     </div>
 
-    <p-table *ngIf="logType==='Audit'" [value]="auditLogs">
+    <p-table *ngIf="logType==='Audit'" [value]="auditLogs" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 200px">Date</th>
@@ -32,7 +32,7 @@
         </ng-template>
     </p-table>
 
-    <p-table *ngIf="logType==='Error'" [value]="errorLogs">
+    <p-table *ngIf="logType==='Error'" [value]="errorLogs" [responsive]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 200px">Date</th>
