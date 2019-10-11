@@ -2,7 +2,7 @@
     <!-- <h2 class="header">New User</h2> -->
     <div>
         <h3>User Name</h3>
-        <input type="text" pInputText [(ngModel)]="user.userName">
+        <input type="text" pInputText [disabled]=true [(ngModel)]="user.userName">
     </div>
     <div>
         <h3>Nick Name</h3>
@@ -14,7 +14,7 @@
     </div>
     <div>
         <h3 class="first">Role</h3>
-        <user-role-dropdown [(ngModel)]="user.role"></user-role-dropdown>
+        <input type="text" pInputText [disabled]=true [ngModel]="user.role | userRole">
     </div>
     <button pButton label="Submit" [disabled]="!user.userName||!user.password||user.role==null" (click)="submit()"
         class="submit"></button>
