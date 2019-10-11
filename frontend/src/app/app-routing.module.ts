@@ -7,6 +7,7 @@ import { AppVideosComponent } from './app-videos/app-videos.component';
 import { AppMoviesComponent } from './app-movies/app-movies.component';
 import { AppService } from './infrastructure/services/app.service/app.service';
 import { AppSystemComponent } from './app-system/app-system.component';
+import { AppUserProfileComponent } from './app-user-profile/app-user-profile.component';
 
 const routes: Routes = [
   { path: '', component: AppMainComponent, canActivate: [AppService] },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'videos', component: AppVideosComponent, canActivate: [AppService] },
   { path: 'movies', component: AppMoviesComponent, canActivate: [AppService] },
   { path: 'system', component: AppSystemComponent, canActivate: [AppService] },
+  { path: 'user', component: AppUserProfileComponent, canActivate: [AppService] },
 ];
 
 @NgModule({

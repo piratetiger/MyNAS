@@ -32,6 +32,7 @@ import { AppInfrastructureModule } from './infrastructure/app-infrastructure.mod
 import { AuthInterceptor } from './infrastructure/http-interceptor/auth-interceptor';
 import { MessageInterceptor } from './infrastructure/http-interceptor/message-interceptor';
 import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy-indicator-interceptor';
+import { AppUserProfileComponent } from './app-user-profile/app-user-profile.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy
     AppImagesComponent,
     AppVideosComponent,
     AppMoviesComponent,
-    AppSystemComponent
+    AppSystemComponent,
+    AppUserProfileComponent,
   ],
   imports: [
     BrowserModule,

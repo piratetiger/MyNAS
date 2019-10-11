@@ -1,4 +1,10 @@
 <div class="app-system app-icons common-center">
+    <div class="icons-item">
+        <div (click)="updateRoute('user')" class="icons-item-container">
+            <i class="fas fa-user"></i>
+            <div>User Profile</div>
+        </div>
+    </div>
     <div *systemAdminPermission class="icons-item">
         <div (click)="updateRoute('admin')" class="icons-item-container">
             <i class="fas fa-cogs"></i>
