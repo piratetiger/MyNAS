@@ -34,4 +34,9 @@ export class ApiService {
     public getVideoList(body: any): Observable<DataResult<VideoModel[]>> {
         return this.http.post<DataResult<VideoModel[]>>(serviceList.getVideoList, body);
     }
+
+    // user
+    public updateUser(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.updateUser, body);
+    }
 }

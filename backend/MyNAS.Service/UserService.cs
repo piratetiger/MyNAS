@@ -5,7 +5,7 @@ using MyNAS.Service.Helper;
 
 namespace MyNAS.Service
 {
-    public class UserService: ServiceBase
+    public class UserService : ServiceBase
     {
         public UserModel Login(LoginRequest req)
         {
@@ -72,6 +72,11 @@ namespace MyNAS.Service
         public List<UserModel> GetList()
         {
             return DBAccessor.GetAll<UserModel>(Constants.TABLE_USERS);
+        }
+
+        public UserModel GetItem(string name)
+        {
+            return DBAccessor.GetItem<UserModel>(Constants.TABLE_USERS, name);
         }
 
         public bool SaveItem(UserModel item)

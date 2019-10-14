@@ -28,5 +28,35 @@ namespace MyNAS.Site.Areas.Api.Controllers
             var user = UserService.Login(req);
             return new MessageDataResult<UserModel>("Login", user != null, user);
         }
+
+        [HttpPost("update")]
+        [AllowAnonymous]
+        public object UpdateUser(UserRequest req)
+        {
+            UserModel user = null;
+
+            if (req.User != null)
+            {
+                user = UserService.GetItem(req.User.UserName);
+
+                if (user != null)
+                {
+                    user.NickName = req.User.NickName;
+                }
+
+                if (!string.IsNullOrEmpty(req.Password))
+                {
+                    if (req.OldPassword == user.Password)
+                    {
+                        user.Password = req.Password;
+                    }
+                    else
+                    {
+                        return new MessageDataResult("Update User", false);
+                    }
+                }
+            }
+            return new MessageDataResult("Update User", UserService.UpdateItem(user));
+        }
     }
 }
