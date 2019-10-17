@@ -26,6 +26,9 @@ export class ApiService {
     public getImageList(body: any): Observable<DataResult<ImageModel[]>> {
         return this.http.post<DataResult<ImageModel[]>>(serviceList.getImageList, body);
     }
+    public deleteImage(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.deleteImage, body);
+    }
 
     // videos
     public uploadVideo(body: any): Observable<DataResult<boolean>> {
@@ -33,6 +36,9 @@ export class ApiService {
     }
     public getVideoList(body: any): Observable<DataResult<VideoModel[]>> {
         return this.http.post<DataResult<VideoModel[]>>(serviceList.getVideoList, body);
+    }
+    public deleteVideo(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.deleteVideo, body);
     }
 
     // user

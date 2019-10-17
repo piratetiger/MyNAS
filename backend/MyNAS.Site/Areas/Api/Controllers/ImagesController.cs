@@ -110,7 +110,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
         [HttpPost("delete")]
         [Authorize(Policy = "DataAdminBase")]
-        public object DeleteVideo(DeleteRequest req)
+        public object DeleteImage(DeleteRequest req)
         {
             foreach (var name in req.Names)
             {
@@ -118,6 +118,11 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
+                }
+                var thumbPath = Path.Combine(_host.WebRootPath, "tmp", name);
+                if (System.IO.File.Exists(thumbPath))
+                {
+                    System.IO.File.Delete(thumbPath);
                 }
             }
 

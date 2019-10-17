@@ -5,10 +5,18 @@
     padding: 2px;
     display: inline-block;
     cursor: pointer;
+    position: relative;
 
     .lightbox-image {
       height: 100%;
       width: 100%;
+    }
+
+    .lightbox-image-state {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      font-size: 24px;
     }
   }
 }

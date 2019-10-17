@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChildren, QueryList } from '@angular/core';
 import * as moment from 'moment';
-import { groupBy } from 'lodash';
+import { groupBy, flatten } from 'lodash';
 import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { ImageModel } from '../infrastructure/models/image-model';
+import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
     selector: 'app-images',
@@ -12,11 +14,18 @@ import { ImageModel } from '../infrastructure/models/image-model';
 export class AppImagesComponent implements OnInit {
     private _toolbarState: string;
 
+    public viewMode = true;
     public imagesGroup: any[];
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
     public imagesDate: Date = new Date();
+
+    public get selectedItems(): string[] {
+        return flatten(this.lightboxes.map(l => l.selectedItems));
+    }
+
+    @ViewChildren('lightbox') lightboxes: QueryList<LightboxComponent>;
 
     public get toolbarState(): string {
         return this._toolbarState;
@@ -30,13 +39,26 @@ export class AppImagesComponent implements OnInit {
         }
     }
 
-    constructor(private service: ApiService) {
+    constructor(private service: ApiService, private confirmationService: ConfirmationService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
 
     ngOnInit(): void {
         this.refreshImages();
+    }
+
+    public deleteFiles() {
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to delete all those items?',
+            accept: () => {
+                this.service.deleteImage({
+                    names: this.selectedItems
+                }).subscribe(d => {
+                    this.refreshImages();
+                });
+            }
+        });
     }
 
     public uploadFiles(event) {
