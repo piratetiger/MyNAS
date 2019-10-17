@@ -112,14 +112,14 @@ namespace MyNAS.Site.Areas.Api.Controllers
             foreach (var name in req.Names)
             {
                 var path = Path.Combine(_host.WebRootPath, "storage/videos", name);
-                var thumbFile = path.Replace(".mp4", ".jpg");
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
                 }
-                if (System.IO.File.Exists(thumbFile))
+                var thumbPath = Path.Combine(_host.WebRootPath, "tmp", name) + ".jpg";
+                if (System.IO.File.Exists(thumbPath))
                 {
-                    System.IO.File.Delete(thumbFile);
+                    System.IO.File.Delete(thumbPath);
                 }
             }
 

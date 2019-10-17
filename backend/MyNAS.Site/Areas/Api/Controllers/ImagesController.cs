@@ -119,6 +119,11 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 {
                     System.IO.File.Delete(path);
                 }
+                var thumbPath = Path.Combine(_host.WebRootPath, "tmp", name);
+                if (System.IO.File.Exists(thumbPath))
+                {
+                    System.IO.File.Delete(thumbPath);
+                }
             }
 
             return new MessageDataResult("Delete Video", ImagesService.DeleteItems(req.Names));
