@@ -17,6 +17,10 @@ export class LightboxComponent implements OnChanges {
     @Input() type = 'image';
     @Input() editMode = false;
 
+    public get selectedItems(): string[] {
+        return this.sourceList.filter(s => s.selected).map(s => s.source);
+    }
+
     constructor(private service: ApiService, private dialogService: DialogService) { }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -24,6 +28,9 @@ export class LightboxComponent implements OnChanges {
             this.sourceList = changes.sources.currentValue.map(s => {
                 return { source: s, selected: false };
             });
+        }
+        if (changes.editMode) {
+            this.sourceList.forEach(s => s.selected = false);
         }
     }
 
