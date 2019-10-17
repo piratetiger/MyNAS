@@ -21,6 +21,10 @@ export class AppImagesComponent implements OnInit {
     public endDate: Date;
     public imagesDate: Date = new Date();
 
+    public get selectedItems(): string[] {
+        return flatten(this.lightboxes.map(l => l.selectedItems));
+    }
+
     @ViewChildren('lightbox') lightboxes: QueryList<LightboxComponent>;
 
     public get toolbarState(): string {
@@ -35,7 +39,7 @@ export class AppImagesComponent implements OnInit {
         }
     }
 
-    constructor(private service: ApiService,private confirmationService: ConfirmationService) {
+    constructor(private service: ApiService, private confirmationService: ConfirmationService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
@@ -48,9 +52,8 @@ export class AppImagesComponent implements OnInit {
         this.confirmationService.confirm({
             message: 'Are you sure that you want to delete all those items?',
             accept: () => {
-                const items = flatten(this.lightboxes.map(l => l.selectedItems));
                 this.service.deleteImage({
-                    names: items
+                    names: this.selectedItems
                 }).subscribe(d => {
                     this.refreshImages();
                 });
