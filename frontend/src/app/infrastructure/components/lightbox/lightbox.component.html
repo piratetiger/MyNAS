@@ -1,8 +1,12 @@
 <div class="lightbox">
-    <div class="lightbox-item" *ngFor="let source of sources" (click)="showDetail(source)">
+    <div class="lightbox-item" *ngFor="let source of sourceList" (click)="itemClick(source)">
         <div pDefer>
             <ng-template>
-                <img class="lightbox-image" [src]="getImageUrl(source)" />
+                <img class="lightbox-image" [src]="getImageUrl(source.source)" />
+                <div *ngIf="editMode" class="lightbox-image-state">
+                    <i *ngIf="!source.selected" style="color:gray" class="pi pi-circle-off"></i>
+                    <i *ngIf="source.selected" style="color:green" class="pi pi-check-circle"></i>
+                </div>
             </ng-template>
         </div>
     </div>

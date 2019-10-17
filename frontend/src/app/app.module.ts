@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FieldsetModule } from 'primeng/fieldset';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
@@ -66,6 +67,7 @@ import { AppUserProfileComponent } from './app-user-profile/app-user-profile.com
     AccordionModule,
     ToolbarModule,
     FieldsetModule,
+    ToggleButtonModule
   ],
   providers: [
     MessageService,
