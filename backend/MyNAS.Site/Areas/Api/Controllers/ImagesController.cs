@@ -110,7 +110,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
         [HttpPost("delete")]
         [Authorize(Policy = "DataAdminBase")]
-        public object DeleteVideo(DeleteRequest req)
+        public object DeleteImage(DeleteRequest req)
         {
             foreach (var name in req.Names)
             {
