@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChildren, QueryList } from '@angular/core';
 import * as moment from 'moment';
-import { groupBy } from 'lodash';
+import { groupBy, flatten } from 'lodash';
 import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { VideoModel } from '../infrastructure/models/video-model';
+import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
     selector: 'app-videos',
@@ -12,11 +14,18 @@ import { VideoModel } from '../infrastructure/models/video-model';
 export class AppVideosComponent implements OnInit {
     private _toolbarState: string;
 
+    public viewMode = true;
     public videosGroup: any[];
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
     public videosDate: Date = new Date();
+
+    public get selectedItems(): string[] {
+        return flatten(this.lightboxes.map(l => l.selectedItems));
+    }
+
+    @ViewChildren('lightbox') lightboxes: QueryList<LightboxComponent>;
 
     public get toolbarState(): string {
         return this._toolbarState;
@@ -30,13 +39,26 @@ export class AppVideosComponent implements OnInit {
         }
     }
 
-    constructor(private service: ApiService) {
+    constructor(private service: ApiService, private confirmationService: ConfirmationService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
 
     ngOnInit(): void {
         this.refreshVideos();
+    }
+
+    public deleteFiles() {
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to delete all those items?',
+            accept: () => {
+                this.service.deleteVideo({
+                    names: this.selectedItems
+                }).subscribe(d => {
+                    this.refreshVideos();
+                });
+            }
+        });
     }
 
     public uploadFiles(event) {
