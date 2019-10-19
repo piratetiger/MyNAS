@@ -78,7 +78,7 @@ export class AppVideosComponent implements OnInit {
 
     public updateDate() {
         const newModel = new VideoModel();
-        newModel.date = this.newDate;
+        newModel.date = moment.utc(moment(this.newDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
         this.service.updateVideoDate({
             names: this.selectedItems,
             newModel: newModel

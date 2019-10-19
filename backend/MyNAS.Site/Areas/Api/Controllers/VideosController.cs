@@ -115,7 +115,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             {
                 foreach (var item in videoList)
                 {
-                    item.Date = req.NewModel.Date;
+                    item.Date = req.NewModel.Date.Date;
                 }
             }
 

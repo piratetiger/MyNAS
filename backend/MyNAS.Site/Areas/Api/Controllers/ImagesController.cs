@@ -118,7 +118,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             {
                 foreach (var item in imageList)
                 {
-                    item.Date = req.NewModel.Date;
+                    item.Date = req.NewModel.Date.Date;
                 }
             }
 

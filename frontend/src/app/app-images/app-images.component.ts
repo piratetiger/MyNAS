@@ -78,7 +78,7 @@ export class AppImagesComponent implements OnInit {
 
     public updateDate() {
         const newModel = new ImageModel();
-        newModel.date = this.newDate;
+        newModel.date = moment.utc(moment(this.newDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
         this.service.updateImageDate({
             names: this.selectedItems,
             newModel: newModel
