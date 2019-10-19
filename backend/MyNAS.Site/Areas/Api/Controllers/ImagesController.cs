@@ -108,6 +108,23 @@ namespace MyNAS.Site.Areas.Api.Controllers
             return new MessageDataResult("Upload Image", ImagesService.SaveItems(imageList));
         }
 
+        [HttpPost("updateDate")]
+        [Authorize(Policy = "DataAdminBase")]
+        public object UpdateImageDate(UpdateRequest req)
+        {
+            var imageList = ImagesService.GetItems(req.Names);
+
+            if (req.NewModel != null)
+            {
+                foreach (var item in imageList)
+                {
+                    item.Date = req.NewModel.Date;
+                }
+            }
+
+            return new MessageDataResult("Update Image", ImagesService.UpdateItems(imageList));
+        }
+
         [HttpPost("delete")]
         [Authorize(Policy = "DataAdminBase")]
         public object DeleteImage(DeleteRequest req)

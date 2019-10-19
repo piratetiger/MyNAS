@@ -20,6 +20,7 @@ export class AppImagesComponent implements OnInit {
     public startDate: Date;
     public endDate: Date;
     public imagesDate: Date = new Date();
+    public newDate: Date = new Date();
 
     public get selectedItems(): string[] {
         return flatten(this.lightboxes.map(l => l.selectedItems));
@@ -72,6 +73,17 @@ export class AppImagesComponent implements OnInit {
             if (d.data) {
                 this.refreshImages();
             }
+        });
+    }
+
+    public updateDate() {
+        const newModel = new ImageModel();
+        newModel.date = this.newDate;
+        this.service.updateImageDate({
+            names: this.selectedItems,
+            newModel: newModel
+        }).subscribe(d => {
+            this.refreshImages();
         });
     }
 

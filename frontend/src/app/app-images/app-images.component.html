@@ -8,17 +8,19 @@
                     <button pButton icon="pi pi-search" label="Search" (click)="toolbarState='search'"></button>
                 </ng-container>
                 <ng-container *ngIf="!viewMode">
-                    <button pButton class="ui-button-danger" [disabled]="selectedItems.length===0" icon="pi pi-trash" label="Delete"
-                        (click)="deleteFiles()"></button>
+                    <button pButton *dataAdminPermission [disabled]="selectedItems.length===0" icon="pi pi-calendar"
+                        label="Change Date" (click)="toolbarState='changeDate'"></button>
+                    <button pButton *dataAdminPermission class="ui-button-danger" [disabled]="selectedItems.length===0"
+                        icon="pi pi-trash" label="Delete" (click)="deleteFiles()"></button>
                 </ng-container>
             </div>
 
             <div class="ui-toolbar-group-right">
                 <p-toggleButton *dataAdminPermission onIcon="pi pi-pencil" onLabel="" offIcon="pi pi-ban" offLabel=""
-                    [(ngModel)]="viewMode"></p-toggleButton>
+                    [(ngModel)]="viewMode" (onChange)="toolbarState=null"></p-toggleButton>
             </div>
         </p-toolbar>
-        <p-fieldset *ngIf="toolbarState==='upload'" legend="Upload">
+        <p-fieldset *ngIf="toolbarState==='upload' && viewMode" legend="Upload">
             <p-fileUpload #fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true"
                 [showUploadButton]=false (uploadHandler)="uploadFiles($event)" multiple="multiple">
                 <ng-template pTemplate="toolbar">
@@ -29,11 +31,16 @@
                 </ng-template>
             </p-fileUpload>
         </p-fieldset>
-        <p-fieldset *ngIf="toolbarState==='search'" legend="Search">
+        <p-fieldset *ngIf="toolbarState==='search' && viewMode" legend="Search">
             <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
             <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
             <button pButton class="ui-button-success" icon="pi pi-search" label="Search"
                 (click)="refreshImages()"></button>
+        </p-fieldset>
+        <p-fieldset *ngIf="toolbarState==='changeDate' && !viewMode" legend="Change Date">
+            <p-calendar [(ngModel)]="newDate" dateFormat="M-dd-yy"></p-calendar>
+            <button pButton class="ui-button-success" icon="pi pi-check" label="Update"
+                (click)="updateDate()"></button>
         </p-fieldset>
     </div>
 
