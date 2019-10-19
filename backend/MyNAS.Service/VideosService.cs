@@ -33,5 +33,20 @@ namespace MyNAS.Service
             var deleteItems = names.Select(n => new VideoModel { FileName = n }).ToList();
             return DBAccessor.DeleteItems(Constants.TABLE_VIDEOS, deleteItems);
         }
+
+        public bool UpdateItems(List<VideoModel> items)
+        {
+            return DBAccessor.UpdateItems(Constants.TABLE_VIDEOS, items);
+        }
+
+        public List<VideoModel> GetItems(List<string> names)
+        {
+            if (names == null)
+            {
+                return new List<VideoModel>();
+            }
+
+            return DBAccessor.GetItems<VideoModel>(Constants.TABLE_VIDEOS, names);
+        }
     }
 }

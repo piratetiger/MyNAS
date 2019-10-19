@@ -6,7 +6,7 @@ using MyNAS.Service.Helper;
 
 namespace MyNAS.Service
 {
-    public class ImagesService: ServiceBase
+    public class ImagesService : ServiceBase
     {
         public List<ImageModel> GetList(GetListRequest req)
         {
@@ -32,6 +32,21 @@ namespace MyNAS.Service
 
             var deleteItems = names.Select(n => new ImageModel { FileName = n }).ToList();
             return DBAccessor.DeleteItems(Constants.TABLE_IMAGES, deleteItems);
+        }
+
+        public bool UpdateItems(List<ImageModel> items)
+        {
+            return DBAccessor.UpdateItems(Constants.TABLE_IMAGES, items);
+        }
+
+        public List<ImageModel> GetItems(List<string> names)
+        {
+            if (names == null)
+            {
+                return new List<ImageModel>();
+            }
+
+            return DBAccessor.GetItems<ImageModel>(Constants.TABLE_IMAGES, names);
         }
     }
 }

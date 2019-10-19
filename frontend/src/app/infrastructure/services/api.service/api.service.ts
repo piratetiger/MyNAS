@@ -30,6 +30,10 @@ export class ApiService {
         return this.http.post<DataResult<boolean>>(serviceList.deleteImage, body);
     }
 
+    public updateImageDate(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.updateImageDate, body);
+    }
+
     // videos
     public uploadVideo(body: any): Observable<DataResult<boolean>> {
         return this.http.post<DataResult<boolean>>(serviceList.uploadVideo, body);
@@ -39,6 +43,10 @@ export class ApiService {
     }
     public deleteVideo(body: any): Observable<DataResult<boolean>> {
         return this.http.post<DataResult<boolean>>(serviceList.deleteVideo, body);
+    }
+
+    public updateVideoDate(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.updateVideoDate, body);
     }
 
     // user

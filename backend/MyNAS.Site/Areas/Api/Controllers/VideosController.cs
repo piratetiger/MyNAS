@@ -105,6 +105,23 @@ namespace MyNAS.Site.Areas.Api.Controllers
             return new MessageDataResult("Upload Video", VideosService.SaveItems(videoList));
         }
 
+        [HttpPost("updateDate")]
+        [Authorize(Policy = "DataAdminBase")]
+        public object UpdateVideoDate(UpdateRequest req)
+        {
+            var videoList = VideosService.GetItems(req.Names);
+
+            if (req.NewModel != null)
+            {
+                foreach (var item in videoList)
+                {
+                    item.Date = req.NewModel.Date.Date;
+                }
+            }
+
+            return new MessageDataResult("Update Video", VideosService.UpdateItems(videoList));
+        }
+
         [HttpPost("delete")]
         [Authorize(Policy = "DataAdminBase")]
         public object DeleteVideo(DeleteRequest req)

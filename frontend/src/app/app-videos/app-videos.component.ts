@@ -20,6 +20,7 @@ export class AppVideosComponent implements OnInit {
     public startDate: Date;
     public endDate: Date;
     public videosDate: Date = new Date();
+    public newDate: Date = new Date();
 
     public get selectedItems(): string[] {
         return flatten(this.lightboxes.map(l => l.selectedItems));
@@ -72,6 +73,17 @@ export class AppVideosComponent implements OnInit {
             if (d.data) {
                 this.refreshVideos();
             }
+        });
+    }
+
+    public updateDate() {
+        const newModel = new VideoModel();
+        newModel.date = moment.utc(moment(this.newDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
+        this.service.updateVideoDate({
+            names: this.selectedItems,
+            newModel: newModel
+        }).subscribe(d => {
+            this.refreshVideos();
         });
     }
 

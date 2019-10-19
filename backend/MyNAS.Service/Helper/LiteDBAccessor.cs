@@ -171,6 +171,33 @@ namespace MyNAS.Service
             }
         }
 
+        public bool UpdateItems<T>(string name, List<T> items) where T : IKeyNameModel
+        {
+            if (items == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                using (var db = new LiteDatabase(DBFile))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    var checkCount = collection.LongCount(i => items.Select(ii => ii.KeyName).Contains(i.KeyName));
+                    if (checkCount != items.Count)
+                    {
+                        return false;
+                    }
+                    collection.Update(items);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public T GetItem<T>(string name, string keyName) where T : IKeyNameModel
         {
             if (string.IsNullOrEmpty(keyName))
@@ -188,6 +215,26 @@ namespace MyNAS.Service
             catch
             {
                 return default(T);
+            }
+        }
+
+        public List<T> GetItems<T>(string name, List<string> keyNames) where T : IKeyNameModel
+        {
+            if (keyNames == null)
+            {
+                return new List<T>();
+            }
+            try
+            {
+                using (var db = new LiteDatabase(DBFile))
+                {
+                    var collection = db.GetCollection<T>(name);
+                    return collection.Find(i => keyNames.Contains(i.KeyName)).ToList();
+                }
+            }
+            catch
+            {
+                return new List<T>();
             }
         }
     }
