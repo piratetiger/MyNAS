@@ -104,7 +104,7 @@ namespace MyNAS.Site
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller}/{action}");
-                foreach (var item in new[] { "login", "main", "images", "videos", "movies", "admin" })
+                foreach (var item in new[] { "login", "main", "images", "videos", "movies", "system" })
                 {
                     routes.MapRoute(
                         name: item,
