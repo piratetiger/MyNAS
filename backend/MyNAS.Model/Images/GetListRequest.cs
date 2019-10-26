@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 
 namespace MyNAS.Model.Images
 {
-    public class GetListRequest : IDateFilterRequest
+    public class GetListRequest : INASFilterRequest
     {
         public string Start { get; set; }
         public string End { get; set; }
@@ -28,5 +29,7 @@ namespace MyNAS.Model.Images
                 return DateTime.ParseExact(End, "yyyyMMdd", null);
             }
         }
+
+        public List<string> Owner { get; set; }
     }
 }
