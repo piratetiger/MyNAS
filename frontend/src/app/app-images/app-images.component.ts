@@ -19,6 +19,8 @@ export class AppImagesComponent implements OnInit {
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
+    public owners: any[] = [];
+    public selectedOwners: string[] = [];
     public imagesDate: Date = new Date();
     public newDate: Date = new Date();
 
@@ -47,6 +49,11 @@ export class AppImagesComponent implements OnInit {
 
     ngOnInit(): void {
         this.refreshImages();
+        this.service.getUserList().subscribe(d => {
+            this.owners = d.data.map(u => {
+                return { 'label': u.nickName ? u.nickName : u.userName, 'value': u.userName };
+            });
+        });
     }
 
     public deleteFiles() {
@@ -90,7 +97,8 @@ export class AppImagesComponent implements OnInit {
     public refreshImages() {
         this.service.getImageList({
             start: moment(this.startDate).format('YYYYMMDD'),
-            end: moment(this.endDate).format('YYYYMMDD')
+            end: moment(this.endDate).format('YYYYMMDD'),
+            owner: this.selectedOwners
         }).subscribe(d => {
             this.imagesGroup = [];
             if (d.data.length) {

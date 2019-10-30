@@ -36,6 +36,23 @@ namespace MyNAS.Service
             }
         }
 
+        public List<T> SearchItems<T>(string name, INASFilterRequest req) where T : INASModel
+        {
+            if (req.Owner == null || !req.Owner.Any())
+            {
+                return SearchItems<T>(name, (IDateFilterRequest)req);
+            }
+
+            using (var db = new LiteDatabase(DBFile))
+            {
+                var collection = db.GetCollection<T>(name);
+                return collection.Find(i => ((i.Date >= req.StartDate) && (i.Date <= req.EndDate.AddDays(1))) &&
+                                            (req.Owner.Contains(i.Owner)))
+                            .OrderByDescending(i => i.Date)
+                            .ToList();
+            }
+        }
+
         public bool SaveItem<T>(string name, T item) where T : IKeyNameModel
         {
             if (item == null)

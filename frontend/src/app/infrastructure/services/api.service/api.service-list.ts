@@ -17,4 +17,5 @@ export default {
 
     // user
     'updateUser': '/Api/User/update',
+    'getUserList': '/Api/User/list'
 };

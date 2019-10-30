@@ -34,13 +34,16 @@
         <p-fieldset *ngIf="toolbarState==='search' && viewMode" legend="Search">
             <p-calendar [(ngModel)]="startDate" [maxDate]="endDate" dateFormat="M-dd-yy"></p-calendar>
             <p-calendar [(ngModel)]="endDate" [minDate]="startDate" dateFormat="M-dd-yy"></p-calendar>
+            <div>
+                Owner:
+                <p-multiSelect [options]="owners" [(ngModel)]="selectedOwners"></p-multiSelect>
+            </div>
             <button pButton class="ui-button-success" icon="pi pi-search" label="Search"
                 (click)="refreshImages()"></button>
         </p-fieldset>
         <p-fieldset *ngIf="toolbarState==='changeDate' && !viewMode" legend="Change Date">
             <p-calendar [(ngModel)]="newDate" dateFormat="M-dd-yy"></p-calendar>
-            <button pButton class="ui-button-success" icon="pi pi-check" label="Update"
-                (click)="updateDate()"></button>
+            <button pButton class="ui-button-success" icon="pi pi-check" label="Update" (click)="updateDate()"></button>
         </p-fieldset>
     </div>
 
