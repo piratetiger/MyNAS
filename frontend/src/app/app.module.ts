@@ -16,6 +16,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
@@ -70,6 +71,7 @@ import { AppUserProfileComponent } from './app-user-profile/app-user-profile.com
     FieldsetModule,
     ToggleButtonModule,
     ConfirmDialogModule,
+    MultiSelectModule,
   ],
   providers: [
     MessageService,

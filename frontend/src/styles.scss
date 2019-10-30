@@ -43,6 +43,12 @@ p-calendar input {
   }
 }
 
+.ui-multiselect {
+  div.ui-multiselect-panel {
+    min-width: 220px;
+  }
+}
+
 .app-icons {
   width: 80%;
   height: 90%;

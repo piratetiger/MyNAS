@@ -53,4 +53,8 @@ export class ApiService {
     public updateUser(body: any): Observable<DataResult<boolean>> {
         return this.http.post<DataResult<boolean>>(serviceList.updateUser, body);
     }
+
+    public getUserList(): Observable<DataResult<UserModel[]>> {
+        return this.http.post<DataResult<UserModel[]>>(serviceList.getUserList, {});
+    }
 }

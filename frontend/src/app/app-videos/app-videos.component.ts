@@ -19,6 +19,8 @@ export class AppVideosComponent implements OnInit {
     public uploadFileList: any[] = [];
     public startDate: Date;
     public endDate: Date;
+    public owners: any[] = [];
+    public selectedOwners: string[] = [];
     public videosDate: Date = new Date();
     public newDate: Date = new Date();
 
@@ -47,6 +49,11 @@ export class AppVideosComponent implements OnInit {
 
     ngOnInit(): void {
         this.refreshVideos();
+        this.service.getUserList().subscribe(d => {
+            this.owners = d.data.map(u => {
+                return { 'label': u.nickName ? u.nickName : u.userName, 'value': u.userName };
+            });
+        });
     }
 
     public deleteFiles() {
@@ -90,7 +97,8 @@ export class AppVideosComponent implements OnInit {
     public refreshVideos() {
         this.service.getVideoList({
             start: moment(this.startDate).format('YYYYMMDD'),
-            end: moment(this.endDate).format('YYYYMMDD')
+            end: moment(this.endDate).format('YYYYMMDD'),
+            owner: this.selectedOwners
         }).subscribe(d => {
             this.videosGroup = [];
             if (d.data.length) {

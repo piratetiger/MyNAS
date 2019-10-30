@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model;
@@ -30,7 +32,6 @@ namespace MyNAS.Site.Areas.Api.Controllers
         }
 
         [HttpPost("update")]
-        [AllowAnonymous]
         public object UpdateUser(UserRequest req)
         {
             UserModel user = null;
@@ -57,6 +58,27 @@ namespace MyNAS.Site.Areas.Api.Controllers
                 }
             }
             return new MessageDataResult("Update User", UserService.UpdateItem(user));
+        }
+
+        [HttpPost("list")]
+        public object GetUserList()
+        {
+            var users = UserService.GetList();
+            var result = new List<UserModel>();
+            if (User.IsInRole(UserRole.Guest.ToString()))
+            {
+                result = users.Where(u => u.KeyName == User.Identity.Name).ToList();
+            }
+            else if (User.IsInRole(UserRole.User.ToString()))
+            {
+                result = users.Where(u => u.Role == UserRole.Guest || u.Role == UserRole.User).ToList();
+            }
+            else
+            {
+                result = users;
+            }
+
+            return new DataResult<List<UserModel>>(result);
         }
     }
 }
