@@ -7,6 +7,20 @@ import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { FileUploadModule } from 'primeng/fileupload';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
+import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+import { ToolbarModule } from 'primeng/toolbar';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TableModule } from 'primeng/table';
 import { DeferModule } from 'primeng/defer';
 
 import { LightboxComponent } from './lightbox/lightbox.component';
@@ -33,17 +47,51 @@ import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.compo
         ProgressSpinnerModule,
         DynamicDialogModule,
         DropdownModule,
+        InputTextModule,
+        PasswordModule,
+        FileUploadModule,
+        ToastModule,
+        CalendarModule,
+        ButtonModule,
+        AccordionModule,
+        ToolbarModule,
+        FieldsetModule,
+        ToggleButtonModule,
+        ConfirmDialogModule,
+        MultiSelectModule,
+        TableModule,
         DeferModule
     ],
     exports: [
         LightboxComponent,
         BusyIndicatorComponent,
         UserRoleDropdownComponent,
+
+        BlockUIModule,
+        ProgressSpinnerModule,
+        DynamicDialogModule,
+        DropdownModule,
+        InputTextModule,
+        PasswordModule,
+        FileUploadModule,
+        ToastModule,
+        CalendarModule,
+        ButtonModule,
+        AccordionModule,
+        ToolbarModule,
+        FieldsetModule,
+        ToggleButtonModule,
+        ConfirmDialogModule,
+        MultiSelectModule,
+        TableModule,
+        DeferModule
     ],
     providers: [
         DialogService,
         DynamicDialogConfig,
-        DynamicDialogRef
+        DynamicDialogRef,
+        MessageService,
+        ConfirmationService,
     ],
     entryComponents: [
         ImageViewerComponent,
