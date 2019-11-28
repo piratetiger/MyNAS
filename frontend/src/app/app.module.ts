@@ -18,9 +18,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { AppInfrastructureModule } from './infrastructure/app-infrastructure.module';
 
-import { AuthInterceptor } from './infrastructure/http-interceptor/auth-interceptor';
-import { MessageInterceptor } from './infrastructure/http-interceptor/message-interceptor';
-import { BusyIndicatorInterceptor } from './infrastructure/http-interceptor/busy-indicator-interceptor';
 import { AppUserProfileComponent } from './app-user-profile/app-user-profile.component';
 
 @NgModule({
@@ -47,9 +44,6 @@ import { AppUserProfileComponent } from './app-user-profile/app-user-profile.com
     AppInfrastructureModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: BusyIndicatorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
