@@ -5,6 +5,7 @@ import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { ImageModel } from '../infrastructure/models/image-model';
 import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
 import { ConfirmationService } from 'primeng/api';
+import { LightboxItemModel } from '../infrastructure/components/lightbox/models/lightbox-item-model';
 
 @Component({
     selector: 'app-images',
@@ -113,7 +114,10 @@ export class AppImagesComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.imagesGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        images: groups[i].map(m => m.fileName).reverse()
+                        images: groups[i].map((m: ImageModel) => <LightboxItemModel>{
+                            fileSource: m.fileName,
+                            isPublic: m.isPublic
+                        }).reverse()
                     });
                 }
             }

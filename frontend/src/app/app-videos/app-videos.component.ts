@@ -5,6 +5,7 @@ import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { VideoModel } from '../infrastructure/models/video-model';
 import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
 import { ConfirmationService } from 'primeng/api';
+import { LightboxItemModel } from '../infrastructure/components/lightbox/models/lightbox-item-model';
 
 @Component({
     selector: 'app-videos',
@@ -113,7 +114,10 @@ export class AppVideosComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.videosGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        videos: groups[i].map(m => m.fileName).reverse()
+                        videos: groups[i].map((m: VideoModel) => <LightboxItemModel>{
+                            fileSource: m.fileName,
+                            isPublic: m.isPublic
+                        }).reverse()
                     });
                 }
             }
