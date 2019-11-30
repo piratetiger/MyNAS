@@ -80,8 +80,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
         [HttpPost("add")]
         [Authorize(Policy = "UserBase")]
-        [RequestFormLimits(MultipartBodyLengthLimit = 73400320)]
-        [RequestSizeLimit(73400320)]
+        [RequestFormLimits(MultipartBodyLengthLimit = 104857600)]
+        [RequestSizeLimit(104857600)]
         public object UploadImage(IEnumerable<IFormFile> files, [FromForm] string date, [FromForm] bool isPublic)
         {
             var imageList = new List<ImageModel>();
