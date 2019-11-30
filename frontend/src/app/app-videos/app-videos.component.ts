@@ -71,16 +71,21 @@ export class AppVideosComponent implements OnInit {
     }
 
     public uploadFiles(event) {
-        const formData = new FormData();
-        for (const file of event.files) {
-            formData.append('files', file);
-        }
-        formData.set('date', moment(this.videosDate).format('YYYYMMDD'));
-        formData.set('isPublic', this.isPublic.toString());
-        this.service.uploadVideo(formData).subscribe(d => {
-            this.uploadFileList = [];
-            if (d.data) {
-                this.refreshVideos();
+        this.confirmationService.confirm({
+            message: `Upload all ${event.files.length} items?`,
+            accept: () => {
+                const formData = new FormData();
+                for (const file of event.files) {
+                    formData.append('files', file);
+                }
+                formData.set('date', moment(this.videosDate).format('YYYYMMDD'));
+                formData.set('isPublic', this.isPublic.toString());
+                this.service.uploadVideo(formData).subscribe(d => {
+                    this.uploadFileList = [];
+                    if (d.data) {
+                        this.refreshVideos();
+                    }
+                });
             }
         });
     }
