@@ -77,8 +77,8 @@ namespace MyNAS.Site.Areas.Api.Controllers
 
         [HttpPost("add")]
         [Authorize(Policy = "UserBase")]
-        [RequestFormLimits(MultipartBodyLengthLimit = 314572800)]
-        [RequestSizeLimit(314572800)]
+        [RequestFormLimits(MultipartBodyLengthLimit = 419430400)]
+        [RequestSizeLimit(419430400)]
         public object UploadVideo(IEnumerable<IFormFile> files, [FromForm] string date, [FromForm] bool isPublic)
         {
             var videoList = new List<VideoModel>();
