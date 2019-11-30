@@ -60,7 +60,7 @@ export class AppImagesComponent implements OnInit {
 
     public deleteFiles() {
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to delete all those items?',
+            message: `Are you sure that you want to delete all ${this.selectedItems.length} items?`,
             accept: () => {
                 this.service.deleteImage({
                     names: this.selectedItems
