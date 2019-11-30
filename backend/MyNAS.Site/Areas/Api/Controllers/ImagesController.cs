@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model;
 using MyNAS.Model.Images;
+using MyNAS.Model.User;
 using MyNAS.Service;
 using MyNAS.Site;
+using MyNAS.Site.Helper;
 using MyNAS.Util;
 
 namespace MyNAS.Site.Areas.Api.Controllers
@@ -39,7 +41,13 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("list")]
         public object GetImageList(GetListRequest req)
         {
-            return new DataResult<List<ImageModel>>(ImagesService.GetList(req));
+            var user = HttpContext.GetUser();
+            var list = ImagesService.GetList(req);
+            if ((int)user.Role <= (int)UserRole.User)
+            {
+                list = list.Where(l => l.IsPublic || l.Owner == user.UserName).ToList();
+            }
+            return new DataResult<List<ImageModel>>(list);
         }
 
         [HttpGet("")]
@@ -74,7 +82,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [Authorize(Policy = "UserBase")]
         [RequestFormLimits(MultipartBodyLengthLimit = 73400320)]
         [RequestSizeLimit(73400320)]
-        public object UploadImage(IEnumerable<IFormFile> files, [FromForm] string date)
+        public object UploadImage(IEnumerable<IFormFile> files, [FromForm] string date, [FromForm] bool isPublic)
         {
             var imageList = new List<ImageModel>();
             foreach (var file in files)
@@ -97,7 +105,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                     {
                         FileName = fileName,
                         Date = imageDate,
-                        IsPublic = true,
+                        IsPublic = isPublic,
                         Owner = User.Identity.Name
                     };
                     imageList.Add(image);
