@@ -22,6 +22,7 @@ export class AppVideosComponent implements OnInit {
     public owners: any[] = [];
     public selectedOwners: string[] = [];
     public videosDate: Date = new Date();
+    public isPublic = true;
     public newDate: Date = new Date();
 
     public get selectedItems(): string[] {
@@ -75,6 +76,7 @@ export class AppVideosComponent implements OnInit {
             formData.append('files', file);
         }
         formData.set('date', moment(this.videosDate).format('YYYYMMDD'));
+        formData.set('isPublic', this.isPublic.toString());
         this.service.uploadVideo(formData).subscribe(d => {
             this.uploadFileList = [];
             if (d.data) {

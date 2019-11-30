@@ -22,6 +22,7 @@ export class AppImagesComponent implements OnInit {
     public owners: any[] = [];
     public selectedOwners: string[] = [];
     public imagesDate: Date = new Date();
+    public isPublic = true;
     public newDate: Date = new Date();
 
     public get selectedItems(): string[] {
@@ -75,6 +76,7 @@ export class AppImagesComponent implements OnInit {
             formData.append('files', file);
         }
         formData.set('date', moment(this.imagesDate).format('YYYYMMDD'));
+        formData.set('isPublic', this.isPublic.toString());
         this.service.uploadImage(formData).subscribe(d => {
             this.uploadFileList = [];
             if (d.data) {
