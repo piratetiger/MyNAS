@@ -24,7 +24,9 @@
             <p-fileUpload #fileUpload [files]="uploadFileList" accept="video/mp4" customUpload="true"
                 [showUploadButton]=false (uploadHandler)="uploadFiles($event)" multiple="multiple">
                 <ng-template pTemplate="toolbar">
-                    <div>Videos Date: <p-calendar [(ngModel)]="videosDate" dateFormat="M-dd-yy"></p-calendar>
+                    <div>
+                        <div>Videos Date: <p-calendar [(ngModel)]="videosDate" dateFormat="M-dd-yy"></p-calendar></div>
+                        <div><p-checkbox label="Is Public" binary="true" [(ngModel)]="isPublic"></p-checkbox></div>
                         <button pButton class="ui-button-success" [disabled]="fileUpload.files.length===0"
                             icon="pi pi-upload" label="Upload" (click)="fileUpload.upload($event)"></button>
                     </div>

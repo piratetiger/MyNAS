@@ -32,7 +32,7 @@ namespace MyNAS.Site
                 var service = new UserService();
                 var token = _httpContext.Request.Headers["x-login-token"];
                 var userName = _httpContext.Request.Headers["x-login-user"];
-                var hostInfo = RequestHelper.GetUserAgent(_httpContext);
+                var hostInfo = _httpContext.GetUserAgent();
                 var user = new UserModel();
                 user.UserName = userName;
                 user.Token = token;
@@ -40,6 +40,7 @@ namespace MyNAS.Site
                 var result = service.ValidateUser(user);
                 if (result)
                 {
+                    _httpContext.Items.Add("User", user);
                     var claim = new[]{
                         new Claim(ClaimTypes.Name, user.UserName),
                         new Claim(ClaimTypes.Role, user.Role.ToString())

@@ -5,6 +5,7 @@ import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { VideoModel } from '../infrastructure/models/video-model';
 import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
 import { ConfirmationService } from 'primeng/api';
+import { LightboxItemModel } from '../infrastructure/components/lightbox/models/lightbox-item-model';
 
 @Component({
     selector: 'app-videos',
@@ -22,6 +23,7 @@ export class AppVideosComponent implements OnInit {
     public owners: any[] = [];
     public selectedOwners: string[] = [];
     public videosDate: Date = new Date();
+    public isPublic = true;
     public newDate: Date = new Date();
 
     public get selectedItems(): string[] {
@@ -70,15 +72,21 @@ export class AppVideosComponent implements OnInit {
     }
 
     public uploadFiles(event) {
-        const formData = new FormData();
-        for (const file of event.files) {
-            formData.append('files', file);
-        }
-        formData.set('date', moment(this.videosDate).format('YYYYMMDD'));
-        this.service.uploadVideo(formData).subscribe(d => {
-            this.uploadFileList = [];
-            if (d.data) {
-                this.refreshVideos();
+        this.confirmationService.confirm({
+            message: `Upload all ${event.files.length} items?`,
+            accept: () => {
+                const formData = new FormData();
+                for (const file of event.files) {
+                    formData.append('files', file);
+                }
+                formData.set('date', moment(this.videosDate).format('YYYYMMDD'));
+                formData.set('isPublic', this.isPublic.toString());
+                this.service.uploadVideo(formData).subscribe(d => {
+                    this.uploadFileList = [];
+                    if (d.data) {
+                        this.refreshVideos();
+                    }
+                });
             }
         });
     }
@@ -106,7 +114,10 @@ export class AppVideosComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.videosGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        videos: groups[i].map(m => m.fileName).reverse()
+                        videos: groups[i].map((m: VideoModel) => <LightboxItemModel>{
+                            fileSource: m.fileName,
+                            isPublic: m.isPublic
+                        }).reverse()
                     });
                 }
             }

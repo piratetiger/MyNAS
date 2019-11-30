@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service/api.service';
 import { DialogService } from 'primeng/api';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { VideoViewerComponent } from './video-viewer/video-viewer.component';
+import { LightboxItemModel } from './models/lightbox-item-model';
 
 @Component({
     selector: 'lightbox',
@@ -11,26 +12,19 @@ import { VideoViewerComponent } from './video-viewer/video-viewer.component';
     encapsulation: ViewEncapsulation.None
 })
 export class LightboxComponent implements OnChanges {
-    public sourceList: any[];
-
-    @Input() sources: string[] = [];
+    @Input() sources: LightboxItemModel[] = [];
     @Input() type = 'image';
     @Input() editMode = false;
 
     public get selectedItems(): string[] {
-        return this.sourceList.filter(s => s.selected).map(s => s.source);
+        return this.sources.filter(s => s.selected).map(s => s.fileSource);
     }
 
     constructor(private service: ApiService, private dialogService: DialogService) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.sources) {
-            this.sourceList = changes.sources.currentValue.map(s => {
-                return { source: s, selected: false };
-            });
-        }
         if (changes.editMode) {
-            this.sourceList.forEach(s => s.selected = false);
+            this.sources.forEach(s => s.selected = false);
         }
     }
 
@@ -42,9 +36,9 @@ export class LightboxComponent implements OnChanges {
         }
     }
 
-    public itemClick(item) {
+    public itemClick(item: LightboxItemModel) {
         if (!this.editMode) {
-            this.showDetail(item.source);
+            this.showDetail(item.fileSource);
         } else {
             item.selected = !item.selected;
         }

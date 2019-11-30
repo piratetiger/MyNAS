@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
@@ -50,6 +51,7 @@ import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.compo
         InputTextModule,
         PasswordModule,
         FileUploadModule,
+        CheckboxModule,
         ToastModule,
         CalendarModule,
         ButtonModule,
@@ -74,6 +76,7 @@ import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.compo
         InputTextModule,
         PasswordModule,
         FileUploadModule,
+        CheckboxModule,
         ToastModule,
         CalendarModule,
         ButtonModule,

@@ -5,6 +5,7 @@ import { ApiService } from '../infrastructure/services/api.service/api.service';
 import { ImageModel } from '../infrastructure/models/image-model';
 import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
 import { ConfirmationService } from 'primeng/api';
+import { LightboxItemModel } from '../infrastructure/components/lightbox/models/lightbox-item-model';
 
 @Component({
     selector: 'app-images',
@@ -22,6 +23,7 @@ export class AppImagesComponent implements OnInit {
     public owners: any[] = [];
     public selectedOwners: string[] = [];
     public imagesDate: Date = new Date();
+    public isPublic = true;
     public newDate: Date = new Date();
 
     public get selectedItems(): string[] {
@@ -70,15 +72,21 @@ export class AppImagesComponent implements OnInit {
     }
 
     public uploadFiles(event) {
-        const formData = new FormData();
-        for (const file of event.files) {
-            formData.append('files', file);
-        }
-        formData.set('date', moment(this.imagesDate).format('YYYYMMDD'));
-        this.service.uploadImage(formData).subscribe(d => {
-            this.uploadFileList = [];
-            if (d.data) {
-                this.refreshImages();
+        this.confirmationService.confirm({
+            message: `Upload all ${event.files.length} items?`,
+            accept: () => {
+                const formData = new FormData();
+                for (const file of event.files) {
+                    formData.append('files', file);
+                }
+                formData.set('date', moment(this.imagesDate).format('YYYYMMDD'));
+                formData.set('isPublic', this.isPublic.toString());
+                this.service.uploadImage(formData).subscribe(d => {
+                    this.uploadFileList = [];
+                    if (d.data) {
+                        this.refreshImages();
+                    }
+                });
             }
         });
     }
@@ -106,7 +114,10 @@ export class AppImagesComponent implements OnInit {
                 for (const i of Object.keys(groups)) {
                     this.imagesGroup.push({
                         date: moment(i).format('YYYY MM DD'),
-                        images: groups[i].map(m => m.fileName).reverse()
+                        images: groups[i].map((m: ImageModel) => <LightboxItemModel>{
+                            fileSource: m.fileName,
+                            isPublic: m.isPublic
+                        }).reverse()
                     });
                 }
             }

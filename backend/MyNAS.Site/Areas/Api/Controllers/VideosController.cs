@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyNAS.Model;
+using MyNAS.Model.User;
 using MyNAS.Model.Videos;
 using MyNAS.Service;
 using MyNAS.Site;
+using MyNAS.Site.Helper;
 using MyNAS.Util;
 
 namespace MyNAS.Site.Areas.Api.Controllers
@@ -39,7 +41,13 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [HttpPost("list")]
         public object GetVideoList(GetListRequest req)
         {
-            return new DataResult<List<VideoModel>>(VideosService.GetList(req));
+            var user = HttpContext.GetUser();
+            var list = VideosService.GetList(req);
+            if ((int)user.Role <= (int)UserRole.User)
+            {
+                list = list.Where(l => l.IsPublic || l.Owner == user.UserName).ToList();
+            }
+            return new DataResult<List<VideoModel>>(list);
         }
 
         [HttpGet("")]
@@ -71,7 +79,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
         [Authorize(Policy = "UserBase")]
         [RequestFormLimits(MultipartBodyLengthLimit = 314572800)]
         [RequestSizeLimit(314572800)]
-        public object UploadVideo(IEnumerable<IFormFile> files, [FromForm] string date)
+        public object UploadVideo(IEnumerable<IFormFile> files, [FromForm] string date, [FromForm] bool isPublic)
         {
             var videoList = new List<VideoModel>();
             foreach (var file in files)
@@ -94,7 +102,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
                     {
                         FileName = fileName,
                         Date = videoDate,
-                        IsPublic = true,
+                        IsPublic = isPublic,
                         Owner = User.Identity.Name
                     };
                     videoList.Add(video);
