@@ -60,7 +60,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             {
                 var thumbPath = Path.Combine(_host.WebRootPath, "tmp", name);
                 var thumbFile = new FileInfo(thumbPath);
-                if (!thumbFile.Exists || thumbPath.Length == 0)
+                if (!thumbFile.Exists || thumbFile.Length == 0)
                 {
                     using (var fileStream = System.IO.File.Create(thumbPath))
                     {
