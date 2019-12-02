@@ -12,6 +12,14 @@
       width: 100%;
     }
 
+    .lightbox-state {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      font-size: 18px;
+      text-shadow: 2px 2px #666;
+    }
+
     .lightbox-image-state {
       position: absolute;
       top: 2px;
@@ -20,10 +28,11 @@
     }
 
     .lightbox-image-private {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      font-size: 24px;
+      color: #c79218;
+    }
+
+    .lightbox-image-owner {
+      color: #50a6d8;
     }
   }
 }

@@ -6,6 +6,7 @@ import { ImageModel } from '../infrastructure/models/image-model';
 import { LightboxComponent } from '../infrastructure/components/lightbox/lightbox.component';
 import { ConfirmationService } from 'primeng/api';
 import { LightboxItemModel } from '../infrastructure/components/lightbox/models/lightbox-item-model';
+import { AppService } from '../infrastructure/services/app.service/app.service';
 
 @Component({
     selector: 'app-images',
@@ -44,7 +45,7 @@ export class AppImagesComponent implements OnInit {
         }
     }
 
-    constructor(private service: ApiService, private confirmationService: ConfirmationService) {
+    constructor(private service: ApiService, private appService: AppService, private confirmationService: ConfirmationService) {
         this.startDate = moment().subtract(3, 'months').toDate();
         this.endDate = new Date();
     }
@@ -111,12 +112,14 @@ export class AppImagesComponent implements OnInit {
             this.imagesGroup = [];
             if (d.data.length) {
                 const groups = groupBy(d.data, (i: ImageModel) => i.date);
+                const userName = this.appService.userInfo.userName;
                 for (const i of Object.keys(groups)) {
                     this.imagesGroup.push({
                         date: moment(i).format('YYYY MM DD'),
                         images: groups[i].map((m: ImageModel) => <LightboxItemModel>{
                             fileSource: m.fileName,
-                            isPublic: m.isPublic
+                            isPublic: m.isPublic,
+                            isOwner: m.owner === userName
                         }).reverse()
                     });
                 }

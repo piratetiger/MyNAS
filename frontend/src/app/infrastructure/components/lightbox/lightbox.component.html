@@ -7,8 +7,9 @@
                     <i *ngIf="!source.selected" style="color:gray" class="pi pi-check-circle"></i>
                     <i *ngIf="source.selected" style="color:green" class="pi pi-check-circle"></i>
                 </div>
-                <div class="lightbox-image-private">
-                    <i *ngIf="!source.isPublic" style="color:gray" class="pi pi-key"></i>
+                <div class="lightbox-state">
+                    <i *ngIf="source.isOwner" title="owner" class="lightbox-image-owner pi pi-user"></i>
+                    <i *ngIf="!source.isPublic" title="private" class="lightbox-image-private pi pi-key"></i>
                 </div>
             </ng-template>
         </div>
