@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyNAS.Model.User;
+using MyNAS.Site.BackendServices;
 using MyNAS.Site.Helper;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -29,6 +30,8 @@ namespace MyNAS.Site
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ITorrentDownloadService,TorrentDownloadService>();
+            services.AddHostedService<TorrentDownloadService>();
 
             services.AddMvc(options =>
                 {
