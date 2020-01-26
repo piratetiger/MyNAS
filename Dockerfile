@@ -20,7 +20,7 @@ RUN apt-get update \
         libx11-dev \
         ffmpeg \
      && rm -rf /var/lib/apt/lists/*
-COPY --from=build-backend /backend/MyNAS.Site/output .
+COPY --from=build-backend /backend/output .
 COPY --from=build-frontend /frontend/dist/UI ./wwwroot
 ENTRYPOINT ["dotnet", "MyNAS.Site.dll"]
 EXPOSE 5000
