@@ -15,7 +15,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [Authorize(Policy = "Admin")]
     public class AdminController : ControllerBase
     {
-        private readonly IHostingEnvironment _host;
+        private readonly IWebHostEnvironment _host;
 
         protected AdminService AdminService
         {
@@ -33,7 +33,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
         }
 
-        public AdminController(IHostingEnvironment host)
+        public AdminController(IWebHostEnvironment host)
         {
             _host = host;
         }

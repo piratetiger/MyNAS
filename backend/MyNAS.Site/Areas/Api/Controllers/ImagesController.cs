@@ -23,7 +23,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "tmp" })]
     public class ImagesController : ControllerBase
     {
-        private readonly IHostingEnvironment _host;
+        private readonly IWebHostEnvironment _host;
 
         protected ImagesService ImagesService
         {
@@ -33,7 +33,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
         }
 
-        public ImagesController(IHostingEnvironment host)
+        public ImagesController(IWebHostEnvironment host)
         {
             _host = host;
         }
