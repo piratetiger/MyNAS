@@ -7,12 +7,12 @@ namespace MyNAS.Site
 {
     public class CreateFolderAttribute : ActionFilterAttribute
     {
-        private readonly IHostingEnvironment _host;
+        private readonly IWebHostEnvironment _host;
         private string _folder;
 
         public string Folder { get; set; }
 
-        public CreateFolderAttribute(IHostingEnvironment host, string folder)
+        public CreateFolderAttribute(IWebHostEnvironment host, string folder)
         {
             _host = host;
             _folder = folder;

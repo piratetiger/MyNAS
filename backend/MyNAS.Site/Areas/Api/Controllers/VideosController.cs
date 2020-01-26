@@ -23,7 +23,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
     [TypeFilter(typeof(CreateFolderAttribute), Arguments = new[] { "tmp" })]
     public class VideosController : ControllerBase
     {
-        private readonly IHostingEnvironment _host;
+        private readonly IWebHostEnvironment _host;
 
         protected VideosService VideosService
         {
@@ -33,7 +33,7 @@ namespace MyNAS.Site.Areas.Api.Controllers
             }
         }
 
-        public VideosController(IHostingEnvironment host)
+        public VideosController(IWebHostEnvironment host)
         {
             _host = host;
         }

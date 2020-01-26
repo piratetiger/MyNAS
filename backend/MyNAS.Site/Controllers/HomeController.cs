@@ -13,7 +13,7 @@ namespace MyNAS.Site.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        private readonly IHostingEnvironment _host;
+        private readonly IWebHostEnvironment _host;
 
         protected AdminService AdminService
         {
@@ -23,7 +23,7 @@ namespace MyNAS.Site.Controllers
             }
         }
 
-        public HomeController(IHostingEnvironment host)
+        public HomeController(IWebHostEnvironment host)
         {
             _host = host;
         }
