@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using MyNAS.Model.User;
 using MyNAS.Site.BackendServices;
 using MyNAS.Site.Helper;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace MyNAS.Site
 {
@@ -67,8 +67,10 @@ namespace MyNAS.Site
                 });
             services.AddSwaggerGen(c =>
                 {
-                    c.SwaggerDoc("v1", new Info { Title = "MyNAS API", Version = "v1" });
+                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyNAS API", Version = "v1" });
+                    c.CustomSchemaIds(i => i.FullName);
                 });
+            services.AddSwaggerGenNewtonsoftSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,6 +103,7 @@ namespace MyNAS.Site
 
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
