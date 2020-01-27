@@ -16,6 +16,7 @@ namespace MyNAS.Site.BackendServices
     public interface ITorrentDownloadService
     {
         void Enqueue(string savePath, string path);
+        double[] Status();
     }
 
     public class TorrentDownloadService : IHostedService, IDisposable, ITorrentDownloadService
@@ -39,6 +40,11 @@ namespace MyNAS.Site.BackendServices
         public void Enqueue(string savePath, string path)
         {
             _taskQueue.Enqueue(new TorrentTask { SavePath = savePath, Path = path });
+        }
+
+        public double[] Status()
+        {
+            return _download.GetState();
         }
 
         public void Dispose()

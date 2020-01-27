@@ -31,16 +31,19 @@ namespace MyNAS.Util
                 file.Priority = Priority.DoNotDownload;
 
             // Set the first file as high priority and the second one as normal
-            torrent.Files[0].Priority = Priority.Highest;
-            torrent.Files[1].Priority = Priority.Normal;
+            if (torrent.Files.Any())
+            {
+                torrent.Files[0].Priority = Priority.Highest;
+            }
+            // torrent.Files[1].Priority = Priority.Normal;
 
             TorrentManager manager = new TorrentManager(torrent, savePath, new TorrentSettings());
             _managers.Add(Guid.NewGuid().ToString(), manager);
             _engine.Register(manager);
 
-            PiecePicker picker = new StandardPicker();
-            picker = new PriorityPicker(picker);
-            manager.ChangePickerAsync(picker);
+            // PiecePicker picker = new StandardPicker();
+            // picker = new PriorityPicker(picker);
+            // manager.ChangePickerAsync(picker);
 
             return manager;
         }
@@ -53,6 +56,11 @@ namespace MyNAS.Util
         public void StopAll()
         {
             _engine.StopAll();
+        }
+
+        public double[] GetState()
+        {
+            return _managers.Select(t => t.Value.Progress).ToArray();
         }
 
         public void Start(params string[] torrentIds)
