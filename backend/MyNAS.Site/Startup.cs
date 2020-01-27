@@ -103,6 +103,7 @@ namespace MyNAS.Site
 
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
