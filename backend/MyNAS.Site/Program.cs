@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -26,16 +27,16 @@ namespace MyNAS.Site
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                // .ConfigureKestrel(options =>
-                //     {
-                //         options.ListenLocalhost(5443, listenOptions =>
-                //         {
-                //             listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-                //             listenOptions.UseHttps("my-nas.pfx", "mynasPWD");
-                //         });
-                //         options.ListenLocalhost(5000);
-                //     })
-                .UseKestrel(c => c.Listen(new System.Net.IPAddress(new byte[] { 0, 0, 0, 0 }), 5000))
+                .ConfigureKestrel(options =>
+                    {
+                        // options.ListenLocalhost(5443, listenOptions =>
+                        // {
+                        //     listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                        //     listenOptions.UseHttps("my-nas.pfx", "mynasPWD");
+                        // });
+                        options.Listen(IPAddress.Any, 5000);
+                    })
+                // .UseKestrel(c => c.Listen(new System.Net.IPAddress(new byte[] { 0, 0, 0, 0 }), 5000))
                 .UseStartup<Startup>()
                 .UseNLog();
         }
