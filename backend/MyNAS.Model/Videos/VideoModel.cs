@@ -18,5 +18,6 @@ namespace MyNAS.Model.Videos
         public DateTime Date { get; set; }
         public bool IsPublic { get; set; }
         public string Owner { get; set; }
+        public string Cate { get; set; }
     }
 }

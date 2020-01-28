@@ -31,5 +31,6 @@ namespace MyNAS.Model.Videos
         }
 
         public List<string> Owner { get; set; }
+        public string Cate { get; set; }
     }
 }

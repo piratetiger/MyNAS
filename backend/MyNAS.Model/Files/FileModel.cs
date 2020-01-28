@@ -1,23 +1,19 @@
 using System;
 
-namespace MyNAS.Model.Images
+namespace MyNAS.Model.Files
 {
-    public class ImageModel : INASModel
+    public class FileModel : INASModel
     {
         [JsonIgnoreSerialization]
         public long Id { get; set; }
-        [JsonIgnoreSerialization]
-        public string KeyName
-        {
-            get
-            {
-                return FileName;
-            }
-        }
+        public string KeyName { get; set; }
         public string FileName { get; set; }
         public DateTime Date { get; set; }
         public bool IsPublic { get; set; }
         public string Owner { get; set; }
         public string Cate { get; set; }
+        [JsonIgnoreSerialization]
+        public string PathName { get; set; }
+        public bool IsFolder { get; set; }
     }
 }

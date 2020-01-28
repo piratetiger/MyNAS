@@ -8,5 +8,6 @@ namespace MyNAS.Model
         string End { get; }
         DateTime StartDate { get; }
         DateTime EndDate { get; }
+        string Cate { get; }
     }
 }

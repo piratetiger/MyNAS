@@ -28,5 +28,6 @@ namespace MyNAS.Model.Logs
                 return DateTime.ParseExact(End, "yyyyMMdd", null);
             }
         }
+        public string Cate { get; set; }
     }
 }

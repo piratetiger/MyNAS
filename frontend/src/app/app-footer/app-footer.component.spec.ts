@@ -20,7 +20,7 @@ export class AppVideosComponent {
 @Component({
     template: ''
 })
-export class AppMoviesComponent {
+export class AppFilesComponent {
 }
 
 @Component({
@@ -40,7 +40,7 @@ describe('AppFooterComponent', () => {
                 RouterTestingModule.withRoutes([
                     { path: 'images', component: AppImagesComponent },
                     { path: 'videos', component: AppVideosComponent },
-                    { path: 'movies', component: AppMoviesComponent },
+                    { path: 'files', component: AppFilesComponent },
                     { path: 'system', component: AppSystemComponent },
                 ]),
                 AppInfrastructureModule
@@ -49,7 +49,7 @@ describe('AppFooterComponent', () => {
                 AppFooterComponent,
                 AppImagesComponent,
                 AppVideosComponent,
-                AppMoviesComponent,
+                AppFilesComponent,
                 AppSystemComponent
             ],
             schemas: [NO_ERRORS_SCHEMA]
@@ -86,14 +86,14 @@ describe('AppFooterComponent', () => {
         expect(location.path()).toEqual('/videos');
     });
 
-    it('should navigate movies', () => {
+    it('should navigate files', () => {
         fixture.detectChanges();
         const element = fixture.nativeElement;
         const imagesIcon = element.querySelectorAll('.app-footer-item a')[2];
-        expect(imagesIcon.textContent).toEqual('Movies');
+        expect(imagesIcon.textContent).toEqual('Files');
         imagesIcon.click();
         fixture.detectChanges();
-        expect(location.path()).toEqual('/movies');
+        expect(location.path()).toEqual('/files');
     });
 
     it('should navigate system', () => {

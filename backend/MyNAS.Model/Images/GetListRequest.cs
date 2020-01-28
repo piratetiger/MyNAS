@@ -31,5 +31,6 @@ namespace MyNAS.Model.Images
         }
 
         public List<string> Owner { get; set; }
+        public string Cate { get; set; }
     }
 }

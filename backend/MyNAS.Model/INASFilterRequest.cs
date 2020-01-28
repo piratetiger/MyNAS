@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace MyNAS.Model
 {
-    public interface INASFilterRequest : IDateFilterRequest
+    public interface INASFilterRequest : IDateFilterRequest, IOwnerFilterRequest
     {
-        List<string> Owner { get; }
+        new string Cate { get; }
     }
 }

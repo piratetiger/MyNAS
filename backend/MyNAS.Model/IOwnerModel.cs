@@ -2,9 +2,9 @@ using System;
 
 namespace MyNAS.Model
 {
-    public interface IDateModel
+    public interface IOwnerModel
     {
-        DateTime Date { get; }
+        string Owner { get; }
         string Cate { get; }
     }
 }
