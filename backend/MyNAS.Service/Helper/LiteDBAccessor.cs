@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using LiteDB;
@@ -30,8 +31,21 @@ namespace MyNAS.Service
             using (var db = new LiteDatabase(DBFile))
             {
                 var collection = db.GetCollection<T>(name);
-                return collection.Find(i => (i.Date >= req.StartDate) && (i.Date <= req.EndDate.AddDays(1)))
+                return collection.Find(i => ((i.Date >= req.StartDate) && (i.Date <= req.EndDate.AddDays(1))) &&
+                                      (i.Cate == req.Cate))
                             .OrderByDescending(i => i.Date)
+                            .ToList();
+            }
+        }
+
+        public List<T> SearchItems<T>(string name, IOwnerFilterRequest req) where T : IOwnerModel
+        {
+            using (var db = new LiteDatabase(DBFile))
+            {
+                var collection = db.GetCollection<T>(name);
+                return collection.Find(i => ((req.Owner==null) || (req.Owner.Contains(i.Owner)) &&
+                                      (i.Cate == req.Cate)))
+                            .OrderBy(i => i.Owner)
                             .ToList();
             }
         }
@@ -43,11 +57,17 @@ namespace MyNAS.Service
                 return SearchItems<T>(name, (IDateFilterRequest)req);
             }
 
+            if (req.StartDate == DateTime.MinValue || req.EndDate == DateTime.MinValue)
+            {
+                return SearchItems<T>(name, (IOwnerFilterRequest)req);
+            }
+
             using (var db = new LiteDatabase(DBFile))
             {
                 var collection = db.GetCollection<T>(name);
                 return collection.Find(i => ((i.Date >= req.StartDate) && (i.Date <= req.EndDate.AddDays(1))) &&
-                                            (req.Owner.Contains(i.Owner)))
+                                            (req.Owner.Contains(i.Owner) &&
+                                            (i.Cate == req.Cate)))
                             .OrderByDescending(i => i.Date)
                             .ToList();
             }
