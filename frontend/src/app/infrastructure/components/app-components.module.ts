@@ -22,6 +22,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
+import { DataViewModule } from 'primeng/dataview';
 import { DeferModule } from 'primeng/defer';
 
 import { LightboxComponent } from './lightbox/lightbox.component';
@@ -62,6 +63,7 @@ import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.compo
         ConfirmDialogModule,
         MultiSelectModule,
         TableModule,
+        DataViewModule,
         DeferModule
     ],
     exports: [
@@ -87,6 +89,7 @@ import { VideoViewerComponent } from './lightbox/video-viewer/video-viewer.compo
         ConfirmDialogModule,
         MultiSelectModule,
         TableModule,
+        DataViewModule,
         DeferModule
     ],
     providers: [

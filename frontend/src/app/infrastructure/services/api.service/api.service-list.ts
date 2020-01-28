@@ -15,6 +15,10 @@ export default {
     'deleteVideo': '/Api/Videos/delete',
     'updateVideoDate': '/Api/Videos/updateDate',
 
+    // files
+    'uploadFile': '/Api/Files/add',
+    'getFileList': '/Api/Files/list',
+
     // user
     'updateUser': '/Api/User/update',
     'getUserList': '/Api/User/list'

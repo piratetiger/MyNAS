@@ -43,10 +43,19 @@ namespace MyNAS.Service
             using (var db = new LiteDatabase(DBFile))
             {
                 var collection = db.GetCollection<T>(name);
-                return collection.Find(i => ((req.Owner==null) || (req.Owner.Contains(i.Owner)) &&
-                                      (i.Cate == req.Cate)))
-                            .OrderBy(i => i.Owner)
-                            .ToList();
+                if (req.Owner == null || !req.Owner.Any())
+                {
+                    return collection.Find(i => i.Cate == req.Cate)
+                                    .OrderBy(i => i.Owner)
+                                    .ToList();
+                }
+                else
+                {
+                    return collection.Find(i => (req.Owner.Contains(i.Owner) &&
+                                          (i.Cate == req.Cate)))
+                                .OrderBy(i => i.Owner)
+                                .ToList();
+                }
             }
         }
 

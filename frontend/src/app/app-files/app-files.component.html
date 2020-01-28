@@ -5,18 +5,11 @@
                 <ng-container *ngIf="viewMode">
                     <button pButton *userPermission icon="pi pi-upload" label="Upload"
                         (click)="toolbarState='upload'"></button>
-                    <button pButton icon="pi pi-search" label="Search" (click)="toolbarState='search'"></button>
-                </ng-container>
-                <ng-container *ngIf="!viewMode">
-                    <button pButton *dataAdminPermission [disabled]="selectedItems.length===0" icon="pi pi-calendar"
-                        label="Change Date" (click)="toolbarState='changeDate'"></button>
-                    <button pButton *dataAdminPermission class="ui-button-danger" [disabled]="selectedItems.length===0"
-                        icon="pi pi-trash" label="Delete" (click)="deleteFiles()"></button>
                 </ng-container>
             </div>
         </p-toolbar>
         <p-fieldset *ngIf="toolbarState==='upload' && viewMode" legend="Upload">
-            <p-fileUpload #fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true"
+            <p-fileUpload #fileUpload [files]="uploadFileList" customUpload="true"
                 [showUploadButton]=false (uploadHandler)="uploadFiles($event)" multiple="multiple">
                 <ng-template pTemplate="toolbar">
                     <div>
@@ -30,4 +23,35 @@
             </p-fileUpload>
         </p-fieldset>
     </div>
+
+    <div class="content-view">
+        <p-dataView [value]="fileList">
+            <p-header>
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </p-header>
+            <p-footer>
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </p-footer>
+        
+            <ng-template let-file pTemplate="listItem">
+                <div>
+                    <span><i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i></span>
+                    {{file.fileName}}
+                </div>
+            </ng-template>
+            <ng-template let-file pTemplate="gridItem">
+                <div class="ui-g-12 ui-md-3">
+                    <span><i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i></span>
+                    {{file.fileName}}
+                </div>
+            </ng-template>
+        </p-dataView>
+    </div>
+    <p-confirmDialog #cd header="Confirmation" icon="pi pi-exclamation-triangle">
+        <p-footer>
+            <button type="button" pButton class="ui-button-success" icon="pi pi-check" label="Yes"
+                (click)="cd.accept()"></button>
+            <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        </p-footer>
+    </p-confirmDialog>
 </div>
