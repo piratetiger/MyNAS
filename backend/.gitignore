@@ -4,3 +4,4 @@
 MyNAS.Site/logs
 **/tmp
 **/wwwroot/storage/**/*.*
+**/wwwroot/storage/**/*
