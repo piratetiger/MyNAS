@@ -11,7 +11,7 @@ import { AppMainComponent } from './app-main/app-main.component';
 import { AppLoginComponent } from './app-login/app-login.component';
 import { AppImagesComponent } from './app-images/app-images.component';
 import { AppVideosComponent } from './app-videos/app-videos.component';
-import { AppMoviesComponent } from './app-movies/app-movies.component';
+import { AppFilesComponent } from './app-files/app-files.component';
 import { AppSystemComponent } from './app-system/app-system.component';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +29,7 @@ import { AppUserProfileComponent } from './app-user-profile/app-user-profile.com
     AppLoginComponent,
     AppImagesComponent,
     AppVideosComponent,
-    AppMoviesComponent,
+    AppFilesComponent,
     AppSystemComponent,
     AppUserProfileComponent,
   ],

@@ -1,0 +1,33 @@
+<div class="app-files">
+    <div class="content-toolbar">
+        <p-toolbar>
+            <div class="ui-toolbar-group-left">
+                <ng-container *ngIf="viewMode">
+                    <button pButton *userPermission icon="pi pi-upload" label="Upload"
+                        (click)="toolbarState='upload'"></button>
+                    <button pButton icon="pi pi-search" label="Search" (click)="toolbarState='search'"></button>
+                </ng-container>
+                <ng-container *ngIf="!viewMode">
+                    <button pButton *dataAdminPermission [disabled]="selectedItems.length===0" icon="pi pi-calendar"
+                        label="Change Date" (click)="toolbarState='changeDate'"></button>
+                    <button pButton *dataAdminPermission class="ui-button-danger" [disabled]="selectedItems.length===0"
+                        icon="pi pi-trash" label="Delete" (click)="deleteFiles()"></button>
+                </ng-container>
+            </div>
+        </p-toolbar>
+        <p-fieldset *ngIf="toolbarState==='upload' && viewMode" legend="Upload">
+            <p-fileUpload #fileUpload [files]="uploadFileList" accept="image/jpeg" customUpload="true"
+                [showUploadButton]=false (uploadHandler)="uploadFiles($event)" multiple="multiple">
+                <ng-template pTemplate="toolbar">
+                    <div>
+                        <div>
+                            <p-checkbox label="Is Public" binary="true" [(ngModel)]="isPublic"></p-checkbox>
+                        </div>
+                        <button pButton class="ui-button-success" [disabled]="fileUpload.files.length===0"
+                            icon="pi pi-upload" label="Upload" (click)="fileUpload.upload($event)"></button>
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+        </p-fieldset>
+    </div>
+</div>
