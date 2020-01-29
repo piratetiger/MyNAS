@@ -40,11 +40,11 @@
     <div class="content-view">
         <p-dataView [value]="fileList">
             <p-header>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                <div class="f-r">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+                <div class="c-b"></div>
             </p-header>
-            <p-footer>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-            </p-footer>
 
             <ng-template let-file pTemplate="listItem">
                 <div>
