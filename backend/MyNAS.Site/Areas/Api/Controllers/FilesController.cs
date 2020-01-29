@@ -43,12 +43,26 @@ namespace MyNAS.Site.Areas.Api.Controllers
         public object GetFilesList(GetListRequest req)
         {
             var user = HttpContext.GetUser();
-            var list = FilesService.GetList(req);
+            var list = FilesService.GetList(req).OrderByDescending(f => f.IsFolder).ToList();
             if ((int)user.Role <= (int)UserRole.User)
             {
                 list = list.Where(l => l.IsPublic || l.Owner == user.UserName).ToList();
             }
             return new DataResult<List<FileModel>>(list);
+        }
+
+        [HttpGet("")]
+        [AllowAnonymous]
+        public ActionResult GetFile(string name)
+        {
+            var item = FilesService.GetItem(name);
+            var path = string.Empty;
+            if (item != null)
+            {
+                path = Path.Combine(_host.WebRootPath, "storage/files", item.PathName ?? string.Empty, item.KeyName);
+            }
+
+            return PhysicalFile(path, "text/plain", item.FileName);
         }
 
         [HttpPost("add")]

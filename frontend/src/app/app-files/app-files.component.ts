@@ -74,6 +74,10 @@ export class AppFilesComponent implements OnInit {
         });
     }
 
+    public getFileUrl(name: string) {
+        return `${this.service.serviceUrls.getFile}?name=${name}`;
+    }
+
     public refreshFiles() {
         this.service.getFileList({
             owner: this.selectedOwners
