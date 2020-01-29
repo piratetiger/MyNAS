@@ -66,8 +66,16 @@
                 </div>
             </ng-template>
             <ng-template let-file pTemplate="gridItem">
-                <div class="ui-g-12 ui-md-3">
-                    <span><i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i></span>
+                <div class="ui-g-12 ui-md-3 ui-sm-6 grid-item">
+                    <div class="grid-item-icon">
+                        <span>
+                            <i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i>
+                        </span>
+                        <div class="grid-item-state">
+                            <i *ngIf="file.owner===userName" title="owner" class="grid-item-owner pi pi-user"></i>
+                            <i *ngIf="!file.isPublic" title="private" class="grid-item-private pi pi-key"></i>
+                        </div>
+                    </div>
                     {{file.fileName}}
                 </div>
             </ng-template>

@@ -19,6 +19,8 @@ export class AppFilesComponent implements OnInit {
     public selectedOwners: string[] = [];
     public isPublic = true;
 
+    public userName = this.appService.userInfo.userName;
+
     public get toolbarState(): string {
         return this._toolbarState;
     }
