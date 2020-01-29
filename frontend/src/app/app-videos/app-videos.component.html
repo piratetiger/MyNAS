@@ -4,7 +4,7 @@
             <div class="ui-toolbar-group-left">
                 <ng-container *ngIf="viewMode">
                     <button pButton *userPermission icon="pi pi-upload" label="Upload"
-                        (click)="toolbarState='upload'"></button>
+                        (click)="isPublic=true;toolbarState='upload'"></button>
                     <button pButton icon="pi pi-search" label="Search" (click)="toolbarState='search'"></button>
                 </ng-container>
                 <ng-container *ngIf="!viewMode">

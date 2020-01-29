@@ -57,6 +57,21 @@ export class AppFilesComponent implements OnInit {
         });
     }
 
+    public createFolder(name: string) {
+        this.confirmationService.confirm({
+            message: `Create new folder ${name}?`,
+            accept: () => {
+                const request = {
+                    name: name,
+                    isPublic: this.isPublic
+                };
+                this.service.createFolder(request).subscribe(d => {
+                    this.refreshFiles();
+                });
+            }
+        });
+    }
+
     public refreshFiles() {
         this.service.getFileList({
             owner: this.selectedOwners

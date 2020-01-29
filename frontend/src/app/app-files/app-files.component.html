@@ -4,13 +4,15 @@
             <div class="ui-toolbar-group-left">
                 <ng-container *ngIf="viewMode">
                     <button pButton *userPermission icon="pi pi-upload" label="Upload"
-                        (click)="toolbarState='upload'"></button>
+                        (click)="isPublic=true;toolbarState='upload'"></button>
+                    <button pButton *userPermission icon="fas fa-folder-plus" label="Create Folder"
+                        (click)="isPublic=true;toolbarState='newFolder'"></button>
                 </ng-container>
             </div>
         </p-toolbar>
         <p-fieldset *ngIf="toolbarState==='upload' && viewMode" legend="Upload">
-            <p-fileUpload #fileUpload [files]="uploadFileList" customUpload="true"
-                [showUploadButton]=false (uploadHandler)="uploadFiles($event)" multiple="multiple">
+            <p-fileUpload #fileUpload [files]="uploadFileList" customUpload="true" [showUploadButton]=false
+                (uploadHandler)="uploadFiles($event)" multiple="multiple">
                 <ng-template pTemplate="toolbar">
                     <div>
                         <div>
@@ -22,6 +24,17 @@
                 </ng-template>
             </p-fileUpload>
         </p-fieldset>
+        <p-fieldset *ngIf="toolbarState==='newFolder' && viewMode" legend="Create Folder">
+            <div>
+                Name:
+                <input #newFolderName type="text" pInputText />
+            </div>
+            <div>
+                <p-checkbox label="Is Public" binary="true" [(ngModel)]="isPublic"></p-checkbox>
+            </div>
+            <button pButton class="ui-button-success" icon="fas fa-folder-plus" label="Create"
+                (click)="createFolder(newFolderName.value)"></button>
+        </p-fieldset>
     </div>
 
     <div class="content-view">
@@ -32,7 +45,7 @@
             <p-footer>
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
             </p-footer>
-        
+
             <ng-template let-file pTemplate="listItem">
                 <div>
                     <span><i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i></span>
