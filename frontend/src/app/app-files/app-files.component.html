@@ -38,24 +38,48 @@
     </div>
 
     <div class="content-view">
-        <p-dataView [value]="fileList">
+        <p-dataView #dataView [value]="fileList">
             <p-header>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                <div class="f-r">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+                <div class="c-b"></div>
+                <div *ngIf="dataView.layout==='list'" class="ui-g">
+                    <div class="ui-g-5">Name</div>
+                    <div class="ui-g-3">Owner</div>
+                    <div class="ui-g-3">Created</div>
+                    <div class="ui-g-1">Public</div>
+                </div>
             </p-header>
-            <p-footer>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-            </p-footer>
 
             <ng-template let-file pTemplate="listItem">
-                <div>
-                    <span><i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i></span>
-                    {{file.fileName}}
+                <div class="ui-g">
+                    <div class="ui-g-5">
+                        <span>
+                            <i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i>
+                            <a *ngIf="!file.isFolder" [href]="getFileUrl(file.keyName)" target="_blank">
+                                {{file.fileName}}</a>
+                            <span *ngIf="file.isFolder"> {{file.fileName}}</span>
+                        </span>
+                    </div>
+                    <div class="ui-g-3">{{file.owner}}</div>
+                    <div class="ui-g-3">{{file.date | date:'MM/dd/y HH:mm:ss'}}</div>
+                    <div class="ui-g-1">{{file.isPublic}}</div>
                 </div>
             </ng-template>
             <ng-template let-file pTemplate="gridItem">
-                <div class="ui-g-12 ui-md-3">
-                    <span><i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i></span>
-                    {{file.fileName}}
+                <div class="ui-g-12 ui-md-3 ui-sm-6 grid-item">
+                    <div class="grid-item-icon">
+                        <span>
+                            <i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i>
+                        </span>
+                        <div class="grid-item-state">
+                            <i *ngIf="file.owner===userName" title="owner" class="grid-item-owner pi pi-user"></i>
+                            <i *ngIf="!file.isPublic" title="private" class="grid-item-private pi pi-key"></i>
+                        </div>
+                    </div>
+                    <a *ngIf="!file.isFolder" [href]="getFileUrl(file.keyName)" target="_blank">{{file.fileName}}</a>
+                    <span *ngIf="file.isFolder">{{file.fileName}}</span>
                 </div>
             </ng-template>
         </p-dataView>

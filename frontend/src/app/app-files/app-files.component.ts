@@ -19,6 +19,8 @@ export class AppFilesComponent implements OnInit {
     public selectedOwners: string[] = [];
     public isPublic = true;
 
+    public userName = this.appService.userInfo.userName;
+
     public get toolbarState(): string {
         return this._toolbarState;
     }
@@ -70,6 +72,10 @@ export class AppFilesComponent implements OnInit {
                 });
             }
         });
+    }
+
+    public getFileUrl(name: string) {
+        return `${this.service.serviceUrls.getFile}?name=${name}`;
     }
 
     public refreshFiles() {
