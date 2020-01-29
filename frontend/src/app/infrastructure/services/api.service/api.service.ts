@@ -55,6 +55,9 @@ export class ApiService {
     public getFileList(body: any): Observable<DataResult<FileModel[]>> {
         return this.http.post<DataResult<FileModel[]>>(serviceList.getFileList, body);
     }
+    public createFolder(body: any): Observable<DataResult<boolean>> {
+        return this.http.post<DataResult<boolean>>(serviceList.createFolder, body);
+    }
 
     // user
     public updateUser(body: any): Observable<DataResult<boolean>> {

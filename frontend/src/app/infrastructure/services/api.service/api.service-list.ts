@@ -18,6 +18,7 @@ export default {
     // files
     'uploadFile': '/Api/Files/add',
     'getFileList': '/Api/Files/list',
+    'createFolder': '/Api/Files/folder/add',
 
     // user
     'updateUser': '/Api/User/update',
