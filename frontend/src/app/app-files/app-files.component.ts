@@ -19,6 +19,7 @@ export class AppFilesComponent implements OnInit {
     public owners: any[] = [];
     public selectedOwners: string[] = [];
     public isPublic = true;
+    public pathList: FileModel[] = [];
 
     public userName = this.appService.userInfo.userName;
 
@@ -77,9 +78,25 @@ export class AppFilesComponent implements OnInit {
         });
     }
 
+    public pathClick(path: FileModel) {
+        if (path) {
+            const index = this.pathList.indexOf(path);
+            if (index >= 0) {
+                this.pathList.splice(index + 1, this.pathList.length);
+                this._cate = path.keyName;
+            }
+        } else {
+            this.pathList = [];
+            this._cate = null;
+        }
+
+        this.refreshFiles();
+    }
+
     public fileClick(file: FileModel) {
         if (file.isFolder) {
             this._cate = file.keyName;
+            this.pathList.push(file);
             this.refreshFiles();
         } else {
             window.open(`${this.service.serviceUrls.getFile}?name=${file.keyName}`, '_blank');

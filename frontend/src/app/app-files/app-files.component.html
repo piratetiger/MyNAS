@@ -41,6 +41,11 @@
         <p-dataView #dataView [value]="fileList">
             <p-header>
                 <div class="f-r">
+                    <a href="javascript:void(0);" (click)="pathClick(null)">files</a>
+                    <ng-container *ngFor="let path of pathList">
+                        <span>></span>
+                        <a href="javascript:void(0);" (click)="pathClick(path)">{{path.fileName}}</a>
+                    </ng-container>
                     <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                 </div>
                 <div class="c-b"></div>
