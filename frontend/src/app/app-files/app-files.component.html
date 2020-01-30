@@ -40,10 +40,20 @@
     <div class="content-view">
         <p-dataView #dataView [value]="fileList">
             <p-header>
-                <div class="f-r">
-                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                <div class="ui-g">
+                    <div class="ui-g-9">
+                        <a href="javascript:void(0);" (click)="pathClick(null)">files</a>
+                        <ng-container *ngFor="let path of pathList">
+                            <span>></span>
+                            <a href="javascript:void(0);" (click)="pathClick(path)">{{path.fileName}}</a>
+                        </ng-container>
+                    </div>
+                    <div class="ui-g-3">
+                        <div class="f-r">
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </div>
                 </div>
-                <div class="c-b"></div>
                 <div *ngIf="dataView.layout==='list'" class="ui-g">
                     <div class="ui-g-5">Name</div>
                     <div class="ui-g-3">Owner</div>
@@ -57,9 +67,7 @@
                     <div class="ui-g-5">
                         <span>
                             <i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i>
-                            <a *ngIf="!file.isFolder" [href]="getFileUrl(file.keyName)" target="_blank">
-                                {{file.fileName}}</a>
-                            <span *ngIf="file.isFolder"> {{file.fileName}}</span>
+                            <a href="javascript:void(0);" (click)="fileClick(file)"> {{file.fileName}}</a>
                         </span>
                     </div>
                     <div class="ui-g-3">{{file.owner}}</div>
@@ -78,8 +86,7 @@
                             <i *ngIf="!file.isPublic" title="private" class="grid-item-private pi pi-key"></i>
                         </div>
                     </div>
-                    <a *ngIf="!file.isFolder" [href]="getFileUrl(file.keyName)" target="_blank">{{file.fileName}}</a>
-                    <span *ngIf="file.isFolder">{{file.fileName}}</span>
+                    <a href="javascript:void(0);" (click)="fileClick(file)">{{file.fileName}}</a>
                 </div>
             </ng-template>
         </p-dataView>
