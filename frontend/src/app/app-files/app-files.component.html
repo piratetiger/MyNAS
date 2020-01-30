@@ -57,9 +57,7 @@
                     <div class="ui-g-5">
                         <span>
                             <i [ngClass]="{'fas fa-folder': file.isFolder,'far fa-file-alt': !file.isFolder}"></i>
-                            <a *ngIf="!file.isFolder" [href]="getFileUrl(file.keyName)" target="_blank">
-                                {{file.fileName}}</a>
-                            <span *ngIf="file.isFolder"> {{file.fileName}}</span>
+                            <a href="javascript:void(0);" (click)="fileClick(file)"> {{file.fileName}}</a>
                         </span>
                     </div>
                     <div class="ui-g-3">{{file.owner}}</div>
@@ -78,8 +76,7 @@
                             <i *ngIf="!file.isPublic" title="private" class="grid-item-private pi pi-key"></i>
                         </div>
                     </div>
-                    <a *ngIf="!file.isFolder" [href]="getFileUrl(file.keyName)" target="_blank">{{file.fileName}}</a>
-                    <span *ngIf="file.isFolder">{{file.fileName}}</span>
+                    <a href="javascript:void(0);" (click)="fileClick(file)">{{file.fileName}}</a>
                 </div>
             </ng-template>
         </p-dataView>

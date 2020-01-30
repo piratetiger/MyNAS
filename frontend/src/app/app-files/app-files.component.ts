@@ -11,6 +11,7 @@ import { FileModel } from '../infrastructure/models/file-model';
 })
 export class AppFilesComponent implements OnInit {
     private _toolbarState: string;
+    private _cate: string = null;
 
     public viewMode = true;
     public fileList: FileModel[];
@@ -49,6 +50,7 @@ export class AppFilesComponent implements OnInit {
                     formData.append('files', file);
                 }
                 formData.set('isPublic', this.isPublic.toString());
+                formData.set('cate', this._cate);
                 this.service.uploadFile(formData).subscribe(d => {
                     this.uploadFileList = [];
                     if (d.data) {
@@ -65,6 +67,7 @@ export class AppFilesComponent implements OnInit {
             accept: () => {
                 const request = {
                     name: name,
+                    cate: this._cate,
                     isPublic: this.isPublic
                 };
                 this.service.createFolder(request).subscribe(d => {
@@ -74,12 +77,18 @@ export class AppFilesComponent implements OnInit {
         });
     }
 
-    public getFileUrl(name: string) {
-        return `${this.service.serviceUrls.getFile}?name=${name}`;
+    public fileClick(file: FileModel) {
+        if (file.isFolder) {
+            this._cate = file.keyName;
+            this.refreshFiles();
+        } else {
+            window.open(`${this.service.serviceUrls.getFile}?name=${file.keyName}`, '_blank');
+        }
     }
 
     public refreshFiles() {
         this.service.getFileList({
+            cate: this._cate,
             owner: this.selectedOwners
         }).subscribe(d => {
             this.fileList = d.data;
