@@ -4,8 +4,7 @@
             <ng-template>
                 <img class="lightbox-image" [src]="getImageUrl(source.fileSource)" />
                 <div *ngIf="editMode" class="lightbox-image-state">
-                    <i *ngIf="!source.selected" style="color:gray" class="pi pi-check-circle"></i>
-                    <i *ngIf="source.selected" style="color:green" class="pi pi-check-circle"></i>
+                    <i [style.color]="source.selected?'green':'gray'" class="pi pi-check-circle"></i>
                 </div>
                 <div class="lightbox-state">
                     <i *ngIf="source.isOwner" title="owner" class="lightbox-image-owner pi pi-user"></i>
