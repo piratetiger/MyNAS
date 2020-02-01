@@ -4,10 +4,15 @@
             <div class="ui-toolbar-group-left">
                 <ng-container *ngIf="viewMode">
                     <button pButton *userPermission icon="pi pi-upload" label="Upload"
-                        (click)="isPublic=true;toolbarState='upload'"></button>
+                        (click)="toolbarState='upload'"></button>
                     <button pButton *userPermission icon="fas fa-folder-plus" label="Create Folder"
-                        (click)="isPublic=true;toolbarState='newFolder'"></button>
+                        (click)="toolbarState='newFolder'"></button>
                 </ng-container>
+            </div>
+
+            <div class="ui-toolbar-group-right">
+                <p-toggleButton *dataAdminPermission onIcon="pi pi-pencil" onLabel="" offIcon="pi pi-ban" offLabel=""
+                    [(ngModel)]="viewMode" (onChange)="toolbarState=null"></p-toggleButton>
             </div>
         </p-toolbar>
         <p-fieldset *ngIf="toolbarState==='upload' && viewMode" legend="Upload">

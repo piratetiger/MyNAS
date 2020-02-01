@@ -43,6 +43,7 @@ export class AppVideosComponent implements OnInit {
         } else {
             this._toolbarState = value;
         }
+        this.isPublic = true;
     }
 
     constructor(private service: ApiService, private appService: AppService, private confirmationService: ConfirmationService) {
