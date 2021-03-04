@@ -1,26 +1,13 @@
-# build backend
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-backend
-WORKDIR /backend
-COPY backend .
-RUN dotnet publish -c Release -o output
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-yml-convert
+WORKDIR /yml-convert
+COPY ./MyNAS-YamlConvert .
+RUN dotnet publish -c Release -o output -r linux-x64 --self-contained
 
-# build frontend
-FROM node:12 AS build-frontend
-WORKDIR /frontend
-COPY frontend .
-RUN npm install && \
-    npm run build:prod
- 
-# build runtime
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-RUN apt-get update \
-    && apt-get install -y --allow-unauthenticated \
-        libc6-dev \
-        libgdiplus \
-        libx11-dev \
-        ffmpeg \
-     && rm -rf /var/lib/apt/lists/*
-COPY --from=build-backend /backend/output .
-COPY --from=build-frontend /frontend/dist/UI ./wwwroot
-ENTRYPOINT ["dotnet", "MyNAS.Site.dll"]
-EXPOSE 5000
+FROM docker/compose:debian-1.28.5
+WORKDIR /site
+COPY ./docker-compose.yml ./docker-compose.yml
+COPY ./config ./config
+COPY ./init.sh ./init.sh
+COPY --from=build-yml-convert /yml-convert/output .
+
+ENTRYPOINT ["sh","init.sh"]

@@ -1,28 +1,28 @@
-## Build the docker image
-### 1. You can build in local and dockerize
+## Config your folders
+Create a new folder with below config.txt file in it. You can update the folders and port below as you want.
 ``` shell
-cd backend
-dotnet publish -c Release
-cd ../frontend
-npm install
-npm run build:prod
-cd ../
-docker build -t my-nas -f Dockerfile-local .
+storage_folder=/mnt/Data/storage
+db_folder=/mnt/Data/db_files
+log_folder=/mnt/Data/logs
+site_port=80
 ```
 
-### 2. You can build all in docker
+## Start the application
+You can manually pull below dependency images first:
 ``` shell
-docker build -t my-nas .
+docker pull piratetiger/my-nas-api
+docker pull piratetiger/my-nas-ui
+docker pull piratetiger/my-nas-site
 ```
-
-### 3. You can also use the docker image directly
+Then start the application:
 ``` shell
-docker pull piratetiger/my-nas:latest
+docker run -d --rm -v /var/run/docker.sock:/var/run/docker.sock -v $config_folder:/site/config --name my-nas piratetiger/my-nas
 ```
+The $config_folder is your folder which contains config.txt file.
 
-## Run the docker
+Access below url for application
 ``` shell
-docker run -d --rm -v $local_db_folder:/db_files -v $local_storage_folder:/wwwroot/storage -v $local_logs_folder:/logs -p 80:5000 --name myNAS  my-nas
+http://$your_host:$your_port/login
 ```
 
 ## Login
