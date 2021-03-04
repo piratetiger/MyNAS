@@ -25,6 +25,11 @@ Access below url for application
 http://$your_host:$your_port/login
 ```
 
+## Stop the application
+``` shell
+docker exec -it my-nas /site/stop.sh
+```
+
 ## Login
 Default user name: admin  
 Password: Admin
