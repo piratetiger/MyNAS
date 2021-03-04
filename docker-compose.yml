@@ -3,15 +3,11 @@ version: '3.4'
 services:
   api:
     image: piratetiger/my-nas-api
-    ports:
-      - "5000:5000"
     networks:
       - mynas-network
 
   ui:
     image: piratetiger/my-nas-ui
-    ports:
-      - "5001:5001"
     networks:
       - mynas-network
 
