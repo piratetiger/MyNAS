@@ -27,7 +27,7 @@ http://$your_host:$your_port/login
 
 ## Stop the application
 ``` shell
-docker exec -it my-nas /site/stop.sh
+docker exec my-nas /bin/sh /site/stop.sh
 ```
 
 ## Login
