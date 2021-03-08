@@ -44,7 +44,7 @@ namespace MyNAS_YamlConvert
                         var storage = configs.FirstOrDefault(c => c.StartsWith("storage_folder"))?.Replace("storage_folder=", string.Empty).Trim();
                         if (!string.IsNullOrWhiteSpace(storage))
                         {
-                            api_volumes.Children.Add($"{storage}:/api/wwwroot/storage");
+                            api_volumes.Children.Add($"{storage}:/api/storage");
                         }
 
                         var db = configs.FirstOrDefault(c => c.StartsWith("db_folder"))?.Replace("db_folder=", string.Empty).Trim();
