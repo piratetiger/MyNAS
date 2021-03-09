@@ -1,7 +1,3 @@
-FROM piratetiger/my-nas-api AS dependency-api
-FROM piratetiger/my-nas-ui AS dependency-ui
-FROM piratetiger/my-nas-site AS dependency-site
-
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-yml-convert
 WORKDIR /yml-convert
 COPY ./MyNAS-YamlConvert .
