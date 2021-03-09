@@ -1,4 +1,5 @@
 storage_folder=/mnt/Data/storage
 db_folder=/mnt/Data/db_files
 log_folder=/mnt/Data/logs
+temp_folder=~/tmp
 site_port=80
