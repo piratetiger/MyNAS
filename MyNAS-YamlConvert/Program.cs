@@ -59,6 +59,12 @@ namespace MyNAS_YamlConvert
                             api_volumes.Children.Add($"{log}:/api/logs");
                         }
 
+                        var tmp = configs.FirstOrDefault(c => c.StartsWith("temp_folder"))?.Replace("temp_folder=", string.Empty).Trim();
+                        if (!string.IsNullOrWhiteSpace(tmp))
+                        {
+                            api_volumes.Children.Add($"{tmp}:/api/tmp");
+                        }
+
                         if (api_volumes.Children.Count > 0)
                         {
                             var origin_api_volumes = api.Children.FirstOrDefault(s => (s.Key as YamlScalarNode)?.Value == "volumes").Value as YamlSequenceNode;

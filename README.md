@@ -4,6 +4,7 @@ Create a new folder with below config.txt file in it. You can update the folders
 storage_folder=/mnt/Data/storage
 db_folder=/mnt/Data/db_files
 log_folder=/mnt/Data/logs
+temp_folder=~/tmp
 site_port=80
 ```
 
