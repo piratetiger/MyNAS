@@ -2,17 +2,17 @@ version: '3.4'
 
 services:
   api:
-    image: piratetiger/my-nas-api
+    image: piratetiger/my-nas-api:5.0
     networks:
       - mynas-network
 
   ui:
-    image: piratetiger/my-nas-ui
+    image: piratetiger/my-nas-ui:9.0
     networks:
       - mynas-network
 
   site:
-    image: piratetiger/my-nas-site
+    image: piratetiger/my-nas-site:1.0
     depends_on:
       - api
       - ui
