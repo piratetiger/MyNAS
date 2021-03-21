@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   api:
-    image: piratetiger/my-nas-api:5.0
+    image: piratetiger/my-nas-api:5.1
     networks:
       - mynas-network
 

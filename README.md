@@ -11,7 +11,7 @@ site_port=80
 ## Start the application
 You can manually pull below dependency images first:
 ``` shell
-docker pull piratetiger/my-nas-api:5.0
+docker pull piratetiger/my-nas-api:5.1
 docker pull piratetiger/my-nas-ui:11.0
 docker pull piratetiger/my-nas-site:1.0
 ```
